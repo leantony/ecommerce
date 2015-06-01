@@ -1,0 +1,66 @@
+#authentication {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #3b3d39;
+  .password-helper {
+    float: right;
+    font-size: 80%;
+    position: relative;
+    top: -10px;
+  }
+  .panel-body {
+    padding-top: 30px;
+    margin: 0 10px 0 10px;
+  }
+  .adm-login {
+    margin-top: 10px;
+  }
+  .input-group {
+    & > .rm {
+      margin-left: 20px;
+    }
+  }
+  .disabled {
+    cursor: not-allowed;
+    color: #fff;
+  }
+  .error-msg {
+    color: #f04124;
+    font-weight: 700;
+  }
+  .login {
+    top: 100px;
+  }
+  .auth-form {
+    width: 65%;
+    margin: 5px auto;
+    border: 1px solid #E2E2E2;
+    border-radius: 3px;
+    padding: 10px;
+    clear: both;
+  }
+  .session-info {
+    width: 93%;
+    margin: 0 auto;
+  }
+  .sec-info {
+    font-size: 18px;
+  }
+  #ajax-image {
+    display: none;
+    background: rgba(128, 128, 128, 0.5) url('../../assets/images/ajax-loader.gif') no-repeat 50% 50%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  .auth-container {
+    margin-top: 5px;
+  }
+  textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+    border-color: #f39c12;
+    box-shadow: none;
+    outline: 0 none;
+  }
+}

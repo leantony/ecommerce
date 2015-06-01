@@ -1,0 +1,224 @@
+.homepage-container {
+
+  .product {
+    position: relative;
+    .product-image {
+      .tag {
+        font-size: 15px;
+        font-weight: 700;
+        width: 50px;
+        height: 50px;
+        text-transform: uppercase;
+        top: 2.5%;
+        z-index: 100;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+        color: #fff;
+        right: 25px; /*11px;*/
+        text-align: center;
+        position: absolute;
+        span {
+
+          position: relative;
+          z-index: 100;
+          line-height: 48px;
+        }
+      }
+
+      .tag.new {
+        background: #46aad7;
+      }
+
+      .tag.hot {
+        background: #ff7878;
+      }
+    }
+
+    .product-info {
+      .name {
+        font-size: 18px !important;
+
+        a {
+          color: #555;
+        }
+      }
+      .star-rating {
+        .color {
+          color: #ffb400;
+        }
+      }
+      .product-price {
+        .price {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 30px;
+          margin-right: 8px;
+        }
+        .price-before-discount {
+          text-decoration: line-through;
+          color: #d3d3d3;
+          font-weight: 400;
+          line-height: 30px;
+          font-size: 14px;
+        }
+      }
+    }
+    .cart {
+      margin-top: 5px;
+      -webkit-transition: all 0.2s linear 0s;
+      -moz-transition: all 0.2s linear 0s;
+      -o-transition: all 0.2s linear 0s;
+      transition: all 0.2s linear 0s;
+      width: 100%;
+      z-index: 666;
+      left: 0px;
+      opacity: 1;
+      .action {
+
+        .add-cart-button {
+          .btn.btn-primary.icon {
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+            background: #575757;
+          }
+
+        }
+        float: left;
+        &.lnk {
+          margin: 10px 0px;
+          a {
+            padding: 0 10px;
+            color: #dadada;
+          }
+          &.wishlist {
+            border-right: 1px solid #dadada;
+          }
+        }
+
+      }
+    }
+  }
+  .featured-product {
+    .products {
+      .product {
+        &:first-child {
+          margin-bottom: 30px;
+        }
+      }
+    }
+  }
+  .blog-slider-container {
+    .blog-slider {
+      .blog-post-info {
+        .name {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  .btn-primary {
+    font-size: 15px;
+    line-height: 30px;
+    background: rgba(0, 0, 0, 0);
+    text-transform: uppercase;
+    border: 2px solid #f2f2f2;
+    color: #747474;
+    &:hover,
+    &:focus {
+      color: #fff;
+    }
+  }
+
+  .best-seller,
+  .special-offer {
+    .product {
+      .product-info {
+        .name {
+          margin-top: 4px;
+        }
+      }
+    }
+
+  }
+
+  .cart {
+    margin-top: 5px;
+    opacity: 1;
+    -webkit-transition: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s;
+    transition: all 0.2s linear 0s;
+
+    width: 100%;
+    z-index: 666;
+    left: 0px;
+    .action {
+
+      .add-cart-button {
+        .btn.btn-primary.icon {
+          border-bottom-right-radius: 0;
+          border-top-right-radius: 0;
+          background: #575757;
+        }
+
+      }
+
+    }
+  }
+}
+
+.wrapper {
+  .box {
+
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 50px;
+    padding-right: 50px;
+    .wrapper-inner {
+      background: none repeat scroll 0 0 #FFFFFF;
+      -moz-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+      -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+      .wrapper-body-inner {
+        //padding:0 20px;
+        .owl-item {
+
+          .tag {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 55px;
+            width: 55px;
+            height: 55px;
+            text-transform: uppercase;
+            top: 2.5%;
+            z-index: 100;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 50px;
+            color: #fff;
+            right: 25px; /*11px;*/
+            text-align: center;
+            span {
+
+              position: relative;
+              z-index: 100;
+            }
+          }
+
+          .tag.new {
+            background: #46aad7;
+          }
+
+          .tag.sale {
+            background: #989898;
+          }
+          .tag.hot {
+            background: #ff7878;
+          }
+        }
+      }
+    }
+
+  }
+}

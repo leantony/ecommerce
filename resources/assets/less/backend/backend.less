@@ -1,0 +1,53 @@
+#backend {
+  .image-preview-input {
+    position: relative;
+    overflow: hidden;
+    margin: 0px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+  }
+  .image-preview-input input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+  .image-preview-input-title {
+    margin-left: 2px;
+  }
+
+  .stats {
+    border: 1px solid #E3E3E3;
+    border-radius: 3px;
+    padding: 10px;
+    margin-left: 20px;
+  }
+  .nav-user-avatar {
+    height: 25px;
+    width: 25px;
+    margin-top: -5px;
+  }
+
+  .error-msg {
+    color: #FF6C6C;
+  }
+  #ajax-image {
+    display: none;
+    background: rgba(128, 128, 128, 0.5) url('../../assets/images/ajax-loader.gif') no-repeat 50% 50%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+
+}
+
+@import "backend_auth";

@@ -1,0 +1,95 @@
+.yamm {
+  .nav, .collapse, .dropup, .dropdown {
+    position: static;
+  }
+  .dropdown-menu {
+    left: auto;
+    top: 110%;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    border-top: 1px solid @blue-color;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    .yamm-content {
+
+      .p-all-10;
+      max-width: 700px;
+      .links {
+        li {
+          a {
+            padding: 0px;
+          }
+        }
+      }
+    }
+    h2 {
+      font-size: 15px;
+      line-height: 27px;
+      color: #555;
+      text-transform: uppercase;
+
+      margin-top: 0px;
+    }
+    li {
+
+      a {
+        color: #3D3D3D;
+        text-transform: none;
+        display: block;
+        padding: 5px;
+        &:hover,
+        &:focus {
+          background: rgba(0, 0, 0, 0);
+          //          margin-left: 2px;
+        }
+      }
+
+    }
+
+    .text {
+      font-size: 13px;
+      line-height: 20px;
+      position: relative;
+      bottom: 0px;
+
+    }
+
+  }
+}
+
+.yamm .dropdown.yamm-fw .dropdown-menu {
+  left: 0;
+  right: 0;
+}
+
+.header-nav {
+  .navbar-default {
+    .dropdown {
+      .dropdown-menu.pages {
+        .links {
+          > li {
+            border-bottom: 1px solid #E0E0E0;
+            padding: 5px 0;
+            -webkit-transition: all 0.3s ease 0s;
+            -moz-transition: all 0.3s ease 0s;
+            -o-transition: all 0.3s ease 0s;
+            transition: all 0.3s ease 0s;
+            &:last-child {
+              border-bottom: none;
+            }
+            > a {
+
+              padding: 0px;
+              &:hover,
+              &:focus {
+                margin-left: 0px;
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+}
