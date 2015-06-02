@@ -24,6 +24,7 @@ abstract class DataAccessLayer
 
     /**
      * Object name that will be displayed in the redirect msg
+     * Not currently in use
      *
      * @var string
      */
@@ -145,6 +146,7 @@ abstract class DataAccessLayer
 
     /**
      * Returns the results of a CRUD operation
+     * Some operations like DELETE return a boolean, so for now, this method would simply crash
      *
      * @param bool $json
      *

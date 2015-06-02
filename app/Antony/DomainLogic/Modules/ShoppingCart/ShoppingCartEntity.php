@@ -12,7 +12,7 @@ class ShoppingCartEntity extends Basket
      */
     public function displayShoppingCart($json = false)
     {
-        if(!$this->cart_exists){
+        if (!$this->cart_exists) {
             return null;
         }
         $cart_data = [];

@@ -82,15 +82,11 @@ trait ErrorAction
      *
      * @param Request $request
      * @param $route
+     * @param array $params
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function executeErrorHandler(Request $request, $route, $params = [])
     {
-        if($request->ajax()){
-            return $this->getJsonErrorResponse(422, $params);
-
-        } else {
-            return $this->handleErrorWithFlashMessage($request->all(), $route);
-        }
+        return $request->ajax() ? $this->getJsonErrorResponse(422, $params) : $this->handleErrorWithFlashMessage($request->all(), $route);
     }
 }

@@ -65,9 +65,9 @@ trait oauth2ActionsHandler
      */
     public function createAccountViaOAUTHData(ApiRegistrationRequest $request)
     {
-
-        return $request->getSession()->has('api_user_data') ? $this->auth->createAccount($request) : redirect()->route('login');
-
+        return $request->getSession()->has('api_user_data')
+            ? $this->auth->createAccount($request)
+            : redirect()->route('login');
     }
 
 }
