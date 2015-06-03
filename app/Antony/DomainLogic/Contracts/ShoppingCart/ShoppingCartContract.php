@@ -43,13 +43,6 @@ interface ShoppingCartContract
     public function add($product, $quantity);
 
     /**
-     * Gets data about a shopping cart
-     *
-     * @return mixed
-     */
-    public function getShoppingCartData();
-
-    /**
      * Validates the quantity entered by a user
      *
      * @param $quantity

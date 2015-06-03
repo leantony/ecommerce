@@ -1,48 +1,22 @@
 <?php namespace app\Antony\DomainLogic\Modules\ShoppingCart\Base\Main;
 
+use app\Antony\DomainLogic\Contracts\ShoppingCart\ShoppingCartCache;
 use app\Antony\DomainLogic\Contracts\ShoppingCart\ShoppingCartContract;
 use app\Antony\DomainLogic\Modules\Cookies\ShoppingCartCookie;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Base\ShoppingCartReconciler;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Base\ShoppingCartRepository;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\ReconcilerTrait;
+use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\SessionCache;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\StoreShoppingCartUsingCookie;
 use App\Models\Cart;
 use App\Models\Product;
-use Illuminate\Session\Store;
+use Illuminate\Session\SessionInterface;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
-class Basket implements ShoppingCartContract
+abstract class Basket implements ShoppingCartContract, ShoppingCartCache
 {
-    use StoreShoppingCartUsingCookie, ReconcilerTrait;
-
-    /**
-     * The shopping cart
-     *
-     * @var Cart
-     */
-    protected $cart;
-
-    /**
-     * The data in a shopping cart
-     *
-     * @var mixed
-     */
-    protected $data;
-
-    /**
-     * Specifies if a shopping cart exists
-     *
-     * @var boolean
-     */
-    protected $cart_exists;
-
-    /**
-     * The products in a shopping cart
-     *
-     * @var Collection
-     */
-    protected $products;
+    use StoreShoppingCartUsingCookie, ReconcilerTrait, SessionCache;
 
     /**
      * @var ShoppingCartRepository
@@ -59,7 +33,7 @@ class Basket implements ShoppingCartContract
     /**
      * @var
      */
-    protected $shoppingCartCookie;
+    protected $cookie;
 
     /**
      * Specifies if we've validated the quantity
@@ -76,7 +50,7 @@ class Basket implements ShoppingCartContract
     protected $validated_quantity;
 
     /**
-     * @var Store
+     * @var SessionInterface
      */
     protected $session;
 
@@ -84,67 +58,18 @@ class Basket implements ShoppingCartContract
      * @param ShoppingCartRepository $cartRepository
      * @param ShoppingCartCookie $shoppingCartCookie
      */
-    public function __construct(ShoppingCartRepository $cartRepository, ShoppingCartCookie $shoppingCartCookie, Store $session)
+    public function __construct(ShoppingCartRepository $cartRepository, ShoppingCartCookie $shoppingCartCookie)
     {
 
         $this->cartRepository = $cartRepository;
-        $this->shoppingCartCookie = $shoppingCartCookie;
-        $this->session = $session;
-
-        if (is_null($this->cart)) {
-            $this->getShoppingCartData();
-        }
-
-    }
-
-    /**
-     * Get details about an existing shopping cart
-     */
-    public function getShoppingCartData()
-    {
-
-        $cart = $this->getShoppingCart(null);
-
-        $this->cart = $cart;
-
-        if (!empty($cart)) {
-
-            // check the database
-            $this->checkDbForExistingCart($cart);
-
-            if ($this->cart_exists) {
-                // pull all the products
-                $this->products = $cart->products()->get();
-
-            }
-
-        }
-
-    }
-
-    /**
-     * Checks the database for an already specified shopping cart
-     *
-     * @param $cart
-     */
-    protected function checkDbForExistingCart($cart)
-    {
-        $this->data = $this->cartRepository->find($cart->id, [], false, ['id']);
-
-        if (is_null($this->data)) {
-
-            $this->cart_exists = false;
-
-        } else {
-
-            $this->cart_exists = true;
-        }
+        $this->cookie = $shoppingCartCookie;
+        $this->session = app('session');
 
     }
 
     /**
      * Adds a product to an existing/new shopping cart
-     * The shopping cart is created if it doesn't exist
+     * The shopping cart is created if it does not exist
      *
      * @param $product
      * @param $quantity
@@ -153,10 +78,56 @@ class Basket implements ShoppingCartContract
     public function add($product, $quantity)
     {
         // get the quantity from the user
-        $qt = $this->validateQuantity($quantity, $product);
+        if (is_null($this->getCart())) {
+            $quantity = $quantity > $product->quantity ? $product->quantity : $quantity;
 
-        return $this->cart_exists ? $this->updateExistingCart($product, $qt) : $this->makeCart($product, $qt);
+            return $this->makeCart($product, $quantity);
+        } elseif ($this->getCart()->exists()) {
 
+            $qt = $this->validateQuantity($quantity, $product);
+
+            return $this->updateExistingCart($product, $qt);
+        }
+        return $this->makeCart($product, $quantity);
+    }
+
+    /**
+     * @return Cart|null
+     */
+    public function getCart()
+    {
+        return $this->basketIsCached() ? $this->getCachedBasket() : null;
+    }
+
+    /**
+     * Creates a shopping cart
+     *
+     * @param $product
+     * @param $qt
+     * @return int
+     */
+    protected function makeCart($product, $qt)
+    {
+        // clear the session cache completely
+        $this->emptyCache();
+
+        // cart does not exist, so we create it
+        $cart = $this->cartRepository->add([]);
+
+        if (is_null($cart)) {
+
+            return static::ERROR;
+        }
+        // put cart in the cache
+        $this->cacheBasket($cart);
+
+        // then we add the product to it
+        $cart->products()->attach([$product->id], ['quantity' => $qt, 'cart_id' => $cart->id]);
+
+        // cache the products
+        $this->cacheProducts($cart->products()->get());
+
+        return static::PRODUCTS_ADDED;
     }
 
     /**
@@ -171,12 +142,7 @@ class Basket implements ShoppingCartContract
         // check if qt is 0, and default to 1
         $quantity = ctype_digit($quantity) & $quantity > 0 ? $quantity : 1;
 
-        // get the products quantity in the shopping cart
-        if (!$this->cart_exists) {
-
-            return 1;
-        }
-        $this->existing_quantity = $this->cartRepository->getExistingProductQuantity($this->cart, $product->id);
+        $this->existing_quantity = $this->cartRepository->getExistingProductQuantity($this->getCart(), $product->id);
 
         // check for an overload
         $this->validated_quantity = $this->existing_quantity > $product->quantity ? $this->existing_quantity - $quantity : $quantity;
@@ -193,14 +159,17 @@ class Basket implements ShoppingCartContract
      */
     protected function updateExistingCart($product, $qt)
     {
-        // check if the product exists in the cart
+        // clear the products from the session
+        $this->removeCachedProducts();
+
+        // check if the product exists in the cart. This will prevent adding duplicate products in the same basket
         if ($this->existing_quantity === 0) {
 
             //dd($this->existing_quantity);
-            $this->cart->products()->attach([$product->id], ['quantity' => $qt, 'cart_id' => $this->cart->id]);
+            $this->getCart()->products()->attach([$product->id], ['quantity' => $qt, 'cart_id' => $this->getCart()->id]);
 
-            // persist the cart in storage
-            $this->persistShoppingCart();
+            // update the session
+            $this->cacheProducts($this->getCart()->products()->get());
 
             return static::PRODUCTS_ADDED;
 
@@ -220,46 +189,31 @@ class Basket implements ShoppingCartContract
     public function updateBasket($product, $new_quantity, $increments = false)
     {
 
-        if ($this->cart_exists) {
+        if ($this->getCart()->exists()) {
 
+            // remove cached products
+            $this->removeCachedProducts();
+
+            // get the quantity
             $qt = !$this->quantity_checked ? $this->validateQuantity($new_quantity, $product) : $this->validated_quantity;
 
             // get the existing product qt
             $value = !$increments ? $qt : $this->existing_quantity + $new_quantity;
 
-            // check for an overflow
+            // check for an overflow, and rectify it
             $value = $value > $product->quantity ? $product->quantity : $value;
 
-            $this->cart->products()->updateExistingPivot($product->id, ['quantity' => $value]);
+            // update the basket
+            $this->getCart()->products()->updateExistingPivot($product->id, ['quantity' => $value]);
+
+            // cache the products
+            $this->cacheProducts($this->getCart()->products()->get());
 
             return $increments ? $value : $qt;
         }
 
+        // aah just give up, for now
         throw new InvalidArgumentException("A cart does not exist. Please create one first");
-    }
-
-    /**
-     * Creates a shopping cart
-     *
-     * @param $product
-     * @param $qt
-     * @return int
-     */
-    protected function makeCart($product, $qt)
-    {
-        // cart does not exist, so we create it
-        $this->cart = $this->cartRepository->add([]);
-
-        if (is_null($this->cart)) {
-
-            return static::ERROR;
-        }
-        // then we add the product to it
-        $this->cart->products()->attach([$product->id], ['quantity' => $qt, 'cart_id' => $this->cart->id]);
-
-        $this->persistShoppingCart();
-
-        return static::PRODUCTS_ADDED;
     }
 
     /**
@@ -269,7 +223,7 @@ class Basket implements ShoppingCartContract
      */
     public function retrieveProductsInCart()
     {
-        return empty($this->cart) ? null : (is_null($this->products) || $this->products->count() < 1 ? null : $this->data);
+        return empty($this->getCachedBasket()) ? null : $this->getCachedProducts();
 
     }
 
@@ -280,8 +234,8 @@ class Basket implements ShoppingCartContract
      */
     public function hasProducts()
     {
-        if ($this->cart_exists) {
-            return $this->products->count() > 0;
+        if ($this->basketIsCached()) {
+            return !is_null($this->getCachedProducts()) ? $this->getCachedProducts()->count() > 0 : false;
         }
         return false;
     }
@@ -293,12 +247,15 @@ class Basket implements ShoppingCartContract
      */
     public function makeItEmpty()
     {
-        foreach ($this->products as $product) {
+        foreach ($this->getCachedProducts() as $product) {
 
             $this->removeProduct($product);
         }
 
-        return $this->cart->products()->get()->count() === 0 ? static::CART_EMPTY : -1;
+        // remove all cached products
+        $this->removeCachedProducts();
+
+        return empty($this->getCachedProducts()) ? static::CART_EMPTY : -1;
     }
 
     /**
@@ -309,10 +266,84 @@ class Basket implements ShoppingCartContract
      */
     public function removeProduct($product)
     {
-        $result = $this->cart->products()->detach($product->id);
+        // clear the products from the cache
+        $this->removeCachedProducts();
+
+        $result = $this->getCart()->products()->detach($product->id);
+
+        // cache the products in the cart
+        $this->cacheProducts($this->getCart()->products()->get());
 
         return $result === 0 ? -1 : $result;
 
     }
 
+    /**
+     * Renders the shopping cart data as an array, or JSON
+     *
+     * @param bool $json
+     * @return array|string
+     */
+    public function displayShoppingCart($json = false)
+    {
+        if (!$this->basketIsCached()) {
+            return null;
+        }
+        $cart_data = [];
+        $products = [];
+
+        if (!empty($this->getProducts())) {
+
+            foreach ($this->getProducts() as $product) {
+
+                $qt = $product->pivot->quantity;
+                $product->quantity($qt);
+
+                $products[] = [
+                    'name' => $product->name,
+                    'sku' => $product->sku,
+                    'id' => $product->id,
+                    'image' => $product->image,
+                    'price' => $product->price->getAmount(),
+                    'price_after_discount' => $product->getPriceAfterDiscount(false),
+                    'total_price' => $product->total()->getAmount(),
+                    'quantity' => $qt,
+                    'available' => $product->quantity,
+                    'out_of_stock' => $product->quantity === 0,
+                    'VAT' => $product->tax()->getAmount(),
+                    'Shipping' => $product->delivery()->getAmount(),
+                    'order_total' => $product->total()->getAmount()
+
+                ];
+            }
+
+            $cart_data['cart'] = [
+                'id' => $this->getCart()->id,
+                'total_products' => $this->getProducts()->sum(function ($p) {
+                    return $p->pivot->quantity;
+                }),
+                'product_count' => $this->getProducts()->count(),
+                'currency' => config('site.currencies.default', 'KES'),
+                'shipping' => $this->getShippingSubTotal(false),
+                'VAT' => $this->getCartTaxSubTotal(false),
+                'basket_total' => $this->getCartSubTotal(false),
+                'grand_total' => $this->getGrandTotal(false)
+            ];
+
+            $data = array_add($cart_data, 'products', $products);
+
+            return $json ? json_encode($data) : $data;
+        }
+
+        return null;
+
+    }
+
+    /**
+     * @return Collection|null
+     */
+    public function getProducts()
+    {
+        return $this->productsAreCached() ? $this->getCachedProducts() : null;
+    }
 }

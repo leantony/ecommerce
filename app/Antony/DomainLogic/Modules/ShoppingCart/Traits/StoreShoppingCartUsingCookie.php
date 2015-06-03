@@ -8,9 +8,9 @@ trait StoreShoppingCartUsingCookie
     /**
      * Creates & queues our shopping cart cookie to be sent with the next response from our application
      */
-    public function persistShoppingCart()
+    public function persistShoppingCart($cart)
     {
-        $this->shoppingCartCookie->cookie->queue($this->shoppingCartCookie->name, $this->cart, $this->shoppingCartCookie->timespan);
+        $this->cookie->cookie->queue($this->cookie->name, $cart, $this->cookie->timespan);
     }
 
     /**
@@ -23,9 +23,8 @@ trait StoreShoppingCartUsingCookie
      */
     public function getShoppingCart($attribute = 'id')
     {
-        $this->data = !is_null($attribute) ? $this->shoppingCartCookie->fetch()->get($attribute) : $this->shoppingCartCookie->fetch()->get();
+        return !is_null($attribute) ? $this->cookie->fetch()->get($attribute) : $this->cookie->fetch()->get();
 
-        return $this->data;
     }
 
     /**
@@ -35,9 +34,7 @@ trait StoreShoppingCartUsingCookie
      */
     public function getCookieData()
     {
-        $this->data = $this->shoppingCartCookie->fetch()->get();
-
-        return $this->data;
+        return $this->cookie->fetch()->get();
     }
 
     /**
@@ -45,7 +42,7 @@ trait StoreShoppingCartUsingCookie
      */
     public function unlinkShoppingCart()
     {
-        return $this->shoppingCartCookie->destroy();
+        return $this->cookie->destroy();
     }
 
 }

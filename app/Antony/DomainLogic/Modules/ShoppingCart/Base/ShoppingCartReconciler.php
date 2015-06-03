@@ -26,7 +26,7 @@ trait ShoppingCartReconciler
 
         $scope = $this;
 
-        $sum = $this->products->sum(function ($p) use ($scope) {
+        $sum = $this->getProducts()->sum(function ($p) use ($scope) {
             return $scope->setProduct($p)->quantity($scope->getSingleProductQuantity($p))->delivery()->getAmount();
         });
 
@@ -63,7 +63,7 @@ trait ShoppingCartReconciler
     {
         $scope = $this;
 
-        $sum = $this->products->sum(function ($p) use ($scope) {
+        $sum = $this->getProducts()->sum(function ($p) use ($scope) {
             return $scope->setProduct($p)->quantity($scope->getSingleProductQuantity($p))->total($p)->getAmount();
         });
 
@@ -79,7 +79,7 @@ trait ShoppingCartReconciler
     {
         $scope = $this;
 
-        $sum = $this->products->sum(function ($p) use ($scope) {
+        $sum = $this->getProducts()->sum(function ($p) use ($scope) {
             return $scope->setProduct($p)->quantity($scope->getSingleProductQuantity($p))->value($p)->add($scope->delivery($p))->getAmount();
         });
 
@@ -98,7 +98,7 @@ trait ShoppingCartReconciler
 
         $scope = $this;
 
-        $sum = $this->products->sum(function ($p) use ($scope) {
+        $sum = $this->getProducts()->sum(function ($p) use ($scope) {
             return $scope->setProduct($p)->quantity($scope->getSingleProductQuantity($p))->tax($p)->getAmount();
         });
 
@@ -117,7 +117,7 @@ trait ShoppingCartReconciler
 
         $scope = $this;
 
-        $sum = $this->products->sum(function ($p) use ($scope) {
+        $sum = $this->getProducts()->sum(function ($p) use ($scope) {
             return $scope->setProduct($p)->quantity($scope->getSingleProductQuantity($p))->total($p)->getAmount();
         });
 
