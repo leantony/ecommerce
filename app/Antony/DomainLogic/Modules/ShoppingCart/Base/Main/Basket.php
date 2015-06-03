@@ -3,7 +3,6 @@
 use app\Antony\DomainLogic\Contracts\ShoppingCart\ShoppingCartCache;
 use app\Antony\DomainLogic\Contracts\ShoppingCart\ShoppingCartContract;
 use app\Antony\DomainLogic\Modules\Cookies\ShoppingCartCookie;
-use app\Antony\DomainLogic\Modules\ShoppingCart\Base\ShoppingCartReconciler;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Base\ShoppingCartRepository;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\ReconcilerTrait;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\SessionCache;
@@ -200,7 +199,7 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
             // get the existing product qt
             $value = !$increments ? $qt : $this->existing_quantity + $new_quantity;
 
-            // check for an overflow, and rectify it
+            // check for a quantity overflow, and rectify it
             $value = $value > $product->quantity ? $product->quantity : $value;
 
             // update the basket

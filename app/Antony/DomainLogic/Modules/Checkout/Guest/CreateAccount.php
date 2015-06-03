@@ -1,7 +1,6 @@
 <?php namespace app\Antony\DomainLogic\Modules\Checkout\Guest;
 
 use app\Antony\DomainLogic\Contracts\Redirects\AppRedirector;
-use app\Antony\DomainLogic\Modules\Authentication\RegisterUser;
 use app\Antony\DomainLogic\Modules\Checkout\Base\AbstractCheckoutProcessor;
 use app\Antony\DomainLogic\Modules\User\UserRepository;
 use App\Models\Guest;
@@ -9,6 +8,8 @@ use Illuminate\Http\Request;
 
 class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
 {
+
+    const ACCOUNT_CREATED = 1;
 
     /**
      * Handle a redirect after a CRUD operation
@@ -21,19 +22,19 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
     {
         switch ($this->getStepStatus()) {
 
-            case RegisterUser::ACCOUNT_CREATED: {
+            case static::ACCOUNT_CREATED: {
                 flash()->overlay('Your account was created successfully. You have been logged in');
 
                 // redirect user & destroy the guest checkout cookie
                 return redirect()->to(route('u.checkout.step4'))->withCookie($this->checkOutCookie->destroy());
             }
-            case RegisterUser::ACCOUNT_NOT_CREATED: {
+
+            default: {
                 flash()->error('An error occurred. Please try again');
 
                 return redirect()->back()->withInput($request->all());
             }
         }
-        return redirect()->back()->withInput($request->all());
     }
 
     /**
@@ -63,8 +64,6 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
 
         if (is_null($data)) {
 
-            $this->setStepStatus(RegisterUser::ACCOUNT_NOT_CREATED);
-
             return $this;
         } else {
 
@@ -79,23 +78,11 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
 
             $request->getSession()->set('account_created_after_checkout', true);
 
-            $this->setStepStatus(RegisterUser::ACCOUNT_CREATED);
+            $this->setStepStatus(static::ACCOUNT_CREATED);
 
             return $this;
         }
 
-    }
-
-    /**
-     * Deletes the guest user's account
-     *
-     * @param $id
-     *
-     * @return bool|int
-     */
-    private function deleteGuestAccount($id)
-    {
-        return $this->guestRepository->delete([$id]);
     }
 
     /**
@@ -124,5 +111,17 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
         ];
 
         return $new_data;
+    }
+
+    /**
+     * Deletes the guest user's account
+     *
+     * @param $id
+     *
+     * @return bool|int
+     */
+    private function deleteGuestAccount($id)
+    {
+        return $this->guestRepository->delete([$id]);
     }
 }

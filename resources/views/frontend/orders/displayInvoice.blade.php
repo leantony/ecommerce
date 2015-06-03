@@ -24,8 +24,8 @@
                 <div class="col-xs-12 col-md-10 col-md-offset-1">
                     @include('_partials.forms.invoice.header')
                     <div class="row">
-                        @include('_partials.forms.invoice.was_billed_to')
-                        @include('_partials.forms.invoice.was_shipped_to')
+                        @include('_partials.forms.invoice.was_billed_to', ['user' => $user])
+                        @include('_partials.forms.invoice.was_shipped_to', ['user' => $user])
                     </div>
                     <hr/>
                     <div class="row">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="row">
-                @include('_partials.forms.invoice.products_table', ['orderHasArrived' => $order->delivered])
+                @include('_partials.forms.invoice.products_table', ['orderHasArrived' => $order->delivered, 'order' => $order, 'products_' => $order->data['products'], 'basket' => $order->data['cart']])
             </div>
         </div>
         <hr/>

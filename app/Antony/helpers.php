@@ -316,14 +316,17 @@ if (!function_exists('format_money')) {
     {
         if (!$money instanceof Money) {
 
-            $money = new Money((int)$money, new Currency(config('site.currencies.default', 'KES')));
+            $money = new Money(is_int($money) ? $money : (int) $money, new Currency(config('site.currencies.default', 'KES')));
         }
+
         if ($returnMoneyObject) {
             return $money;
-        }
-        $formatter = new MoneyFormatter();
+        } else {
+            $formatter = new MoneyFormatter();
 
-        return $formatter->format($money);
+            return $formatter->format($money);
+        }
+
     }
 }
 

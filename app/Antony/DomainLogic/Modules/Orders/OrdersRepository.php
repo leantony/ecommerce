@@ -45,24 +45,29 @@ class OrdersRepository extends EloquentRepository
      */
     public function performSync($data)
     {
-        $cartData = array_get($data, 'cart_data');
+        $products_data = array_get($data, 'products_data');
 
-        $userData = array_get($data, 'user_data');
+        $cart_data = array_get($data, 'cart_data');
+
+        $user_data = array_get($data, 'user_data');
 
         // handle the model created event
-        $this->model->created(function ($order) use ($cartData, $userData) {
+        $this->model->created(function ($order) use ($products_data, $user_data, $cart_data) {
 
-            // add each product to the join table => order_product
-            $cartData->products->each(function ($product) use ($order, $cartData) {
+            foreach ($cart_data['products'] as $_product) {
+                // add each product to the join table => order_product
+                $products_data->each(function ($product) use ($order, $_product, $products_data) {
 
-                $order->products()->attach([$product->id], ['quantity' => $cartData->getSingleProductQuantity($product)], [$order->id]);
+                    $order->products()->attach([$product->id], ['quantity' => $_product['quantity']], [$order->id]);
 
-                // decrement product quantity
-                $product->quantity = $product->quantity - $cartData->getSingleProductQuantity($product);
+                    // decrement product quantity
+                    $product->quantity = $product->quantity - $_product['quantity'];
 
-                $product->save();
+                    $product->save();
 
-            });
+                });
+            }
+
 
             // add user/guest info to the join table => order_user
             if (!is_null(auth()->user())) {
@@ -71,7 +76,7 @@ class OrdersRepository extends EloquentRepository
             } else {
 
                 // guest
-                $order->guests()->attach([$userData->id], ['order_id' => $order->id]);
+                $order->guests()->attach([$user_data->id], ['order_id' => $order->id]);
             }
         });
     }

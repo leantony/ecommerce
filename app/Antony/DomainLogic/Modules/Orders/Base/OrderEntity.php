@@ -123,11 +123,12 @@ class OrderEntity extends DataAccessLayer implements ProductOrderContract, Invoi
      */
     public function placeOrder($data)
     {
-        $cart_data = $this->shoppingCart->retrieveProductsInCart();
+        $cart_data = $this->shoppingCart->displayShoppingCart();
 
         $data = [
             'cart_data' => $cart_data,
             'user_data' => array_get($this->checkoutCookie->fetch()->get(), 'data'),
+            'products_data' => $this->shoppingCart->retrieveProductsInCart(),
         ];
 
         $this->order = $this->repository->add($data);

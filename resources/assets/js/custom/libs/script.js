@@ -3,10 +3,10 @@
     // AJAX
     $('form[data-remote]').on('submit', function (e) {
 
-        var form        = $(this);
-        var method      = form.find('input[name="_method"]').val() || 'POST';
-        var data        = form.serialize();
-        var url         = form.prop('action');
+        var form = $(this);
+        var method = form.find('input[name="_method"]').val() || 'POST';
+        var data = form.serialize();
+        var url = form.prop('action');
         var infoDisplay = $('.msgDisplay');
 
         //console.log(data);
@@ -75,7 +75,7 @@
             closeOnConfirm: false
         }, function (confirm) {
             if (confirm) {
-                if(form.length > 0){
+                if (form.length > 0) {
                     form.unbind('submit').submit();
                 } else {
                     // not good. assumes presence of a link
@@ -213,7 +213,7 @@
     //$('.row div, .section').addClass('wow fadeIn');
 
     // open tabs pragmatically
-    $("a[data-open-tab]").on('click', function(e){
+    $("a[data-open-tab]").on('click', function (e) {
 
         $(this).tab('show');
     });

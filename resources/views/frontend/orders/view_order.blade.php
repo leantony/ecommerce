@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="row">
-                @include('_partials.forms.invoice.products_table', ['orderHasArrived' => $order->delivered])
+                @include('_partials.forms.invoice.products_table', ['orderHasArrived' => $order->delivered, 'order' => $order, 'products_' => $order->data['products'], 'basket' => $order->data['cart']])
             </div>
         </div>
         <hr/>

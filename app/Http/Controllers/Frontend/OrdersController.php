@@ -104,10 +104,10 @@ class OrdersController extends Controller
         $data = $this->orders->invoice_data();
 
         $order = array_get($data, '0');
-        $cart_data = array_get($data, '2');
+        //$cart_data = array_get($data, '2');
         $user = array_get($data, '1');
 
-        return view('frontend.orders.displayInvoice', compact('order', 'cart_data', 'user'));
+        return view('frontend.orders.displayInvoice', compact('order', 'user'));
     }
 
     /**

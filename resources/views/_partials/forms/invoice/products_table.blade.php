@@ -29,31 +29,31 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($cart_data->products as $product)
+        @foreach($products_ as $product)
             <tr>
                 <td>
-                    <img src="{{ display_img($product) }}" class="img-responsive small-image">
+                    <img src="{{ display_img(null, $product['image']) }}" class="img-responsive small-image">
                 </td>
                 <td>
                     <p class="name">
-                        {{ $product->name }}
+                        {{ $product['name'] }}
                     </p>
 
-                    <p class="text text-primary bold">SKU:&nbsp;{{ $product->sku }}</p>
+                    <p class="text text-primary bold">SKU:&nbsp;{{ $product['sku'] }}</p>
                 </td>
                 <td>
                     <p>
-                        {{ $cart_data->getSingleProductQuantity($product) }}
+                        {{ $product['quantity'] }}
                     </p>
                 </td>
                 <td>
-                    <p>{{ format_money($product->total()) }}</p>
+                    <p>{{ format_money($product['total_price']) }}</p>
                 </td>
                 <td>
-                    <p>{{ format_money($product->tax()) }}</p>
+                    <p>{{ format_money($product['VAT']) }}</p>
                 </td>
                 <td>
-                    <p class="bold">{{ format_money($product->quantity($cart_data->getSingleProductQuantity($product))->total()) }}</p>
+                    <p class="bold">{{ format_money($product['order_total']) }}</p>
                 </td>
             </tr>
         @endforeach
@@ -63,11 +63,11 @@
     <table class="table table-bordered">
         <tr>
             <th class="bold">Total cost:</th>
-            <td>{{ $cart_data->getCartSubTotal()  }}</td>
+            <td>{{ format_money($basket['basket_total'])  }}</td>
         </tr>
         <tr>
             <th class="bold">Shipping & handling:</th>
-            <td>{{ $cart_data->getShippingSubTotal() }}</td>
+            <td>{{ format_money($basket['shipping']) }}</td>
         </tr>
         <tr>
             <th>
@@ -77,7 +77,7 @@
             </th>
             <td>
                 <h4>
-                    {{ $cart_data->getGrandTotal() }}
+                    {{ format_money($basket['grand_total']) }}
                 </h4>
             </td>
         </tr>
