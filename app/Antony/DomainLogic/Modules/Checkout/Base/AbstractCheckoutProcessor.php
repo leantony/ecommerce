@@ -144,11 +144,7 @@ abstract class AbstractCheckoutProcessor implements CheckoutContract
      */
     public function getGuestDetails()
     {
-
-        if ($this->isAGuest()) {
-            return $this->cookieData;
-        }
-        return null;
+        return $this->isAGuest() ? $this->cookieData : null;
     }
 
     /**
@@ -158,7 +154,9 @@ abstract class AbstractCheckoutProcessor implements CheckoutContract
      */
     public function isAGuest()
     {
-        return $this->getCookieData() instanceof Guest;
+        $guest = $this->getCookieData();
+
+        return $guest instanceof Guest;
     }
 
     /**

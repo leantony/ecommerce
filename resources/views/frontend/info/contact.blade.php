@@ -19,10 +19,10 @@
 
                 </div>
                 <div class="col-md-5 " id="cont">
-                    @if(session(\app\Antony\DomainLogic\Contracts\Contact\ContactMessageContract::MESSAGE_SENT))
+                    @if(session('message.sent'))
 
                         <div class="alert alert-info">
-                            <p>Your message was sent successfully. Thank you for getting in touch with us.</p>
+                            <p>Your message has already been sent. Thank you for getting in touch with us.</p>
                         </div>
                     @else
                         {!! Form::open(['url' => route('contact.post'), 'id' => 'contact-form', 'data-remote']) !!}

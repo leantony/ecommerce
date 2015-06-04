@@ -19,6 +19,8 @@ class InfoController extends Controller
     {
 
         $this->msg = $contactMessageRepo;
+
+        $this->useOverlay = true;
     }
 
     /**
@@ -62,7 +64,11 @@ class InfoController extends Controller
      */
     public function postContactMessage(ContactMessageRequest $request)
     {
-        return $this->msg->send($request->except("_session, g-recaptcha-response"))->handleRedirect($request);
+        $this->data = $this->msg->send($request->except("_session, g-recaptcha-response"));
+
+        $this->setSuccessMessage("Your message was sent successfully. Thank you");
+
+        return $this->handleRedirect($request);
     }
 
 }

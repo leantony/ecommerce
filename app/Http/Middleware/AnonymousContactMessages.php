@@ -17,7 +17,7 @@ class AnonymousContactMessages
     public function handle($request, Closure $next)
     {
         // check if the current user has already sent a contact message
-        $status = session(MsgResult::MESSAGE_SENT);
+        $status = session('message.sent');
 
         if (is_null($status)) {
             return $next($request);

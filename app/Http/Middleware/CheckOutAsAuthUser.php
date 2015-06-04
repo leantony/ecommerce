@@ -24,7 +24,7 @@ class CheckOutAsAuthUser
                 return $next($request);
             } else {
 
-                flash()->warning(
+                flash()->overlay("Account data incomplete",
                     "Please access your account and check if your home address/county/town details are set correctly.
                     You need them filled in correctly to checkout."
                 );

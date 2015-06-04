@@ -4,7 +4,7 @@ interface AppRedirector
 {
 
     /**
-     * Handle a redirect after a CRUD operation
+     * Handle a redirect after an operation
      *
      * @param $request
      *

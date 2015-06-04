@@ -6,11 +6,14 @@ use App\Models\AnonymousMessages;
 class ContactMessageRepository extends EloquentRepository
 {
 
+
     /**
-     * @param AnonymousMessages $anonymousMessages
+     * Specify the Model class name
+     *
+     * @return mixed
      */
-    public function __construct(AnonymousMessages $anonymousMessages)
+    public function model()
     {
-        parent::__construct($anonymousMessages);
+        return 'App\Models\AnonymousMessages';
     }
 }

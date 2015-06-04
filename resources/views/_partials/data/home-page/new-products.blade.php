@@ -3,7 +3,13 @@
         <div class="item item-carousel">
             <div class="products">
                 <div class="product">
-                    <h4 class="text-center"><span class="label label-info">{{ $product->brand->name }}</span></h4>
+                    <h4 class="text-center">
+                        <span class="label label-info brand-label">
+                              <a href="{{ route('brands.shop', ['brand' => $product->brand->id]) }}">
+                                  {{ $product->brand->name }}
+                              </a>
+                        </span>
+                    </h4>
 
                     <div class="product-image">
                         <div class="image p-all-10">

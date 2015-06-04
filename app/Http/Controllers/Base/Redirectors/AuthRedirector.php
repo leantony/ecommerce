@@ -11,11 +11,42 @@ trait AuthRedirector
      * @var boolean
      */
     public $backend = false;
+
+    /**
+     * A message for a failed login attempt
+     *
+     * @var string
+     */
     protected $loginErrorMessage = "Invalid email/password combination. Please try again";
+
+    /**
+     * A message for a failed registration attempt
+     *
+     * @var string
+     */
     protected $accountCreationErrorMessage = "Account creation failed. Please try again";
+
+    /**
+     * A message for a successful registration attempt
+     *
+     * @var string
+     */
     protected $accountCreationSuccessMessage = "Your account was successfully created.";
+
+    /**
+     * A message for a successful activation attempt
+     *
+     * @var string
+     */
     protected $accountActivationSuccessMessage = "Your account was activated";
+
+    /**
+     * A message for a not activated account
+     *
+     * @var string
+     */
     protected $accountNotActivatedMessage = "Your account has not been activated. You need to activate your account before using it";
+
     /**
      * The url the user should be redirected to, once they login successfully
      *
