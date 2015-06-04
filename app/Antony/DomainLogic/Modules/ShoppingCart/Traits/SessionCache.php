@@ -8,7 +8,11 @@ trait SessionCache
     protected $useCookie = false;
 
     /**
-     * {@inheritdoc}
+     * Stores the basket in the user's shopping cart
+     *
+     * @param $basket
+     *
+     * @return void
      */
     public function cacheBasket($basket)
     {
@@ -17,7 +21,9 @@ trait SessionCache
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the cached shopping cart
+     *
+     * @return Cart|null
      */
     public function getCachedBasket()
     {
@@ -25,7 +31,9 @@ trait SessionCache
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the products stored in session
+     *
+     * @return Collection|null
      */
     public function getCachedProducts()
     {
@@ -33,20 +41,22 @@ trait SessionCache
     }
 
     /**
-     * {@inheritdoc}
+     * Removes both the basket and the products in it, from the current session
+     *
+     * @return void
      */
     public function emptyCache()
     {
 
-        if ($this->productsAreCached())
-            $this->session->pull('basket_products');
+        if ($this->productsAreCached()) $this->session->pull('basket_products');
 
-        if ($this->basketIsCached())
-            $this->session->pull('basket');
+        if ($this->basketIsCached()) $this->session->pull('basket');
     }
 
     /**
-     * {@inheritdoc}
+     * Checks is any products have been cached in the user's session
+     *
+     * @return boolean
      */
     public function productsAreCached()
     {
@@ -54,7 +64,9 @@ trait SessionCache
     }
 
     /**
-     * {@inheritdoc}
+     * Check if a basket or shopping cart is cached
+     *
+     * @return boolean
      */
     public function basketIsCached()
     {
@@ -62,7 +74,9 @@ trait SessionCache
     }
 
     /**
-     * {@inheritdoc}
+     * Removes products cached in the session
+     *
+     * @return void
      */
     public function removeCachedProducts()
     {
@@ -70,7 +84,11 @@ trait SessionCache
     }
 
     /**
-     * {@inheritdoc}
+     * Stores products in the basket in the usr's session
+     *
+     * @param $products
+     *
+     * @return void
      */
     public function cacheProducts($products)
     {
@@ -78,7 +96,9 @@ trait SessionCache
     }
 
     /**
-     * {@inheritdoc}
+     * Removes the cached basket from the session
+     *
+     * @return void
      */
     public function removeCachedBasket()
     {

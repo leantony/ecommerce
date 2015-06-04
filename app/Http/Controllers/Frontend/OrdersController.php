@@ -72,11 +72,10 @@ class OrdersController extends Controller
     {
         $data = $this->orders->displaySpecificOrder($order->id);
 
-        if(is_null($data)){
+        if($data->count() === 0){
 
-            flash()->warning('No orders were found');
-
-            return redirect()->back();
+            $this->setErrorMessage("No orders were found");
+            return $this->handleErrorWithFlashMessage(null, route('myorders'));
         }
 
         $order = '';

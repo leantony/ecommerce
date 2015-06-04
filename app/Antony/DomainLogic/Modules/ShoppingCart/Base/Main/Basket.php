@@ -296,8 +296,10 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
             foreach ($this->getProducts() as $product) {
 
                 $qt = $product->pivot->quantity;
+                // set the quantity of this product, to be used for the calculations
                 $product->quantity($qt);
 
+                // build the products array
                 $products[] = [
                     'name' => $product->name,
                     'sku' => $product->sku,
@@ -316,11 +318,14 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
                 ];
             }
 
+            // build the shopping cart array
             $cart_data['cart'] = [
                 'id' => $this->getCart()->id,
+                // Get the total count of all products in the basket
                 'total_products' => $this->getProducts()->sum(function ($p) {
                     return $p->pivot->quantity;
                 }),
+                // Get the count of an individual product in the basket
                 'product_count' => $this->getProducts()->count(),
                 'currency' => config('site.currencies.default', 'KES'),
                 'shipping' => $this->getShippingSubTotal(false),

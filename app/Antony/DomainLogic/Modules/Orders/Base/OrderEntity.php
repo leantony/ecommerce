@@ -188,7 +188,7 @@ class OrderEntity extends DataAccessLayer implements ProductOrderContract, Invoi
     }
 
     /**
-     * @return $this
+     * @return int
      */
     public function emptyCart()
     {
