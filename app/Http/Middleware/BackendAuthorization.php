@@ -16,8 +16,8 @@ class BackendAuthorization
      */
     public function handle($request, Closure $next)
     {
-        // check if the user has some role
-        if ($request->user()->hasRole([config('site.backend.allowedRoles', 'Administrator')])) {
+        // check if the user can access the backend
+        if ($request->user()->canAccessBackend()) {
             return $next($request);
         }
         return new Response("Error code: 401 => You are not authorized to view this page. Contact the system administrator", 401);

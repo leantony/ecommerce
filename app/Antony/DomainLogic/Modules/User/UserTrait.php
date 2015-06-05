@@ -43,7 +43,7 @@ trait UserTrait
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     public function canAccessBackend()
     {

@@ -77,10 +77,12 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
     public function add($product, $quantity)
     {
         // get the quantity from the user
+        $quantity = $quantity > $product->quantity ? $product->quantity : $quantity;
+        
         if (is_null($this->getCart())) {
-            $quantity = $quantity > $product->quantity ? $product->quantity : $quantity;
-
+            
             return $this->makeCart($product, $quantity);
+
         } elseif ($this->getCart()->exists()) {
 
             $qt = $this->validateQuantity($quantity, $product);
