@@ -251,35 +251,65 @@ if (!function_exists('display_img')) {
 if (!function_exists('is_serialized')) {
 
     // http://stackoverflow.com/questions/1369936/check-to-see-if-a-string-is-serialized
-    // actually copied from word-press
+    // actually copied directly from the word-press core
     /**
      * @param $data
      *
+     * @param bool $strict
      * @return bool
      */
-    function is_serialized($data)
+    function is_serialized($data, $strict = true)
     {
-        // if it isn't a string, it isn't serialized
-        if (!is_string($data))
+        // if it isn't a string, it isn't serialized.
+        if (!is_string($data)) {
             return false;
+        }
         $data = trim($data);
-        if ('N;' == $data)
+        if ('N;' == $data) {
             return true;
-        if (!preg_match('/^([adObis]):/', $data, $badions))
+        }
+        if (strlen($data) < 4) {
             return false;
-        switch ($badions[1]) {
+        }
+        if (':' !== $data[1]) {
+            return false;
+        }
+        if ($strict) {
+            $lastc = substr($data, -1);
+            if (';' !== $lastc && '}' !== $lastc) {
+                return false;
+            }
+        } else {
+            $semicolon = strpos($data, ';');
+            $brace = strpos($data, '}');
+            // Either ; or } must exist.
+            if (false === $semicolon && false === $brace)
+                return false;
+            // But neither must be in the first X characters.
+            if (false !== $semicolon && $semicolon < 3)
+                return false;
+            if (false !== $brace && $brace < 4)
+                return false;
+        }
+        $token = $data[0];
+        switch ($token) {
+            case 's' :
+                if ($strict) {
+                    if ('"' !== substr($data, -2, 1)) {
+                        return false;
+                    }
+                } elseif (false === strpos($data, '"')) {
+                    return false;
+                }
+            // or else fall through
             case 'a' :
             case 'O' :
-            case 's' :
-                if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data))
-                    return true;
-                break;
+                return (bool)preg_match("/^{$token}:[0-9]+:/s", $data);
             case 'b' :
             case 'i' :
             case 'd' :
-                if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data))
-                    return true;
-                break;
+                $end = $strict ? '$' : '';
+                return (bool)preg_match("/^{$token}:[0-9.E-]+;$end/", $data);
         }
         return false;
     }
@@ -316,7 +346,7 @@ if (!function_exists('format_money')) {
     {
         if (!$money instanceof Money) {
 
-            $money = new Money(is_int($money) ? $money : (int) $money, new Currency(config('site.currencies.default', 'KES')));
+            $money = new Money(is_int($money) ? $money : (int)$money, new Currency(config('site.currencies.default', 'KES')));
         }
 
         if ($returnMoneyObject) {
@@ -345,9 +375,10 @@ function link_to_auth_route($name, $returnUrl = null, $title = 'Login', array $o
     $target = $returnUrl;
 
     if (!is_null($target)) {
-        Session::pull('url.intended');
 
-        Session::put('url.intended', $target);
+        app('session')->pull('url.intended');
+
+        app('session')->put('url.intended', $target);
     }
     return link_to_route($name, $title, ['returnTo' => is_null($target) ? session('url.intended', '/') : $target], $options);
 }

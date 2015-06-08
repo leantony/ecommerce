@@ -17,7 +17,7 @@ pcWorld.ajax = {
 
     setup: {
 
-        init: function(){
+        init: function () {
 
             $.ajaxSetup({
                 headers: {
@@ -57,7 +57,7 @@ pcWorld.ajax = {
             div.html(target);
         },
 
-        executeDefaultHandler: function(data, infoDisplay){
+        executeDefaultHandler: function (data, infoDisplay) {
             var errors;
 
             if (data.status === 422) {
@@ -89,7 +89,7 @@ pcWorld.ajax = {
 
         doRedirect: function (response) {
             console.log(response.target);
-            if(response.target === null || typeof response.target === 'undefined'){
+            if (response.target === null || typeof response.target === 'undefined') {
                 window.location.reload();
             } else {
                 window.location.href = response.target
@@ -104,10 +104,10 @@ pcWorld.ajax = {
     // AJAX
     $('form[data-remote]').on('submit', function (e) {
 
-        var form        = $(this);
-        var method      = form.find('input[name="_method"]').val() || 'POST';
-        var data        = form.serialize();
-        var url         = form.prop('action');
+        var form = $(this);
+        var method = form.find('input[name="_method"]').val() || 'POST';
+        var data = form.serialize();
+        var url = form.prop('action');
         var infoDisplay = $('.msgDisplay');
 
         //console.log(data);
@@ -176,7 +176,7 @@ pcWorld.ajax = {
             closeOnConfirm: false
         }, function (confirm) {
             if (confirm) {
-                if(form.length > 0){
+                if (form.length > 0) {
                     form.unbind('submit').submit();
                 } else {
                     // not good. assumes presence of a link
@@ -314,7 +314,7 @@ pcWorld.ajax = {
     //$('.row div, .section').addClass('wow fadeIn');
 
     // open tabs pragmatically
-    $("a[data-open-tab]").on('click', function(e){
+    $("a[data-open-tab]").on('click', function (e) {
 
         $(this).tab('show');
     });

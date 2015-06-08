@@ -43,12 +43,6 @@ _validator.formsRules = {
         stars: _validator.fields.stars
     },
 
-    // emailing a product
-    emailProduct: {
-        email: _validator.fields.email,
-        comment: _validator.fields.comment
-    },
-
     // checking out as a guest
     guestCheckout: {
         first_name: _validator.fields.first_name,

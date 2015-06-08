@@ -46,12 +46,15 @@ _validator.ajaxHandler = function (form, rules) {
 
             $.ajax({
                 url: $form.attr('action'),
-                type: 'POST',
+                type: $form.find('input[name="_method"]').val() || 'POST',
                 data: $form.serialize(),
                 success: function (result) {
 
-                    // we just redirect if successful
-                    pcWorld.ajax.handleSuccess.doRedirect(result);
+                    if (typeof result.message === 'undefined') {
+                        pcWorld.ajax.handleSuccess.doRedirect(result);
+                    } else {
+                        pcWorld.ajax.handleSuccess.displaySuccessMsg(result);
+                    }
                 },
 
                 error: function (data) {

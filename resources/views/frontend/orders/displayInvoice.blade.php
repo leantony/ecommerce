@@ -66,7 +66,7 @@
             </div>
             <div class="col-md-4">
                 <a href="{{ auth()->check() ? route('u.order.finished') : route('order.finished') }}"
-                   data-confirm="Okay, {{ beautify($user->first_name) }}. Have you printed your invoice?. Clicking this button would take you back to the home page">
+                   data-confirm="Clicking this button would empty your shopping cart, and take you back to the home page. You will still be able to view this order, by visiting https://myapp.com/myorders. Continue?">
                     <button class="btn btn-primary">
                         <i class="fa fa-cart-arrow-down"></i>&nbsp;Continue shopping
                     </button>
