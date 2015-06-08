@@ -24,11 +24,11 @@ class SearchController extends Controller
     }
 
     /**
-     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-        // display a view. like advanced search or etc
+        return $this->featureUnavailable();
     }
 
     /**

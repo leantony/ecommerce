@@ -102,13 +102,10 @@ class CartController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\View\View
      */
-    public function getMine(Request $request)
+    public function getMine()
     {
-        flash()->overlay('To be implemented soon...');
-
-        return redirect()->back();
+        return $this->featureUnavailable();
     }
 }

@@ -18,7 +18,7 @@ trait CheckoutRedirector
 
         if ($success) {
             if ($request->ajax()) {
-                return response()->json(['message' => 'Action completed successfully', 'stepData' => $this->retrieveStepData(), 'target' => $this->redirectBack ? url(\URL::previous()) : route($this->nextStepRoute)]);
+                return response()->json(['message' => 'Action completed successfully', 'stepData' => $this->retrieveStepData(), 'target' => $this->redirectBack ? url(app('url')->previous()) : route($this->nextStepRoute)]);
             } else {
                 flash()->overlay('Action completed successfully');
 

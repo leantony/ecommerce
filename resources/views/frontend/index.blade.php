@@ -9,9 +9,6 @@
 
 @stop
 
-@section('notification')
-    @parent
-@stop
 @section('content')
     <div class="container" style="margin-bottom: 84px">
         <div class="wide-banners outer-bottom-vs" data-toggle-animation>

@@ -114,15 +114,7 @@ class OrdersController extends Controller
      */
     public function printInvoice()
     {
-        $data = $this->orders->invoice_data();
-
-        $order = array_get($data, '0');
-        $cart_data = array_get($data, '2');
-        $user = array_get($data, '1');
-
-        $pdf = \PDF::loadView('frontend.orders.displayInvoice', compact('order', 'cart_data', 'user'));
-
-        return $pdf->stream();
+        return $this->featureUnavailable();
     }
 
     /**
@@ -132,7 +124,6 @@ class OrdersController extends Controller
      */
     public function completeOrder()
     {
-
         return $this->orders->complete();
     }
 

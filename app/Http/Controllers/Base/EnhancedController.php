@@ -51,15 +51,26 @@ abstract class EnhancedController extends BaseController
     protected $redirectToUrlInSession = false;
 
     /**
+     * Returns the data from an action, in JSON format
+     *
      * @param bool $json
      * @return mixed
      */
     public function getData($json = true)
     {
-        return $json ? $this->data->toJson() : $this->data;
+        // since some methods return a boolean, or int, then we json_encode them, since
+        // calling toJson() directly would cause a crash
+        try {
+            return $json ? $this->data->toJson() : $this->data;
+        } catch (\Exception $e) {
+            return json_encode($this->data);
+        }
+
     }
 
     /**
+     * Handles a redirect. Both AJAX and normal requests
+     *
      * @param $request
      * @param array $params For an AJAX request only. This are any extra parameters, that will be sent with the JSON response
      * @param null $successRoute The route the user should be redirected to, if an action is successful. If left null, the page would simply reload
@@ -84,6 +95,19 @@ abstract class EnhancedController extends BaseController
      */
     public function getPreviousUrl()
     {
-        return \URL::previous();
+        return app('url')->previous();
+    }
+
+    /**
+     * Just renders a message for an unavailable feature, and redirects back
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function featureUnavailable()
+    {
+
+        flash()->overlay('This feature has not yet been implemented, but is coming soon. Be patient!!!');
+
+        return redirect()->back();
     }
 }

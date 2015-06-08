@@ -12,8 +12,8 @@
         </a>
     @else
         <div class="p-all-10" style="border: 1px solid #E3E3E3">
-            <p>{!! link_to_auth_route('login', URL::current()) !!}
-                or {!! link_to_auth_route('register', URL::current(), 'Register', []) !!} today, to
+            <p>{!! link_to_auth_route('login', app('url')->current()) !!}
+                or {!! link_to_auth_route('register', app('url')->current(), 'Register', []) !!} today, to
                 be able to add your reviews about a product
             </p>
         </div>
@@ -42,8 +42,8 @@
             ?>
         @endif
         <div class="p-all-10" style="border: 1px solid #E3E3E3">
-            <p>{!! link_to_auth_route('login', URL::current()) !!}
-                or {!! link_to_auth_route('register', URL::current(), 'Register', []) !!} today, to
+            <p>{!! link_to_auth_route('login', app('url')->current()) !!}
+                or {!! link_to_auth_route('register', app('url')->current(), 'Register', []) !!} today, to
                 be able to add your reviews about a product
             </p>
         </div>

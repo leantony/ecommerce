@@ -2,7 +2,7 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            {!! Form::open(['url' => route('confirm_password', ['proceedTo' => URL::current()]), $useAjax ? "data-remote" : ""]) !!}
+            {!! Form::open(['url' => route('confirm_password', ['proceedTo' => app('url')->current()]), $useAjax ? "data-remote" : ""]) !!}
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>

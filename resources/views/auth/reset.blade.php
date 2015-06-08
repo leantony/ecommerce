@@ -17,7 +17,7 @@
 
     <div class="container-fluid">
         <div class="row authentication  ">
-            @if(!\Session::pull('errorFatal'))
+            @if(!app('session')->pull('errorFatal'))
                 @include('_partials.forms.help.password_reset')
             @else
                 <div class="col-md-4 col-md-offset-2 col-sm-8 col-xs-12 alert alert-danger">
