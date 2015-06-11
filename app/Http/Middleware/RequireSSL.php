@@ -6,7 +6,7 @@ class RequireSSL
 {
 
     /**
-     * Handle an incoming request.
+     * Enforces the secure attribute for a request
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next

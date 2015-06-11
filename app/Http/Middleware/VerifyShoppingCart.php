@@ -21,7 +21,7 @@ class VerifyShoppingCart
     }
 
     /**
-     * Handle an incoming request.
+     * Checks that a user has a shopping cart, and that it has products. Useful for checking out
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next

@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
     }
 
     /**
-     * Handle an incoming request.
+     * Redirects a user if they are logged in, and attempt to access pages that arent for authenticated users
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next

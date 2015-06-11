@@ -1,10 +1,18 @@
 <?php namespace app\Antony\DomainLogic\Contracts\ShoppingCart;
 
+/**
+ * Implementing a caching mechanism will improve cart performance, by mitigating
+ * the process of querying and requerying a basket, even when it has not been updated
+ *
+ * It also keeps the cart data between requests, hence mitigating the issue of query duplicates
+ * The data cached include the actual basket object, and products in this basket
+ *
+ */
 interface ShoppingCartCache
 {
 
     /**
-     * Stores the basket in the user's shopping cart
+     * Stores the basket in the cache
      *
      * @param $basket
      *
@@ -20,21 +28,21 @@ interface ShoppingCartCache
     public function getCachedBasket();
 
     /**
-     * Returns the products stored in session
+     * Returns the products stored in cache
      *
      * @return Collection|null
      */
     public function getCachedProducts();
 
     /**
-     * Removes both the basket and the products in it, from the current session
+     * This empties the cache, by removing both the basket and products
      *
      * @return void
      */
     public function emptyCache();
 
     /**
-     * Checks is any products have been cached in the user's session
+     * Checks is any products have been cached
      *
      * @return boolean
      */
@@ -48,14 +56,14 @@ interface ShoppingCartCache
     public function basketIsCached();
 
     /**
-     * Removes products cached in the session
+     * Removes all cached products products
      *
      * @return void
      */
     public function removeCachedProducts();
 
     /**
-     * Stores products in the basket in the usr's session
+     * Stores products in the basket in the cache
      *
      * @param $products
      *
@@ -64,7 +72,7 @@ interface ShoppingCartCache
     public function cacheProducts($products);
 
     /**
-     * Removes the cached basket from the session
+     * Removes the cached basket from the cache
      *
      * @return void
      */

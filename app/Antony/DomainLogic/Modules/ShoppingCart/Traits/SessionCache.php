@@ -5,8 +5,6 @@ use App\Models\Cart;
 trait SessionCache
 {
 
-    protected $useCookie = false;
-
     /**
      * Stores the basket in the user's shopping cart
      *
@@ -17,7 +15,7 @@ trait SessionCache
     public function cacheBasket($basket)
     {
 
-        $this->useCookie ? $this->persistShoppingCart($basket) : $this->session->put('basket', $basket);
+        $this->session->put('basket', $basket);
     }
 
     /**
@@ -27,7 +25,7 @@ trait SessionCache
      */
     public function getCachedBasket()
     {
-        return $this->useCookie ? $this->getShoppingCart(null) : $this->session->get('basket');
+        return $this->session->get('basket');
     }
 
     /**
@@ -70,7 +68,7 @@ trait SessionCache
      */
     public function basketIsCached()
     {
-        return $this->session->has('basket') or $this->cookie->exists();
+        return $this->session->has('basket');
     }
 
     /**

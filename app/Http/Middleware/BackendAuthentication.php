@@ -26,7 +26,7 @@ class BackendAuthentication
     }
 
     /**
-     * Handle an incoming request.
+     * This middleware does the same thing as the 'authenticate' one. Its for the backend though
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next

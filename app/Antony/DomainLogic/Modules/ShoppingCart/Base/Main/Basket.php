@@ -6,7 +6,6 @@ use app\Antony\DomainLogic\Modules\Cookies\ShoppingCartCookie;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Base\ShoppingCartRepository;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\ReconcilerTrait;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\SessionCache;
-use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\StoreShoppingCartUsingCookie;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Session\SessionInterface;
@@ -15,7 +14,7 @@ use InvalidArgumentException;
 
 abstract class Basket implements ShoppingCartContract, ShoppingCartCache
 {
-    use StoreShoppingCartUsingCookie, ReconcilerTrait, SessionCache;
+    use ReconcilerTrait, SessionCache;
 
     /**
      * @var ShoppingCartRepository
@@ -76,20 +75,39 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
      */
     public function add($product, $quantity)
     {
-        // get the quantity from the user
-        $quantity = $quantity > $product->quantity ? $product->quantity : $quantity;
-        
+        // get the quantity from the user. 
+        // This prevents the 0 quantity that gets inserted, when a cart is created for the first time
+        $quantity = $this->validateQuantity($quantity, $product);
+
         if (is_null($this->getCart())) {
-            
+
             return $this->makeCart($product, $quantity);
 
         } elseif ($this->getCart()->exists()) {
 
-            $qt = $this->validateQuantity($quantity, $product);
-
-            return $this->updateExistingCart($product, $qt);
+            return $this->updateExistingCart($product, $quantity);
         }
         return $this->makeCart($product, $quantity);
+    }
+
+    /**
+     * Ensures that the quantity a user specifies is valid
+     *
+     * @param $quantity
+     * @param Product $product
+     * @return int
+     */
+    public function validateQuantity($quantity, Product $product)
+    {
+        // check if qt is 0, and default to 1
+        $quantity = ctype_digit($quantity) & $quantity > 0 ? $quantity : 1;
+
+        $this->existing_quantity = empty($this->getCart()) ? 1 : $this->cartRepository->getExistingProductQuantity($this->getCart(), $product->id);
+
+        // check for an overload
+        $this->validated_quantity = $this->existing_quantity > $product->quantity ? $this->existing_quantity - $quantity : $quantity;
+
+        return $this->validated_quantity;
     }
 
     /**
@@ -109,7 +127,7 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
      */
     protected function makeCart($product, $qt)
     {
-        // clear the session cache completely
+        // clear the cache completely
         $this->emptyCache();
 
         // cart does not exist, so we create it
@@ -132,26 +150,6 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
     }
 
     /**
-     * Ensures that the quantity a user specifies is valid
-     *
-     * @param $quantity
-     * @param Product $product
-     * @return int
-     */
-    public function validateQuantity($quantity, Product $product)
-    {
-        // check if qt is 0, and default to 1
-        $quantity = ctype_digit($quantity) & $quantity > 0 ? $quantity : 1;
-
-        $this->existing_quantity = $this->cartRepository->getExistingProductQuantity($this->getCart(), $product->id);
-
-        // check for an overload
-        $this->validated_quantity = $this->existing_quantity > $product->quantity ? $this->existing_quantity - $quantity : $quantity;
-
-        return $this->validated_quantity;
-    }
-
-    /**
      * Updates the quantity of an existing product in the shopping cart
      *
      * @param $product
@@ -163,18 +161,21 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
         // clear the products from the session
         $this->removeCachedProducts();
 
-        // check if the product exists in the cart. This will prevent adding duplicate products in the same basket
+        // check if the product exists in the cart.
+        // This will prevent adding duplicate products in the same basket
         if ($this->existing_quantity === 0) {
 
             //dd($this->existing_quantity);
             $this->getCart()->products()->attach([$product->id], ['quantity' => $qt, 'cart_id' => $this->getCart()->id]);
 
-            // update the session
+            // store the products in the cache. This way, even if a page reload is done,
+            // the data is simply retrieved from the cache, without really impacting the DB
             $this->cacheProducts($this->getCart()->products()->get());
 
             return static::PRODUCTS_ADDED;
 
         }
+        // we update the product as a separate one
         return $this->updateBasket($product, $qt, true);
     }
 
@@ -183,13 +184,14 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
      *
      * @param $product
      * @param $new_quantity
-     * @param bool $increments
+     * @param bool $increments A products quantity in the basket can sometimes be updated, ie x=x+new_quantity,
+     * or the value replaced entirely. This arg specifies that action
      * @return int
      * @throws InvalidArgumentException
      */
     public function updateBasket($product, $new_quantity, $increments = false)
     {
-
+        // check if the basket exists in the database
         if ($this->getCart()->exists()) {
 
             // remove cached products
@@ -198,10 +200,11 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
             // get the quantity
             $qt = !$this->quantity_checked ? $this->validateQuantity($new_quantity, $product) : $this->validated_quantity;
 
-            // get the existing product qt
+            // If we are to do an increment, then we add the user's quantity to the existing one. Else we use the user's quantity
             $value = !$increments ? $qt : $this->existing_quantity + $new_quantity;
 
-            // check for a quantity overflow, and rectify it
+            // Sometimes the quantity may 'overflow'. ie, exceed the one assigned to a product in the database
+            // so, below, we mitigate that
             $value = $value > $product->quantity ? $product->quantity : $value;
 
             // update the basket
@@ -210,10 +213,11 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
             // cache the products
             $this->cacheProducts($this->getCart()->products()->get());
 
+            // return the quantity that was updated
             return $increments ? $value : $qt;
         }
 
-        // aah just give up, for now
+        // This can be enhanced later to create the cart instead of throwing an exception
         throw new InvalidArgumentException("A cart does not exist. Please create one first");
     }
 

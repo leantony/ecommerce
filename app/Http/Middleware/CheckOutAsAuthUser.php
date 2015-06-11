@@ -6,7 +6,7 @@ class CheckOutAsAuthUser
 {
 
     /**
-     * Handle an incoming request.
+     * This middleware allows the user to checkout as an authenticated user
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
@@ -18,7 +18,8 @@ class CheckOutAsAuthUser
         // check if the user is authenticated
         if (!is_null($request->user())) {
 
-            // check if the user's account information is filled correctly
+            // check if the user's account information is filled correctly. A user's account information should be
+            // correctly set, to prevent any data inconsistency errors ahead
             if ($request->user()->isRipeForCheckout()) {
 
                 return $next($request);
@@ -34,7 +35,8 @@ class CheckOutAsAuthUser
 
         }
 
-        // check if the user had created an account
+        // This part checks if the user had earlier created an account during checkout.
+        // then, it will redirect the new user to the new url
         if ($request->getSession()->has('account_created_after_checkout') & $request->getSession()->has('after_account_create')) {
 
             return redirect()->to($request->getSession()->get('after_account_create'));

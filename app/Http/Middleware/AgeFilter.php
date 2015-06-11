@@ -5,7 +5,7 @@ use Closure;
 class AgeFilter {
 
 	/**
-	 * Handle an incoming request.
+	 * This middleware prevents a user from entering an invalid date of birth in their account editing process
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  \Closure  $next
@@ -13,6 +13,7 @@ class AgeFilter {
 	 */
 	public function handle($request, Closure $next)
 	{
+        // check if the user is authenticated. which would be obvious anyway...
         if(!is_null($request->user())){
 
             if($request->has('dob')){

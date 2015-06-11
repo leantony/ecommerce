@@ -6,7 +6,7 @@ class preventDoubleReviews
 {
 
     /**
-     * Handle an incoming request.
+     * This will attempt to prevent a user from reviewing a product more than once. At least if they try to
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next

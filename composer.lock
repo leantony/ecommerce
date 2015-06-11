@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "c0114360dccbd0e7c1ce3d6440e5ceae25807e56"
+                "reference": "3edaea0e8056edde00f7d0af13ed0d406412182d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/c0114360dccbd0e7c1ce3d6440e5ceae25807e56",
-                "reference": "c0114360dccbd0e7c1ce3d6440e5ceae25807e56",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/3edaea0e8056edde00f7d0af13ed0d406412182d",
+                "reference": "3edaea0e8056edde00f7d0af13ed0d406412182d",
                 "shasum": ""
             },
             "require": {
@@ -58,31 +58,31 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2015-05-26 07:02:48"
+            "time": "2015-06-07 07:19:29"
         },
         {
             "name": "barryvdh/laravel-dompdf",
-            "version": "v0.5.0",
+            "version": "v0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-dompdf.git",
-                "reference": "a8f72ed075b8a694e88f38a5ff3c05689fbe011e"
+                "reference": "d92df33d386c48e706c94a0d4335071e62d8fce2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/a8f72ed075b8a694e88f38a5ff3c05689fbe011e",
-                "reference": "a8f72ed075b8a694e88f38a5ff3c05689fbe011e",
+                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/d92df33d386c48e706c94a0d4335071e62d8fce2",
+                "reference": "d92df33d386c48e706c94a0d4335071e62d8fce2",
                 "shasum": ""
             },
             "require": {
                 "dompdf/dompdf": "0.6.*",
-                "illuminate/support": "5.0.x",
+                "illuminate/support": "5.0.x|5.1.x",
                 "php": ">=5.4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.5-dev"
+                    "dev-master": "0.6-dev"
                 }
             },
             "autoload": {
@@ -106,7 +106,7 @@
                 "laravel",
                 "pdf"
             ],
-            "time": "2015-02-04 10:04:35"
+            "time": "2015-05-25 12:12:13"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -114,12 +114,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-ide-helper.git",
-                "reference": "89b585b242b598d25a32a36a75df0141323ad30a"
+                "reference": "bb3bba2c5beb6c372dc3c144239ff20f48998bd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/89b585b242b598d25a32a36a75df0141323ad30a",
-                "reference": "89b585b242b598d25a32a36a75df0141323ad30a",
+                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/bb3bba2c5beb6c372dc3c144239ff20f48998bd6",
+                "reference": "bb3bba2c5beb6c372dc3c144239ff20f48998bd6",
                 "shasum": ""
             },
             "require": {
@@ -127,7 +127,7 @@
                 "illuminate/filesystem": "5.0.x|5.1.x",
                 "illuminate/support": "5.0.x|5.1.x",
                 "php": ">=5.4.0",
-                "phpdocumentor/reflection-docblock": "2.0.x",
+                "phpdocumentor/reflection-docblock": "2.0.4",
                 "symfony/class-loader": "~2.3"
             },
             "require-dev": {
@@ -169,7 +169,7 @@
                 "phpstorm",
                 "sublime"
             ],
-            "time": "2015-05-15 10:26:15"
+            "time": "2015-06-08 07:04:31"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -1626,16 +1626,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.0.32",
+            "version": "v5.0.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "85f12207cf45cc288e9e6b9b5d184aad5f08e2ca"
+                "reference": "b11c8ab88245f920b30e5f30e16b141ac8d461d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/85f12207cf45cc288e9e6b9b5d184aad5f08e2ca",
-                "reference": "85f12207cf45cc288e9e6b9b5d184aad5f08e2ca",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/b11c8ab88245f920b30e5f30e16b141ac8d461d3",
+                "reference": "b11c8ab88245f920b30e5f30e16b141ac8d461d3",
                 "shasum": ""
             },
             "require": {
@@ -1748,7 +1748,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-05-29 18:56:49"
+            "time": "2015-06-09 13:12:19"
         },
         {
             "name": "laravel/socialite",
@@ -1806,19 +1806,20 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "3c2400a99ccc3be6884d40361890010449c6b447"
+                "reference": "56862959b45131ad33e5a7727a25db19f2cf090b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3c2400a99ccc3be6884d40361890010449c6b447",
-                "reference": "3c2400a99ccc3be6884d40361890010449c6b447",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/56862959b45131ad33e5a7727a25db19f2cf090b",
+                "reference": "56862959b45131ad33e5a7727a25db19f2cf090b",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -1885,7 +1886,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-03-29 14:01:43"
+            "time": "2015-06-07 21:27:37"
         },
         {
             "name": "league/oauth1-client",
@@ -2513,23 +2514,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.0",
+            "version": "v5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f"
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/31454f258f10329ae7c48763eb898a75c39e0a9f",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1"
+                "mockery/mockery": "~0.9.1,<0.9.4"
             },
             "type": "library",
             "extra": {
@@ -2558,10 +2559,11 @@
             "description": "Swiftmailer, free feature-rich PHP mailer",
             "homepage": "http://swiftmailer.org",
             "keywords": [
+                "email",
                 "mail",
                 "mailer"
             ],
-            "time": "2015-03-14 06:06:39"
+            "time": "2015-06-06 14:19:39"
         },
         {
             "name": "symfony/class-loader",
@@ -3666,16 +3668,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.1.3",
+            "version": "2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "28a6b34e91d789b2608072ab3c82eaae7cdb973c"
+                "reference": "be2286cb8c7e1773eded49d9719219e6f74f9e3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/28a6b34e91d789b2608072ab3c82eaae7cdb973c",
-                "reference": "28a6b34e91d789b2608072ab3c82eaae7cdb973c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/be2286cb8c7e1773eded49d9719219e6f74f9e3e",
+                "reference": "be2286cb8c7e1773eded49d9719219e6f74f9e3e",
                 "shasum": ""
             },
             "require": {
@@ -3724,7 +3726,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-03 07:01:01"
+            "time": "2015-06-09 13:05:42"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3912,16 +3914,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.7.0",
+            "version": "4.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c2241b8d3381be3e4c6125ae347687d59f286784"
+                "reference": "8e0c63329c8c4185296b8d357daa5c6bae43080f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c2241b8d3381be3e4c6125ae347687d59f286784",
-                "reference": "c2241b8d3381be3e4c6125ae347687d59f286784",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8e0c63329c8c4185296b8d357daa5c6bae43080f",
+                "reference": "8e0c63329c8c4185296b8d357daa5c6bae43080f",
                 "shasum": ""
             },
             "require": {
@@ -3980,7 +3982,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-05 04:14:02"
+            "time": "2015-06-06 08:36:08"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

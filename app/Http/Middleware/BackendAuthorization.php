@@ -7,7 +7,7 @@ class BackendAuthorization
 {
 
     /**
-     * Handle an incoming request.
+     * This middleware checks that the user accessing the backend has at least one of the roles specified
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next

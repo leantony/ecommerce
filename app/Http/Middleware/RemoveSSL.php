@@ -6,7 +6,7 @@ class RemoveSSL
 {
 
     /**
-     * Handle an incoming request.
+     * Removes the secure attribute from a request
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next

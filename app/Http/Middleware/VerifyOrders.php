@@ -21,7 +21,7 @@ class VerifyOrders
     }
 
     /**
-     * Handle an incoming request.
+     * Checks that a user has made an order. This is used when the user needs to view their invoice after submitting an order
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next

@@ -5,7 +5,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -43,9 +42,25 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof ModelNotFoundException or $e instanceof HttpException or $e instanceof NotFoundHttpException) {
+        if ($e instanceof ModelNotFoundException) {
 
-            return response()->view('errors.displayError', ['code' => 404, 'message' => "We're sorry but the page you were looking for could not be found"], 404);
+            $code = is_null($e->getStatusCode()) ? 404 : $e->getStatusCode();
+
+            return response()->view('errors.displayError', ['code' => $code, 'message' => "We're sorry but the page you were looking for could not be found"], $code);
+        }
+        if ($e instanceof HttpException) {
+
+            switch ($e->getStatusCode()) {
+
+                case 503: {
+
+                    return response()->view('errors.displayError', ['code' => 503, 'message' => "The site is not available at the moment. Please come back later"], 404);
+                }
+                case 404: {
+
+                    return response()->view('errors.displayError', ['code' => 404, 'message' => "The page you are looking for was not found"], 404);
+                }
+            }
         }
         if ($e instanceof TokenMismatchException) {
 

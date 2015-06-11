@@ -7,7 +7,7 @@ class AnonymousContactMessages
 {
 
     /**
-     * Handle an incoming request.
+     * This middleware prevents the user from sending more than 1 contact message, in the same session
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
