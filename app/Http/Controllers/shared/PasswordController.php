@@ -32,7 +32,7 @@ class PasswordController extends Controller
      */
     public function getEmail(Request $request)
     {
-        if(eq($request->segment(1), 'backend')){
+        if (eq($request->segment(1), 'backend')) {
 
             return view('backend.auth.forgot_password');
         }

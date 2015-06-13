@@ -1,7 +1,7 @@
 <?php namespace app\http\ViewComposers;
 
 use App\Antony\DomainLogic\Contracts\Caching\CacheInterface;
-use app\Antony\DomainLogic\Modules\Brands\Base\BrandsEntity;
+use app\Antony\DomainLogic\Modules\Brands\BrandsRepository;
 use App\Antony\DomainLogic\Modules\Composers\ViewComposer;
 
 class BrandsList extends ViewComposer
@@ -15,9 +15,9 @@ class BrandsList extends ViewComposer
 
     /**
      * @param CacheInterface $cacheInterface
-     * @param BrandsEntity $repository
+     * @param BrandsRepository $repository
      */
-    public function __construct(CacheInterface $cacheInterface, BrandsEntity $repository)
+    public function __construct(CacheInterface $cacheInterface, BrandsRepository $repository)
     {
         $this->dataSource = $repository;
 

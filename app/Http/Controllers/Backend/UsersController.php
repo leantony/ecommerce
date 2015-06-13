@@ -1,9 +1,10 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use app\Antony\DomainLogic\Modules\User\Base\UserEntity;
+use app\Antony\DomainLogic\Modules\User\UserRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserAccountRequest;
 use App\Http\Requests\User\DeleteUsrRequest;
+use yajra\Datatables\Datatables;
 
 class UsersController extends Controller
 {
@@ -11,16 +12,16 @@ class UsersController extends Controller
     /**
      * The user entity
      *
-     * @var UserEntity
+     * @var UserRepository
      */
-    private $user;
+    private $users;
 
     /**
-     * @param UserEntity $users
+     * @param UserRepository $users
      */
-    public function __construct(UserEntity $users)
+    public function __construct(UserRepository $users)
     {
-        $this->user = $users;
+        $this->users = $users;
     }
 
     /**
@@ -28,9 +29,22 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = $this->user->get();
+        return view('backend.users.index');
+    }
 
-        return view('backend.users.index', compact('users'));
+    /**
+     * @return mixed
+     */
+    public function getDataTable()
+    {
+
+        $usrs = $this->users->with(['county'])->select('*');
+
+        $data = Datatables::of($usrs)->addColumn('edit', function ($user) {
+            return link_to(route('backend.users.edit', ['id' => $user->id]), 'Edit', ['data-target-model' => $user->id, 'class' => 'btn btn-xs btn-primary']);
+        });
+
+        return $data->make(true);
     }
 
     /**
@@ -47,7 +61,7 @@ class UsersController extends Controller
      */
     public function store(CreateUserAccountRequest $accountRequest)
     {
-        $this->data = $this->user->create($accountRequest->except('accept'));
+        $this->data = $this->users->createAccount($accountRequest->except('accept'), false);
 
         return $this->handleRedirect($accountRequest, route('backend.users.index'));
     }
@@ -59,7 +73,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = $this->user->retrieve($id);
+        $user = $this->users->get($id);
 
         return view('backend.users.edit', compact('user'));
     }
@@ -72,7 +86,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->user->retrieve($id);
+        $user = $this->users->get($id);
 
         return view('backend.users.edit', compact('user'));
     }
@@ -85,7 +99,7 @@ class UsersController extends Controller
      */
     public function update(CreateUserAccountRequest $request, $id)
     {
-        $this->data = $this->user->edit($id, $request->all());
+        $this->data = $this->users->edit($id, $request->all());
 
         return $this->handleRedirect($request, route('backend.users.index'));
 
@@ -99,7 +113,7 @@ class UsersController extends Controller
      */
     public function destroy(DeleteUsrRequest $request, $id)
     {
-        $this->data = $this->user->delete($id);
+        $this->data = $this->users->delete($id);
 
         return $this->handleRedirect($request, route('backend.users.index'));
     }

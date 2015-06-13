@@ -1,6 +1,6 @@
 <?php namespace App\Http\Middleware;
 
-use app\Antony\DomainLogic\Modules\ShoppingCart\ShoppingCartEntity;
+use app\Antony\DomainLogic\Modules\ShoppingCart\Base\Main\Basket as ShoppingCartEntity;
 use Closure;
 
 class VerifyShoppingCart

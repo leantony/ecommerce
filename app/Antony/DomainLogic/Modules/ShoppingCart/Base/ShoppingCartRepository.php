@@ -7,14 +7,6 @@ class ShoppingCartRepository extends EloquentRepository
 {
 
     /**
-     * Defines if we should associate a cart to an authenticated user
-     *
-     * @var boolean
-     */
-    public $associate = false;
-
-
-    /**
      * @param $data
      * @param $id
      *
@@ -65,25 +57,12 @@ class ShoppingCartRepository extends EloquentRepository
      * @param array $relationships
      * @param bool $throwExceptionIfNotFound
      *
+     * @param array $columns
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Support\Collection|null|static
      */
     public function find($id, $relationships = [], $throwExceptionIfNotFound = true, $columns = array('*'))
     {
         $data = parent::find($id, $relationships, $throwExceptionIfNotFound = false, $columns);
-
-        if (auth()->check() & $this->associate & !is_null($data)) {
-
-            // check if the cart already belong to this user
-            if ($data->user_id === auth()->user()->getAuthIdentifier()) {
-
-                return $data;
-            }
-
-            // associate the cart to the authenticated user
-            $data->user()->associate(auth()->user());
-
-            $data->update();
-        }
 
         return $data;
     }

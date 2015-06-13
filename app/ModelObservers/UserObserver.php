@@ -38,7 +38,7 @@ class UserObserver
             $deleteResult = $this->deleteOldImages($model);
 
             // check if the avatar is a url path. we would skip it
-            if(is_string($model->avatar)){
+            if (is_string($model->avatar)) {
 
                 return true;
 
@@ -67,7 +67,7 @@ class UserObserver
         // find the image on disk and delete it
         $current_image = $model->avatar;
 
-        if(is_string($current_image)){
+        if (is_string($current_image)) {
             return true;
         }
         return file_exists_on_server($current_image) ? delete_file($current_image) : true;
@@ -82,7 +82,7 @@ class UserObserver
     {
         $image = $model->avatar;
 
-        if(is_string($image)){
+        if (is_string($image)) {
             return true;
         }
 

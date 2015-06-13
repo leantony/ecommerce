@@ -1,7 +1,7 @@
 <?php namespace app\http\ViewComposers;
 
 use App\Antony\DomainLogic\Contracts\Caching\CacheInterface;
-use app\Antony\DomainLogic\Modules\Categories\Base\CategoryEntity;
+use app\Antony\DomainLogic\Modules\Categories\CategoriesRepository;
 use App\Antony\DomainLogic\Modules\Composers\ViewComposer;
 use App\Models\Category;
 
@@ -16,9 +16,9 @@ class CategoryList extends ViewComposer
 
     /**
      * @param CacheInterface $cacheInterface
-     * @param CategoryEntity $categories
+     * @param CategoriesRepository $categories
      */
-    public function __construct(CacheInterface $cacheInterface, CategoryEntity $categories)
+    public function __construct(CacheInterface $cacheInterface, CategoriesRepository $categories)
     {
 
         $this->cache = $cacheInterface;

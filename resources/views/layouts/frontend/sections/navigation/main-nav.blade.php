@@ -195,7 +195,7 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-hover="dropdown">
-                        {{ $is_logged_in ? beautify($auth_user->first_name) : "Login&nbsp;/&nbsp;Register" }}
+                        {{ $is_logged_in ? $auth_user->present()->fullName : "Login&nbsp;/&nbsp;Register" }}
                         <b class="caret"></b>
                         @if($is_logged_in)
                             @if(!empty($auth_user->avatar))

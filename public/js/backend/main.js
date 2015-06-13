@@ -117,4 +117,65 @@
             format: 'YYYY-MM-DD'
         })
     );
+
+    $('#counties-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/backend/api/counties/data',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'alias', name: 'alias'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'updated_at', name: 'updated_at'},
+            {data: 'edit', name: 'edit', orderable: false, searchable: false}
+        ]
+    });
+
+    $('#articles-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/backend/api/articles/data',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'topic', name: 'topic'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'updated_at', name: 'updated_at'},
+            {data: 'edit', name: 'edit', orderable: false, searchable: false}
+        ]
+    });
+
+    $('#users-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/backend/api/users/data',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'first_name', name: 'first_name'},
+            {data: 'last_name', name: 'last_name'},
+            {data: 'email', name: 'email'},
+            {data: 'county.name', name: 'name', orderable: false, searchable: false},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'updated_at', name: 'updated_at'},
+            {data: 'edit', name: 'edit', orderable: false, searchable: false}
+        ]
+    });
+
+    $('#products-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/backend/api/products/data',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'category.name', name: 'category', orderable: false, searchable: false},
+            {data: 'subcategory.name', name: 'subcategory', orderable: false, searchable: false},
+            {data: 'brand.name', name: 'brand', orderable: false, searchable: false},
+            {data: 'quantity', name: 'quantity'},
+            {data: 'price', name: 'price'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'updated_at', name: 'updated_at'},
+            {data: 'edit', name: 'edit', orderable: false, searchable: false}
+        ]
+    });
 })(jQuery);

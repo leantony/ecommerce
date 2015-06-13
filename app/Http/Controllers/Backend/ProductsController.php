@@ -1,27 +1,28 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use app\Antony\DomainLogic\Modules\Product\Base\ProductEntity;
+use app\Antony\DomainLogic\Modules\Product\ProductRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
 use App\Http\Requests\Inventory\Products\ProductRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use yajra\Datatables\Datatables;
 
 class ProductsController extends Controller
 {
     /**
      * The products module
      *
-     * @var ProductEntity
+     * @var ProductRepository
      */
-    protected $product;
+    protected $products;
 
     /**
-     * @param ProductEntity $repository
+     * @param ProductRepository $repository
      */
-    public function __construct(ProductEntity $repository)
+    public function __construct(ProductRepository $repository)
     {
-        $this->product = $repository;
+        $this->products = $repository;
     }
 
     /**
@@ -31,13 +32,24 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $inventoryCount = $this->product->getInventoryCount();
+        $inventoryCount = $this->products->getInventoryCount();
 
-        $productsCount = $this->product->getAllProductsCount();
+        $productsCount = $this->products->getAllProductsCount();
 
-        $products = $this->product->get();
+        return view('backend.products.index', compact('inventoryCount', 'productsCount'));
+    }
 
-        return view('backend.products.index', compact('products', 'inventoryCount', 'productsCount'));
+    /**
+     * @return mixed
+     */
+    public function getDataTable()
+    {
+
+        $products = $this->products->with(['category', 'subcategory', 'brand', 'reviews'])->select('*');
+
+        return Datatables::of($products)->addColumn('edit', function ($article) {
+            return link_to(route('backend.products.edit', ['id' => $article->id]), 'Edit', ['data-target-model' => $article->id, 'class' => 'btn btn-xs btn-primary']);
+        })->editColumn('price', '{{format_money($price)}}')->make(true);
     }
 
     /**
@@ -59,7 +71,7 @@ class ProductsController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $this->data = $this->product->create($request->all());
+        $this->data = $this->products->add($request->all());
 
         return $this->handleRedirect($request, route('backend.products.index'));
     }
@@ -73,7 +85,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = $this->product->retrieve($id);
+        $product = $this->products->get($id);
 
         return view('backend.products.show', compact('product'));
     }
@@ -87,7 +99,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = $this->product->retrieve($id);
+        $product = $this->products->get($id);
 
         return view('backend.products.edit', compact('product'));
     }
@@ -102,7 +114,7 @@ class ProductsController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        $this->data = $this->product->edit($id, $request->all());
+        $this->data = $this->products->edit($id, $request->all());
 
         return $this->handleRedirect($request);
     }
@@ -117,7 +129,7 @@ class ProductsController extends Controller
      */
     public function destroy(DeleteInventoryRequest $request, $id)
     {
-        $this->data = $this->product->delete($id);
+        $this->data = $this->products->delete($id);
 
         return $this->handleRedirect($request, route('backend.products.index'));
     }

@@ -17,7 +17,7 @@ class Article extends \Eloquent
      */
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('l jS F Y h:i:s A');
+        return Carbon::parse($value)->diffForHumans();
     }
 
     /**
@@ -27,6 +27,16 @@ class Article extends \Eloquent
      */
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('l jS F Y h:i:s A');
+        return Carbon::parse($value)->diffForHumans();
+    }
+
+    /**
+     * @param $value
+     *
+     * @return string
+     */
+    public function getDeletedAtAttribute($value)
+    {
+        return Carbon::parse($value)->diffForHumans();
     }
 }

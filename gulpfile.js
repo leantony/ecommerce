@@ -1,6 +1,6 @@
 var elixir = require("laravel-elixir");
 
-elixir.config.sourcemaps = true;
+//elixir.config.sourcemaps = true;
 
 elixir(function (mix) {
 
@@ -56,7 +56,12 @@ elixir(function (mix) {
 
     mix.styles([
 
-        "summernote/dist/summernote.css"
+        // summernote
+        "summernote/dist/summernote.css",
+
+        // data tables
+        "datatables/media/css/jquery.dataTables.css"
+        //"datatables-bootstrap3/BS3/assets/css/datatables.css"
 
     ], "public/css/backend/all.css", bowerAssetsDir);
 
@@ -64,6 +69,8 @@ elixir(function (mix) {
     mix.copy(bowerAssetsDir + 'font-awesome/fonts', 'public/css/fonts');
 
     mix.copy(bowerAssetsDir + 'bootstrap/fonts', 'public/css/fonts');
+
+    mix.copy(bowerAssetsDir + 'datatables-bootstrap3/BS3/assets/images', 'public/css/images');
 
     // custom scripts
     mix.scriptsIn("resources/assets/js/custom", "public/js/frontend/main.js");
@@ -139,5 +146,11 @@ elixir(function (mix) {
 
     ], "public/js/backend/modules.js", "resources/assets/js/custom/libs/");
 
+    mix.scripts([
 
+        // data tables
+        "datatables/media/js/jquery.dataTables.js",
+        "datatables-bootstrap3/BS3/assets/js/datatables.js"
+
+    ], "public/js/backend/libs.js", bowerAssetsDir);
 });

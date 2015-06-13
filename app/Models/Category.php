@@ -1,12 +1,16 @@
 <?php namespace App\Models;
 
+use app\Antony\DomainLogic\Presenters\NamePresenter;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laracasts\Presenter\PresentableTrait;
 
 class Category extends Eloquent
 {
-    use SoftDeletes;
+    use SoftDeletes, PresentableTrait;
+
+    protected $presenter = NamePresenter::class;
 
     protected $fillable = [
         'name',
@@ -45,7 +49,7 @@ class Category extends Eloquent
      */
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
+        return Carbon::parse($value)->diffForHumans();
     }
 
     /**
@@ -55,7 +59,7 @@ class Category extends Eloquent
      */
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
+        return Carbon::parse($value)->diffForHumans();
     }
 
     /**
@@ -65,6 +69,6 @@ class Category extends Eloquent
      */
     public function getDeletedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
+        return Carbon::parse($value)->diffForHumans();
     }
 }

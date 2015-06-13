@@ -195,3 +195,5 @@ Breadcrumbs::register('product.view', function ($breadcrumbs, $product) {
 
     $breadcrumbs->push("product # " . $product->sku, route('product.view', ['product' => $product->id]));
 });
+
+require __DIR__ . '/backend_breadcrumbs.php';

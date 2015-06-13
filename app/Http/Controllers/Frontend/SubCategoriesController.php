@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use app\Antony\DomainLogic\Modules\SubCategories\Base\SubCategoryEntity;
+use app\Antony\DomainLogic\Modules\SubCategories\SubcategoriesRepository;
 use App\Http\Controllers\Controller;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -9,16 +9,16 @@ use Response;
 class SubCategoriesController extends Controller
 {
     /**
-     * The subcategories module
+     * The subcategories entity
      *
-     * @var SubCategoryEntity
+     * @var SubCategoriesRepository
      */
     protected $subcategory;
 
     /**
-     * @param SubCategoryEntity $repository
+     * @param SubCategoriesRepository $repository
      */
-    public function __construct(SubCategoryEntity $repository)
+    public function __construct(SubcategoriesRepository $repository)
     {
         $this->subcategory = $repository;
     }

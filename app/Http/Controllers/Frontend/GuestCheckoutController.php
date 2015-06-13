@@ -157,7 +157,7 @@ class GuestCheckoutController extends Controller
 
         $result = $registerUser->getFirstBy('email', '=', $email);
 
-        if(!is_null($result)){
+        if (!is_null($result)) {
 
             flash()->warning('Your email address is already in use. Please change it');
 

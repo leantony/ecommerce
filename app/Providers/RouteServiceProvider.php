@@ -31,7 +31,9 @@ class RouteServiceProvider extends ServiceProvider
         $router->model('category', 'App\Models\Category');
         $router->model('subcategory', 'App\Models\SubCategory');
         $router->model('article', 'App\Models\Article');
+        $router->model('county', 'App\Models\Article');
         $router->model('order', 'App\Models\Order');
+        $router->model('user', 'App\Models\User');
     }
 
     /**

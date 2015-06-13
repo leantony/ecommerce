@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Shared;
 
-use app\Antony\DomainLogic\Modules\Articles\Base\ArticlesEntity;
+use app\Antony\DomainLogic\Modules\Articles\ArticlesRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use app\Models\Article;
@@ -11,17 +11,17 @@ class HelpController extends Controller
 {
 
     /**
-     * @var ArticlesEntity
+     * @var ArticlesRepository
      */
-    private $articlesEntity;
+    private $articles;
 
     /**
-     * @param ArticlesEntity $articlesEntity
+     * @param ArticlesRepository $repository
      */
-    public function __construct(ArticlesEntity $articlesEntity)
+    public function __construct(ArticlesRepository $repository)
     {
 
-        $this->articlesEntity = $articlesEntity;
+        $this->articles = $repository;
     }
 
     /**
@@ -32,7 +32,7 @@ class HelpController extends Controller
     public function index()
     {
         // display help articles
-        $articles = $this->articlesEntity->get();
+        $articles = $this->articles->paginate();
 
         return view('shared.articles.help.index', compact('articles'));
     }
@@ -54,14 +54,7 @@ class HelpController extends Controller
      */
     public function show(Request $request, Article $article)
     {
-        if($request->get('popup') == 1){
-
-            // display help popup
-            return view('shared.articles.help.popup', compact('article'));
-        } else {
-
-            return view('shared.articles.help.view-article', compact('article'));
-        }
+        return $request->get('popup') == 1 ? view('shared.articles.help.popup', compact('article')) : view('shared.articles.help.view-article', compact('article'));
 
     }
 }

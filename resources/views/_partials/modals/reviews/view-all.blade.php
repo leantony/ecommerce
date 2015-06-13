@@ -18,7 +18,7 @@
                         </div>
                         <div class="pull-right col-md-10">
                             <h4>
-                                {{ $review->user->getUserName() }}
+                                {{ $review->user->present()->fullName }}
                             </h4>
                             On <span
                                     class="bold">{{ $review->created_at }}</span>

@@ -1,13 +1,12 @@
 <?php namespace App\Events;
 
-use App\Events\Event;
-
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
 
-class OrderWasSubmitted extends Event {
+class OrderWasSubmitted extends Event
+{
 
-	use SerializesModels;
+    use SerializesModels;
 
     /**
      * @var Collection
@@ -19,9 +18,9 @@ class OrderWasSubmitted extends Event {
      *
      * @param Collection $data
      */
-	public function __construct(Collection $data)
-	{
-		//
+    public function __construct(Collection $data)
+    {
+        //
         $this->order = $data;
     }
 

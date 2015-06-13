@@ -1,14 +1,13 @@
 <?php namespace App\Events;
 
-use App\Events\Event;
-
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Queue\SerializesModels;
 
-class productMailRequested extends Event {
+class productMailRequested extends Event
+{
 
-	use SerializesModels;
+    use SerializesModels;
 
     public $product;
 
@@ -23,13 +22,13 @@ class productMailRequested extends Event {
      * @param User $user
      * @param $recipient
      */
-	public function __construct(Product $product, User $user, $recipient)
-	{
-		$this->product = $product;
+    public function __construct(Product $product, User $user, $recipient)
+    {
+        $this->product = $product;
 
         $this->user = $user;
 
         $this->recipient = $recipient;
-	}
+    }
 
 }

@@ -4,7 +4,7 @@
 (function () {
 
     // login form
-    _validator.ajaxHandler('#loginForm', _validator.formsRules.login);
+    //_validator.ajaxHandler('#loginForm', _validator.formsRules.login);
 
     // registration form
     _validator.ajaxHandler('#registrationForm', _validator.formsRules.registration);
@@ -13,17 +13,17 @@
     _validator.ajaxHandler('#guestCheckoutForm', _validator.formsRules.guestCheckout);
 
     // reviews form
-    _validator.ajaxHandler('#reviewsForm', _validator.formsRules.reviews);
+    //_validator.ajaxHandler('#reviewsForm', _validator.formsRules.reviews);
 
     // editing contact info
-    _validator.ajaxHandler('#editContactInfo', _validator.formsRules.contactInfoEdit);
+    //_validator.ajaxHandler('#editContactInfo', _validator.formsRules.contactInfoEdit);
 
 
     // editing account password
-    _validator.ajaxHandler('#simplePasswordResetForm', _validator.formsRules.accountPasswordEdit);
+    //_validator.ajaxHandler('#simplePasswordResetForm', _validator.formsRules.accountPasswordEdit);
 
     // forgot password
-    _validator.ajaxHandler('#forgotPassword', _validator.formsRules.forgot);
+    //_validator.ajaxHandler('#forgotPassword', _validator.formsRules.forgot);
 
 
 })();

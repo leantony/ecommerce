@@ -1,6 +1,5 @@
 <?php namespace App\Models;
 
-use app\Antony\DomainLogic\Modules\ShoppingCart\Base\ShoppingCartReconciler;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\ReconcilerTrait;
 
 

@@ -150,7 +150,7 @@ return [
         'Laracasts\Flash\FlashServiceProvider',
         'Barryvdh\DomPDF\ServiceProvider',
         'Laracasts\Utilities\JavaScript\JavascriptServiceProvider',
-
+        'yajra\Datatables\DatatablesServiceProvider',
     ],
     /*
     |--------------------------------------------------------------------------
@@ -210,6 +210,7 @@ return [
         'Flash'       => 'Laracasts\Flash\Flash',
         'PDF'         => 'Barryvdh\DomPDF\Facade',
         'JavaScript'  => 'Laracasts\Utilities\JavaScript\JavaScriptFacade',
+        'Datatables'  => 'yajra\Datatables\Datatables',
     ],
 
 ];

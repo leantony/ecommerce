@@ -13,7 +13,7 @@
         {!! Form::open(['url' => action('Backend\UserRolesController@store')]) !!}
         <div class="col-md-6 category">
 
-            <p>{{ $user->getUserName() }}</p>
+            <p>{{ $user->present()->fullName }}</p>
 
             <div class="form-group">
                 {!! Form::label('roles', "This user has the following roles. uncheck those you dont want the user to have:", []) !!}

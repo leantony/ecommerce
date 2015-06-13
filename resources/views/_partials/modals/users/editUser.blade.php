@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="infoModalLabel">Edit details of <strong>{{ $user->getUserName() }}</strong>
+                <h4 class="modal-title" id="infoModalLabel">Edit details of <strong>{{ $user->present()->fullName }}</strong>
                 </h4>
 
                 <div class="msgDisplay m-t-10"></div>

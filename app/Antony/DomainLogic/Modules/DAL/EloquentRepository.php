@@ -9,6 +9,7 @@ use InvalidArgumentException;
 
 abstract class EloquentRepository implements RepositoryInterface
 {
+    use ExtendableTrait;
 
     /**
      * @var App
@@ -130,7 +131,7 @@ abstract class EloquentRepository implements RepositoryInterface
      *
      * @return bool|int
      */
-    public function delete($ids = [])
+    public function delete($ids)
     {
         if (is_array($ids) and count($ids) == 1) {
             return $this->model->destroy($ids) == 1;
@@ -143,21 +144,21 @@ abstract class EloquentRepository implements RepositoryInterface
      * Retrieve paginated data from a table
      *
      * @param array $relationships
-     * @param boolean $simple
+     * @param boolean $simplePaginate
      * @param int $pages
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null
      */
-    public function paginate($relationships = [], $simple = false, $pages = 10)
+    public function paginate($relationships = [], $simplePaginate = false, $pages = 10)
     {
         if (!empty($relationships)) {
-            if ($simple) {
+            if ($simplePaginate) {
                 return $this->with($relationships)->simplePaginate($pages);
             }
             return $this->with($relationships)->paginate($pages);
         }
 
-        return $simple ? $this->model->simplePaginate($pages) : $this->model->paginate($pages);
+        return $simplePaginate ? $this->model->simplePaginate($pages) : $this->model->paginate($pages);
     }
 
     /**
@@ -278,5 +279,36 @@ abstract class EloquentRepository implements RepositoryInterface
     public function add($data)
     {
         return $this->model->create($data);
+    }
+
+    /**
+     * @param array $cols
+     * @return $this
+     */
+    public function select(array $cols)
+    {
+
+        return $this->model->select($cols);
+    }
+
+    /**
+     * @param $id
+     * @param $data
+     * @return bool|int
+     */
+    public function edit($id, $data)
+    {
+
+        return $this->update($data, $id);
+    }
+
+    /**
+     * @param $id
+     * @return EloquentRepository|Model|\Illuminate\Support\Collection|null|static
+     */
+    public function get($id)
+    {
+
+        return $this->find($id);
     }
 }

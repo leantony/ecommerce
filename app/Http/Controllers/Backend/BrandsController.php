@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use app\Antony\DomainLogic\Modules\Brands\Base\BrandsEntity;
+use app\Antony\DomainLogic\Modules\Brands\BrandsRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\Brands\BrandFormRequest;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
@@ -11,14 +11,14 @@ class BrandsController extends Controller
     /**
      * The brands module
      *
-     * @var BrandsEntity
+     * @var BrandsRepository
      */
     protected $brand;
 
     /**
-     * @param BrandsEntity $brands
+     * @param BrandsRepository $brands
      */
-    public function __construct(BrandsEntity $brands)
+    public function __construct(BrandsRepository $brands)
     {
         $this->brand = $brands;
     }
@@ -30,7 +30,7 @@ class BrandsController extends Controller
      */
     public function index()
     {
-        $brands = $this->brand->get();
+        $brands = $this->brand->displayAllBrands();
 
         return view('backend.brands.index', compact('brands'));
     }
@@ -54,7 +54,7 @@ class BrandsController extends Controller
      */
     public function store(BrandFormRequest $request)
     {
-        $this->data = $this->brand->create($request->all());
+        $this->data = $this->brand->add($request->all());
 
         return $this->handleRedirect($request, route('backend.brands.index'));
     }
@@ -69,7 +69,7 @@ class BrandsController extends Controller
      */
     public function show($id)
     {
-        $brand = $this->brand->retrieve($id);
+        $brand = $this->brand->find($id);
 
         return view('backend.brands.edit', compact('brand'));
     }
@@ -83,7 +83,7 @@ class BrandsController extends Controller
      */
     public function edit($id)
     {
-        $brand = $this->brand->retrieve($id);
+        $brand = $this->brand->find($id);
 
         return view('backend.brands.edit', compact('brand'));
     }

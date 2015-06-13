@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use app\Antony\DomainLogic\Modules\Reviews\Base\ProductReviews;
+use app\Antony\DomainLogic\Modules\Reviews\ReviewsRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reviews\ReviewProductRequest;
 
@@ -8,14 +8,14 @@ class ReviewsController extends Controller
 {
 
     /**
-     * @var ProductReviews
+     * @var reviewsRepository
      */
     private $productReviews;
 
     /**
-     * @param ProductReviews $productReviews
+     * @param ReviewsRepository $productReviews
      */
-    public function __construct(ProductReviews $productReviews)
+    public function __construct(ReviewsRepository $productReviews)
     {
 
         $this->productReviews = $productReviews;
@@ -44,7 +44,7 @@ class ReviewsController extends Controller
     {
         $data = array_add($request->all(), 'product_id', $productID);
 
-        $this->data = $this->productReviews->create($data);
+        $this->data = $this->productReviews->add($data);
 
         $this->setSuccessMessage("Your review was saved");
 

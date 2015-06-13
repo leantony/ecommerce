@@ -1,11 +1,11 @@
 <?php namespace app\Antony\DomainLogic\Modules\Contact;
 
+use app\Antony\DomainLogic\Contracts\Contact\ContactMessageContract;
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\AnonymousMessages;
 
-class ContactMessageRepository extends EloquentRepository
+class ContactMessageRepository extends EloquentRepository implements ContactMessageContract
 {
-
 
     /**
      * Specify the Model class name
@@ -15,5 +15,22 @@ class ContactMessageRepository extends EloquentRepository
     public function model()
     {
         return 'App\Models\AnonymousMessages';
+    }
+
+    /**
+     * Send the contact message
+     *
+     * @param $data
+     *
+     * @return $this
+     */
+    public function send($data)
+    {
+        $msg = parent::create($data);
+
+        // we store the sent status in the session, to prevent multiple messages from being sent by the same user, in the same session
+        session(['message.sent' => true]);
+
+        return $msg;
     }
 }

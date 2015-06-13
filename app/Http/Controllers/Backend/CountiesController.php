@@ -1,24 +1,25 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use app\Antony\DomainLogic\Modules\Counties\Base\CountyEntity;
+use app\Antony\DomainLogic\Modules\Counties\CountiesRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Counties\CountyRequest;
 use App\Http\Requests\Counties\DeleteCountyRequest;
 use Response;
+use yajra\Datatables\Datatables;
 
 class CountiesController extends Controller
 {
     /**
      * The counties module
      *
-     * @var CountyEntity
+     * @var CountiesRepository
      */
     protected $county;
 
     /**
-     * @param CountyEntity $repository
+     * @param CountiesRepository $repository
      */
-    public function __construct(CountyEntity $repository)
+    public function __construct(CountiesRepository $repository)
     {
         $this->county = $repository;
     }
@@ -30,9 +31,22 @@ class CountiesController extends Controller
      */
     public function index()
     {
-        $counties = $this->county->get();
+        return view('backend.counties.index');
+    }
 
-        return view('backend.counties.index', compact('counties'));
+    /**
+     * @return mixed
+     */
+    public function getDataTable()
+    {
+
+        $counties = $this->county->select(['id', 'name', 'alias', 'created_at', 'updated_at']);
+
+        $data = Datatables::of($counties)->addColumn('edit', function ($county) {
+            return link_to(route('backend.counties.edit', ['id' => $county->id]), 'Edit', ['data-target-model' => $county->id, 'class' => 'btn btn-xs btn-primary']);
+        });
+
+        return $data->make(true);
     }
 
     /**
@@ -54,7 +68,7 @@ class CountiesController extends Controller
      */
     public function store(CountyRequest $request)
     {
-        $this->data = $this->county->create($request->all());
+        $this->data = $this->county->add($request->all());
 
         return $this->handleRedirect($request, route('backend.counties.index'));
     }
@@ -68,7 +82,7 @@ class CountiesController extends Controller
      */
     public function show($id)
     {
-        $county = $this->county->retrieve($id);
+        $county = $this->county->get($id);
 
         return view('backend.counties.edit', compact('county'));
     }
@@ -82,7 +96,7 @@ class CountiesController extends Controller
      */
     public function edit($id)
     {
-        $county = $this->county->retrieve($id);
+        $county = $this->county->get($id);
 
         return view('backend.counties.edit', compact('county'));
     }

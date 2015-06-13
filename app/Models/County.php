@@ -1,14 +1,22 @@
 <?php namespace App\Models;
 
+use app\Antony\DomainLogic\Presenters\NamePresenter;
 use Carbon\Carbon;
 use Eloquent;
+use Laracasts\Presenter\PresentableTrait;
 
 class County extends Eloquent
 {
+    use PresentableTrait;
+
+    protected $presenter = NamePresenter::class;
 
     protected $fillable = ['name', 'alias'];
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function users()
     {
         return $this->hasMany('App\Models\User');
@@ -31,7 +39,7 @@ class County extends Eloquent
      */
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('l jS F Y h:i:s A');
+        return Carbon::parse($value)->diffForHumans();
     }
 
     /**
@@ -41,7 +49,7 @@ class County extends Eloquent
      */
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
+        return Carbon::parse($value)->diffForHumans();
     }
 
     /**
@@ -51,6 +59,6 @@ class County extends Eloquent
      */
     public function getDeletedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
+        return Carbon::parse($value)->diffForHumans();
     }
 }

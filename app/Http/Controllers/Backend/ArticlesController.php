@@ -1,23 +1,25 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use app\Antony\DomainLogic\Modules\Articles\Base\ArticlesEntity;
+use app\Antony\DomainLogic\Modules\Articles\ArticlesRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\Articles\ArticleRequest;
+use app\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use yajra\Datatables\Datatables;
 
 class ArticlesController extends Controller
 {
     /**
-     * @var ArticlesEntity
+     * @var ArticlesRepository
      */
     private $articlesEntity;
 
     /**
-     * @param ArticlesEntity $articlesEntity
+     * @param ArticlesRepository $articlesEntity
      */
-    public function __construct(ArticlesEntity $articlesEntity)
+    public function __construct(ArticlesRepository $articlesEntity)
     {
 
         $this->articlesEntity = $articlesEntity;
@@ -30,9 +32,20 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $articles = $this->articlesEntity->get();
+        return view('backend.articles.index');
+    }
 
-        return view('backend.articles.index', compact('articles'));
+    /**
+     * @return mixed
+     */
+    public function getDataTable()
+    {
+
+        $articles = $this->articlesEntity->select(['id', 'topic', 'created_at', 'updated_at']);
+
+        return Datatables::of($articles)->addColumn('edit', function ($article) {
+            return link_to(route('backend.articles.edit', ['article' => $article->id]), 'Edit', ['data-target-model' => $article->id, 'class' => 'btn btn-xs btn-primary']);
+        })->make(true);
     }
 
     /**
@@ -53,7 +66,7 @@ class ArticlesController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        $this->data = $this->articlesEntity->create($request->all());
+        $this->data = $this->articlesEntity->add($request->all());
 
         return $this->handleRedirect($request, route('backend.articles.index'));
     }
@@ -61,13 +74,11 @@ class ArticlesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param Article $article
      * @return Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        $article = $this->articlesEntity->retrieve($id);
-
         return view('backend.articles.edit', compact('article'));
     }
 
@@ -77,10 +88,9 @@ class ArticlesController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        $article = $this->articlesEntity->retrieve($id);
-
+        dd($article);
         return view('backend.articles.edit', compact('article'));
     }
 

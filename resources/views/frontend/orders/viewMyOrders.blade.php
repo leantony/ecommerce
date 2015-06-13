@@ -17,7 +17,7 @@
 
     <div class="container" style="margin-bottom: 84px">
         <div class="row outer-top-bd">
-            <h1>{{ $auth_user->getUserName() . "'s orders" }}</h1>
+            <h1>{{ $auth_user->present()->fullName . "'s orders" }}</h1>
             <hr/>
             <div class="col-md-8">
                 <p>Click on an order to display more details about it</p>

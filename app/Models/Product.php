@@ -5,14 +5,20 @@ use app\Antony\DomainLogic\Modules\Product\Traits\ProductReviewsTrait;
 use app\Antony\DomainLogic\Modules\Product\Traits\ProductTrait;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Discounts\PercentageDiscount;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\DiscountsTrait;
+use app\Antony\DomainLogic\Presenters\NamePresenter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laracasts\Presenter\PresentableTrait;
 use Money\Currency;
 use Money\Money;
 
 class Product extends \Eloquent
 {
+    use PresentableTrait;
+
     use ProductTrait, DiscountsTrait, ProductReviewsTrait, SoftDeletes, ProductReconciler;
+
+    protected $presenter = NamePresenter::class;
 
     // public $incrementing = false;
 
@@ -107,7 +113,7 @@ class Product extends \Eloquent
      */
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
+        return Carbon::parse($value)->diffForHumans();
     }
 
     /**
@@ -117,7 +123,7 @@ class Product extends \Eloquent
      */
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
+        return Carbon::parse($value)->diffForHumans();
     }
 
     /**
@@ -127,7 +133,7 @@ class Product extends \Eloquent
      */
     public function getDeletedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
+        return Carbon::parse($value)->diffForHumans();
     }
 
     // RELATIONSHIPS

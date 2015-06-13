@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use app\Antony\DomainLogic\Modules\Categories\Base\CategoryEntity;
+use app\Antony\DomainLogic\Modules\Categories\CategoriesRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\Categories\CategoryRequest;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
@@ -11,14 +11,14 @@ class CategoriesController extends Controller
     /**
      * The categories module
      *
-     * @var CategoryEntity
+     * @var CategoriesRepository
      */
     protected $category;
 
     /**
-     * @param CategoryEntity $categoriesRepository
+     * @param CategoriesRepository $categoriesRepository
      */
-    public function __construct(CategoryEntity $categoriesRepository)
+    public function __construct(CategoriesRepository $categoriesRepository)
     {
         $this->category = $categoriesRepository;
     }
@@ -30,7 +30,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = $this->category->get();
+        $categories = $this->category->paginate();
 
         return view('backend.categories.index', compact('categories'));
     }
@@ -54,7 +54,7 @@ class CategoriesController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $this->data = $this->category->create($request->all());
+        $this->data = $this->category->add($request->all());
 
         return $this->handleRedirect($request, route('backend.categories.index'));
 
@@ -69,7 +69,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $category = $this->category->retrieve($id);
+        $category = $this->category->get($id);
 
         return view('backend.categories.edit', compact('category'));
     }
@@ -83,7 +83,7 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = $this->category->retrieve($id);
+        $category = $this->category->get($id);
 
         return view('backend.categories.edit', compact('category'));
     }

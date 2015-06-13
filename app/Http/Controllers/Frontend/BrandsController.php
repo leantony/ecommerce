@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use app\Antony\DomainLogic\Modules\Brands\Base\BrandsEntity;
+use app\Antony\DomainLogic\Modules\Brands\BrandsRepository;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
@@ -11,14 +11,14 @@ class BrandsController extends Controller
     /**
      * The brands entity
      *
-     * @var BrandsEntity
+     * @var BrandsRepository
      */
     protected $brand;
 
     /**
-     * @param BrandsEntity $brands
+     * @param BrandsRepository $brands
      */
-    public function __construct(BrandsEntity $brands)
+    public function __construct(BrandsRepository $brands)
     {
         $this->brand = $brands;
     }

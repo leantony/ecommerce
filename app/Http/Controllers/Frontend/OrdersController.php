@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use app\Antony\DomainLogic\Modules\Orders\Base\OrderEntity;
+use app\Antony\DomainLogic\Modules\Orders\OrdersRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Orders\SubmitOrderRequest;
 use Illuminate\Http\Request;
@@ -9,14 +9,14 @@ use Illuminate\Http\Response;
 class OrdersController extends Controller
 {
     /**
-     * @var OrderEntity
+     * @var OrdersRepository
      */
     private $orders;
 
     /**
-     * @param OrderEntity $orders
+     * @param OrdersRepository $orders
      */
-    public function __construct(OrderEntity $orders)
+    public function __construct(OrdersRepository $orders)
     {
         $this->orders = $orders;
 
@@ -72,7 +72,7 @@ class OrdersController extends Controller
     {
         $data = $this->orders->displaySpecificOrder($order->id);
 
-        if($data->count() === 0){
+        if ($data->count() === 0) {
 
             $this->setErrorMessage("No orders were found");
             return $this->handleErrorWithFlashMessage(null, route('myorders'));
@@ -84,7 +84,7 @@ class OrdersController extends Controller
 
         $user = auth()->user();
 
-        foreach($data as $orders){
+        foreach ($data as $orders) {
 
             $order = $orders;
 

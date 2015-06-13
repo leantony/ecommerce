@@ -23,8 +23,16 @@
                     <br/>
                 </div>
             </div>
+            @section('breadcrumbs')
+                <div class="row  ">
+                    <div class="col-md-12 hidden-xs">
+                        <div class="m-t-10">
+                            {!! Breadcrumbs::renderIfExists() !!}
+                        </div>
+                    </div>
+                </div>
+            @show
         </div>
-
         <div id="ajax-image"></div>
         <div class="container" style="margin-top: 10px; margin-bottom: 100px" id="backend">
             @section('content')

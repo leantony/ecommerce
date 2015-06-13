@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use app\Antony\DomainLogic\Modules\Categories\Base\CategoryEntity;
+use app\Antony\DomainLogic\Modules\Categories\CategoriesRepository;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -12,9 +12,9 @@ class CategoriesController extends Controller
     protected $category;
 
     /**
-     * @param CategoryEntity $repository
+     * @param CategoriesRepository $repository
      */
-    public function __construct(CategoryEntity $repository)
+    public function __construct(CategoriesRepository $repository)
     {
         $this->category = $repository;
     }

@@ -3,7 +3,7 @@
     <table class="table table-bordered">
         <tr>
             <th class="bold">UserName:</th>
-            <td>{{ $user->getUserName() }}</td>
+            <td>{{ $user->present()->fullName }}</td>
         </tr>
         <tr>
             <th class="bold">Email Address</th>

@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="row admin-form">
-        <h4>Updating {{ beautify($user->getUserName()) }}</h4>
+        <h4>Updating {{ beautify($user->present()->fullName) }}</h4>
         <hr/>
         <div class="col-md-6">
             <div class="pull-left">

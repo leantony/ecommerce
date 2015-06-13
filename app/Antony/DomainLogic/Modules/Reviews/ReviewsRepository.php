@@ -6,7 +6,6 @@ use App\Models\Review;
 class ReviewsRepository extends EloquentRepository
 {
 
-
     /**
      * @param $data
      *

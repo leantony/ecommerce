@@ -1,4 +1,4 @@
-<h3>{{ beautify($user->first_name) . '\'s' }} Account</h3>
+<h3>{{ $user->present()->first_name . '\'s' }} Account</h3>
 <hr/>
 <div class="alert alert-info">
     <p>Personal info</p>
@@ -11,7 +11,7 @@
     <tr>
         <th class="bold">Your Name:</th>
         <td>
-            {{ $user->getUserName() }}
+            {{ $user->present()->fullName }}
         </td>
     </tr>
     <tr>
@@ -53,7 +53,7 @@
                 Date of birth:
             </th>
             <td>
-                {{ $user->dob }} <span class="text text-info">({{ $user->getUsrAge() . " Years" }})</span>
+                {{ $user->dob }} <span class="text text-info">({{ $user->present()->age . " Years" }})</span>
             </td>
         </tr>
     @endif

@@ -1,6 +1,5 @@
 <?php namespace App\Providers;
 
-use App\Antony\DomainLogic\Modules\Cache\LaravelCache;
 use App\Antony\DomainLogic\Modules\Images\ImageProcessor;
 use App\Models\Product;
 use App\Models\User;

@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof ModelNotFoundException) {
 
-            $code = is_null($e->getStatusCode()) ? 404 : $e->getStatusCode();
+            $code = empty($e->getCode()) ? 404 : $e->getCode();
 
             return response()->view('errors.displayError', ['code' => $code, 'message' => "We're sorry but the page you were looking for could not be found"], $code);
         }

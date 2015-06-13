@@ -142,7 +142,7 @@
         <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
             <li class="dropdown  {{ eq(Request::segment(2), 'myaccount') ? 'active' : '' }}">
                 <a href="#" class="dropdown-toggle" data-hover="dropdown">
-                    {{ $auth_user->getUserName() }}
+                    {{ $auth_user->present()->fullName }}
                     <b class="caret"></b>
                     @if($is_logged_in)
                         @if(!empty($auth_user->avatar))

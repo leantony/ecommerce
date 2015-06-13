@@ -21,7 +21,9 @@
     "lightbox2": "~2.7.1",
     "select2": "~3.5.2",
     "sweetalert": "~0.5.0",
-    "scrollup": "~2.4.1"
+    "scrollup": "~2.4.1",
+    "datatables-bootstrap3": "*",
+    "datatables": "~1.10.7"
   },
   "private": true
 }

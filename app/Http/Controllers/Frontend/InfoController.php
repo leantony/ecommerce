@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use app\Antony\DomainLogic\Modules\Contact\Base\ContactMessagesEntity;
+use app\Antony\DomainLogic\Modules\Contact\ContactMessageRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactMessage\ContactMessageRequest;
 
@@ -8,14 +8,14 @@ class InfoController extends Controller
 {
 
     /**
-     * @var ContactMessagesEntity
+     * @var ContactMessageRepository
      */
     private $msg;
 
     /**
-     * @param ContactMessagesEntity $contactMessageRepo
+     * @param ContactMessageRepository $contactMessageRepo
      */
-    public function __construct(ContactMessagesEntity $contactMessageRepo)
+    public function __construct(ContactMessageRepository $contactMessageRepo)
     {
 
         $this->msg = $contactMessageRepo;

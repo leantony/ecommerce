@@ -20,6 +20,19 @@ trait ErrorAction
     protected $errorConditions = [false, -1, null];
 
     /**
+     * This is a wrapper behind the AJAX and normal request handlers
+     *
+     * @param Request $request
+     * @param $route
+     * @param array $params
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function executeErrorHandler(Request $request, $route, $params = [])
+    {
+        return $request->ajax() ? $this->getJsonErrorResponse(422, $params) : $this->handleErrorWithFlashMessage($request->all(), $route);
+    }
+
+    /**
      * Returns a JSON response back to the client
      *
      * @param int $code
@@ -75,18 +88,5 @@ trait ErrorAction
         // use routes for a redirect, or simple urls. don't let the param name confuse you
         return $this->useRoutes ? redirect()->route($route) : redirect()->to($route);
 
-    }
-
-    /**
-     * This is a wrapper behind the AJAX and normal request handlers
-     *
-     * @param Request $request
-     * @param $route
-     * @param array $params
-     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function executeErrorHandler(Request $request, $route, $params = [])
-    {
-        return $request->ajax() ? $this->getJsonErrorResponse(422, $params) : $this->handleErrorWithFlashMessage($request->all(), $route);
     }
 }

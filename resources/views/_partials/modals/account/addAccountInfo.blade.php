@@ -33,7 +33,7 @@
                     <p>Your current profile picture</p>
                     @if(file_exists_on_server($user->avatar))
                         <div class="current-image">
-                            <a data-lightbox="image-1" data-title="{{ $user->getUserName() }}"
+                            <a data-lightbox="image-1" data-title="{{ $user->present()->fullName }}"
                                href="{{ display_img($user, 'avatar') }}">
                                 <img style="height: 128px; width:128px" src="{{ display_img($user, 'avatar') }}"
                                      class="img-responsive img-thumbnail img-circle">

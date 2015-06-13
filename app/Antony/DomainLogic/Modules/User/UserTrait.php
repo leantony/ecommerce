@@ -35,14 +35,6 @@ trait UserTrait
     protected $cart;
 
     /**
-     * @return string
-     */
-    public function getUserName()
-    {
-        return beautify($this->first_name . " " . $this->last_name);
-    }
-
-    /**
      * @return boolean
      */
     public function canAccessBackend()
@@ -165,16 +157,4 @@ trait UserTrait
 
     }
 
-    /**
-     * User's age helper
-     *
-     * @return int
-     */
-    public function getUsrAge()
-    {
-        $value = empty($this->dob) ? 0 : $this->checkAge($this->dob, true);
-
-        // as per the bible, we are allowed to live up to 120 days. hehe
-        return $value > 120 ? 0 : $value;
-    }
 }

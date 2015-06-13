@@ -9,21 +9,21 @@ use Money\Money;
 trait ProductReconciler
 {
     /**
-     * Product quantity
+     * Default product quantity, if not set
      *
      * @var int
      */
     protected $qt = 1;
 
     /**
-     * Product instance
+     * The product instance
      *
      * @var Product
      */
     private $product = null;
 
     /**
-     * Set the product quantity. Default = 1
+     * Set the product quantity
      *
      * @param $value
      *
@@ -197,7 +197,7 @@ trait ProductReconciler
     {
         if (!$money instanceof Money) {
 
-            $money = new Money($money, new Currency($this->defaultCurrency));
+            $money = new Money((int)$money, new Currency($this->defaultCurrency));
         }
         $formatter = new MoneyFormatter();
 

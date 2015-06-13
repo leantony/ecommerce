@@ -5,6 +5,9 @@
     <title>PC-World Admin - Welcome</title>
 @stop
 
+@section('breadcrumbs')
+
+@stop
 @section('content')
 
     <!-- Page Heading -->
@@ -15,7 +18,7 @@
             </h1>
             <hr/>
             <h4>
-                Welcome {{ $auth_user->getUserName() }}
+                Welcome {{ $auth_user->present()->fullName }}
             </h4>
 
             <p>From the backend, you can configure most aspects of the system. You can add products, users, categories,

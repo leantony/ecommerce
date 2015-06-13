@@ -2,7 +2,6 @@
 
 use app\Antony\DomainLogic\Contracts\ShoppingCart\ShoppingCartCache;
 use app\Antony\DomainLogic\Contracts\ShoppingCart\ShoppingCartContract;
-use app\Antony\DomainLogic\Modules\Cookies\ShoppingCartCookie;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Base\ShoppingCartRepository;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\ReconcilerTrait;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\SessionCache;
@@ -12,7 +11,7 @@ use Illuminate\Session\SessionInterface;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
-abstract class Basket implements ShoppingCartContract, ShoppingCartCache
+class Basket implements ShoppingCartContract, ShoppingCartCache
 {
     use ReconcilerTrait, SessionCache;
 
@@ -54,15 +53,11 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
 
     /**
      * @param ShoppingCartRepository $cartRepository
-     * @param ShoppingCartCookie $shoppingCartCookie
      */
-    public function __construct(ShoppingCartRepository $cartRepository, ShoppingCartCookie $shoppingCartCookie)
+    public function __construct(ShoppingCartRepository $cartRepository)
     {
-
         $this->cartRepository = $cartRepository;
-        $this->cookie = $shoppingCartCookie;
         $this->session = app('session');
-
     }
 
     /**
@@ -104,7 +99,7 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
 
         $this->existing_quantity = empty($this->getCart()) ? 1 : $this->cartRepository->getExistingProductQuantity($this->getCart(), $product->id);
 
-        // check for an overload
+        // check for an overload, ie if the existing quantity above exceeds the actual quantity of a product
         $this->validated_quantity = $this->existing_quantity > $product->quantity ? $this->existing_quantity - $quantity : $quantity;
 
         return $this->validated_quantity;
@@ -165,11 +160,10 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
         // This will prevent adding duplicate products in the same basket
         if ($this->existing_quantity === 0) {
 
-            //dd($this->existing_quantity);
             $this->getCart()->products()->attach([$product->id], ['quantity' => $qt, 'cart_id' => $this->getCart()->id]);
 
             // store the products in the cache. This way, even if a page reload is done,
-            // the data is simply retrieved from the cache, without really impacting the DB
+            // the data is simply retrieved from the cache, without really making any DB round-trips
             $this->cacheProducts($this->getCart()->products()->get());
 
             return static::PRODUCTS_ADDED;
@@ -254,10 +248,10 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
     {
         foreach ($this->getCachedProducts() as $product) {
 
-            $this->removeProduct($product);
+            $this->getCart()->products()->detach($product->id);
         }
 
-        // remove all cached products
+        // This method call will pull the cache key corresponding to the products stored
         $this->removeCachedProducts();
 
         return empty($this->getCachedProducts()) ? static::CART_EMPTY : -1;
@@ -291,16 +285,21 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
      */
     public function displayShoppingCart($json = false)
     {
+        // check if the shopping cart exists in the cache. Since it is cached as soon as its created,
+        // then a cache check would be fine
         if (!$this->basketIsCached()) {
             return null;
         }
         $cart_data = [];
         $products = [];
 
+        // check for products in the cart
         if (!empty($this->getProducts())) {
 
+            // get the products
             foreach ($this->getProducts() as $product) {
 
+                // access the quantity of the product in the cart
                 $qt = $product->pivot->quantity;
                 // set the quantity of this product, to be used for the calculations
                 $product->quantity($qt);
@@ -327,11 +326,11 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
             // build the shopping cart array
             $cart_data['cart'] = [
                 'id' => $this->getCart()->id,
-                // Get the total count of all products in the basket
+                // Get the sum of individual product quantities
                 'total_products' => $this->getProducts()->sum(function ($p) {
                     return $p->pivot->quantity;
                 }),
-                // Get the count of an individual product in the basket
+                // Get the number of products in the basket, regardless of their quantities.
                 'product_count' => $this->getProducts()->count(),
                 'currency' => config('site.currencies.default', 'KES'),
                 'shipping' => $this->getShippingSubTotal(false),
@@ -345,6 +344,7 @@ abstract class Basket implements ShoppingCartContract, ShoppingCartCache
             return $json ? json_encode($data) : $data;
         }
 
+        // if there were no products, we return null
         return null;
 
     }

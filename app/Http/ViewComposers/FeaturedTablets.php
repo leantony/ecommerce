@@ -2,7 +2,7 @@
 
 use App\Antony\DomainLogic\Contracts\Caching\CacheInterface;
 use App\Antony\DomainLogic\Modules\Composers\ViewComposer;
-use app\Antony\DomainLogic\Modules\SubCategories\Base\SubCategoryEntity;
+use app\Antony\DomainLogic\Modules\SubCategories\SubcategoriesRepository;
 
 class FeaturedTablets extends ViewComposer
 {
@@ -16,9 +16,9 @@ class FeaturedTablets extends ViewComposer
 
     /**
      * @param CacheInterface $cacheInterface
-     * @param SubCategoryEntity $repository
+     * @param SubCategoriesRepository $repository
      */
-    public function __construct(CacheInterface $cacheInterface, SubCategoryEntity $repository)
+    public function __construct(CacheInterface $cacheInterface, SubcategoriesRepository $repository)
     {
         $this->dataSource = $repository;
 

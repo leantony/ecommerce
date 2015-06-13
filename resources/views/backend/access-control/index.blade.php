@@ -55,7 +55,7 @@
                             <tr>
                                 <td>
                                     <a href="{{ route('backend.users.show', ['id' => $user->id]) }}">
-                                        {{ $user->getUserName() }}
+                                        {{ $user->present()->fullName }}
                                     </a>
                                 </td>
                                 <td>

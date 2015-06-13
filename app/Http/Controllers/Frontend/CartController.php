@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use app\Antony\DomainLogic\Modules\ShoppingCart\ShoppingCartEntity;
+use app\Antony\DomainLogic\Modules\ShoppingCart\Base\Main\Basket as ShoppingCartEntity;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cart\ShoppingCartRequest;
 use Illuminate\Http\Request;

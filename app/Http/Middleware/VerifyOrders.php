@@ -42,6 +42,7 @@ class VerifyOrders
 
             return redirect()->route('checkout.step1');
         }
+
         return $next($request);
     }
 

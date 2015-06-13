@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Backend;
 
-use app\Antony\DomainLogic\Modules\SubCategories\Base\SubCategoryEntity;
+use app\Antony\DomainLogic\Modules\SubCategories\SubcategoriesRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
 use App\Http\Requests\Inventory\SubCategories\SubCategoryRequest;
@@ -11,14 +11,14 @@ class SubCategoriesController extends Controller
     /**
      * The subcategories entity
      *
-     * @var SubCategoryEntity
+     * @var SubCategoriesRepository
      */
     protected $subcategory;
 
     /**
-     * @param SubCategoryEntity $repository
+     * @param SubCategoriesRepository $repository
      */
-    public function __construct(SubCategoryEntity $repository)
+    public function __construct(SubcategoriesRepository $repository)
     {
         $this->subcategory = $repository;
     }
@@ -30,7 +30,7 @@ class SubCategoriesController extends Controller
      */
     public function index()
     {
-        $subcategories = $this->subcategory->get();
+        $subcategories = $this->subcategory->displayAllSubCategories();
 
         return view('backend.subCategories.index', compact('subcategories'));
     }
@@ -54,7 +54,7 @@ class SubCategoriesController extends Controller
      */
     public function store(SubCategoryRequest $request)
     {
-        $this->data = $this->subcategory->create($request->all());
+        $this->data = $this->subcategory->add($request->all());
 
         return $this->handleRedirect($request, route('backend.subcategories.index'));
     }
@@ -68,7 +68,7 @@ class SubCategoriesController extends Controller
      */
     public function show($id)
     {
-        $subcategory = $this->subcategory->retrieve($id);
+        $subcategory = $this->subcategory->get($id);
 
         return view('backend.subCategories.edit', compact('subcategory'));
     }
@@ -82,7 +82,7 @@ class SubCategoriesController extends Controller
      */
     public function edit($id)
     {
-        $subcategory = $this->subcategory->retrieve($id);
+        $subcategory = $this->subcategory->get($id);
 
         return view('backend.subCategories.edit', compact('subcategory'));
     }

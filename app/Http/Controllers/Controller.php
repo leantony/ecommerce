@@ -2,4 +2,6 @@
 
 use app\Http\Controllers\Base\EnhancedController;
 
-abstract class Controller extends EnhancedController{}
+abstract class Controller extends EnhancedController
+{
+}

@@ -397,3 +397,22 @@ function link_to_secure_route($name, array $params = [])
 
     return secure_url($url);
 }
+
+/**
+ * @param $class
+ * @param null $title
+ * @return string
+ */
+function generate_icon($class, $title = null)
+{
+
+    $start = "<i ";
+
+    $classSection = "class='{$class}'";
+
+    $content = ">&nbsp;&nbsp;{$title}";
+
+    $end = " <//i>";
+
+    return $start . $classSection . $content . $end;
+}

@@ -3,7 +3,7 @@
 use app\Antony\DomainLogic\Contracts\Security\AccessControl;
 use app\Antony\DomainLogic\Modules\DAL\Base\DataAccessLayer;
 
-class Security extends DataAccessLayer implements AccessControl
+class Security implements AccessControl
 {
 
     /**
@@ -55,7 +55,7 @@ class Security extends DataAccessLayer implements AccessControl
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null
      */
-    public function get()
+    public function getAllItems()
     {
         // TODO: Implement get() method.
     }

@@ -145,6 +145,39 @@ trait AuthRedirector
      * @param Request $request
      * @return $this|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
+    protected function getLoginResponse(Request $request)
+    {
+        if (is_null($this->data)) {
+
+            // user's account isn't activated
+            return $this->getAccountActivationResponse($request);
+        }
+
+        if ($request->ajax()) {
+
+            if (!$this->data) {
+                return response()->json(["message" => $this->loginErrorMessage], 401);
+            }
+
+            return response()->json(["target" => secure_url(session("url.intended", $this->redirectPath()))]);
+
+        } else {
+
+            if (!$this->data) {
+                flash()->error($this->loginErrorMessage);
+
+                return redirect($this->loginPath())->withInput(
+                    $request->only('email', 'remember')
+                );
+            }
+            return redirect()->intended($this->redirectPath());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     protected function getAccountActivationResponse(Request $request)
     {
         if ($request->ajax()) {
@@ -172,38 +205,5 @@ trait AuthRedirector
             return property_exists($this, 'loginPath') ? $this->loginPath : '/backend/login';
         }
         return property_exists($this, 'loginPath') ? $this->loginPath : '/account/login';
-    }
-
-    /**
-     * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    protected function getLoginResponse(Request $request)
-    {
-        if(is_null($this->data)){
-
-            // user's account isn't activated
-            return $this->getAccountActivationResponse($request);
-        }
-
-        if ($request->ajax()) {
-
-            if (!$this->data) {
-                return response()->json(["message" => $this->loginErrorMessage], 401);
-            }
-
-            return response()->json(["target" => secure_url(session("url.intended", $this->redirectPath()))]);
-
-        } else {
-
-            if (!$this->data) {
-                flash()->error($this->loginErrorMessage);
-
-                return redirect($this->loginPath())->withInput(
-                    $request->only('email', 'remember')
-                );
-            }
-            return redirect()->intended($this->redirectPath());
-        }
     }
 }

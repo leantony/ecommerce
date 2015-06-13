@@ -2,7 +2,8 @@
 
 use Illuminate\Events\Dispatcher;
 
-class AuthEventSubscriber {
+class AuthEventSubscriber
+{
 
     /**
      * Handle user login events.
@@ -23,7 +24,7 @@ class AuthEventSubscriber {
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Dispatcher  $events
+     * @param  Dispatcher $events
      * @return array
      */
     public function subscribe($events)

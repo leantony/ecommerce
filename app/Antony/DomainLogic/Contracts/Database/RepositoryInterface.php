@@ -12,11 +12,11 @@ interface RepositoryInterface
 
     /**
      * @param array $relationships
-     * @param bool $simple
+     * @param bool $simplePaginate
      * @param int $pages
      * @return mixed
      */
-    public function paginate($relationships = [], $simple = false, $pages = 10);
+    public function paginate($relationships = [], $simplePaginate = false, $pages = 10);
 
     /**
      * @param array $columns
@@ -72,5 +72,5 @@ interface RepositoryInterface
      *
      * @return mixed
      */
-    public function delete($ids = []);
+    public function delete($ids);
 }

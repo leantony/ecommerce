@@ -1,7 +1,7 @@
 <?php namespace app\http\ViewComposers;
 
 use App\Antony\DomainLogic\Modules\Composers\ViewComposer;
-use app\Antony\DomainLogic\Modules\ShoppingCart\ShoppingCartEntity as MyCart;
+use app\Antony\DomainLogic\Modules\ShoppingCart\Base\Main\Basket as ShoppingCartEntity;
 use App\Models\Cart;
 use Illuminate\View\View;
 
@@ -15,11 +15,11 @@ class ShoppingCart extends ViewComposer
     protected $outputVariable = 'cart';
 
     /**
-     * @param MyCart $repository
+     * @param ShoppingCartEntity $entity
      */
-    public function __construct(MyCart $repository)
+    public function __construct(ShoppingCartEntity $entity)
     {
-        $this->dataSource = $repository;
+        $this->dataSource = $entity;
     }
 
     /**

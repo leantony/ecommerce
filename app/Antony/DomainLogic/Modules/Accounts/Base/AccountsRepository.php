@@ -1,7 +1,6 @@
 <?php namespace app\Antony\DomainLogic\Modules\Accounts\Base;
 
 use app\Antony\DomainLogic\Contracts\Account\AccountsContract;
-use app\Antony\DomainLogic\Modules\DAL\Base\DataAccessLayer;
 use app\Antony\DomainLogic\Modules\User\UserRepository;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Guard;
@@ -9,7 +8,7 @@ use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Http\Exception\HttpResponseException;
 use Illuminate\Http\Response;
 
-class AccountsRepository extends DataAccessLayer implements AccountsContract
+class AccountsRepository implements AccountsContract
 {
     /**
      * Flag to indicate if the request is from/to the backend
@@ -199,13 +198,4 @@ class AccountsRepository extends DataAccessLayer implements AccountsContract
 
     }
 
-    /**
-     * Ok, this presents a commonly used implementation of a SELECT procedure
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null
-     */
-    public function get()
-    {
-        return;
-    }
 }

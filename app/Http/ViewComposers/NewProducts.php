@@ -2,7 +2,7 @@
 
 use App\Antony\DomainLogic\Contracts\Caching\CacheInterface;
 use App\Antony\DomainLogic\Modules\Composers\ViewComposer;
-use app\Antony\DomainLogic\Modules\Product\Base\ProductEntity;
+use app\Antony\DomainLogic\Modules\Product\ProductRepository;
 
 class NewProducts extends ViewComposer
 {
@@ -15,9 +15,9 @@ class NewProducts extends ViewComposer
 
     /**
      * @param CacheInterface $cacheInterface
-     * @param ProductEntity $repository
+     * @param ProductRepository $repository
      */
-    public function __construct(CacheInterface $cacheInterface, ProductEntity $repository)
+    public function __construct(CacheInterface $cacheInterface, ProductRepository $repository)
     {
         $this->dataSource = $repository;
 

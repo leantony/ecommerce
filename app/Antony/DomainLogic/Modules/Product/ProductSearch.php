@@ -1,12 +1,12 @@
 <?php namespace app\Antony\DomainLogic\Modules\Product;
 
-use app\Antony\DomainLogic\Modules\Search\SearchRepository;
+use app\Antony\DomainLogic\Modules\Search\Search;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
-class ProductSearch extends SearchRepository
+class ProductSearch extends Search
 {
 
     /**
@@ -63,7 +63,7 @@ class ProductSearch extends SearchRepository
      */
     public function __construct(ProductRepository $repository)
     {
-        parent::__construct($repository);
+        $this->repository = $repository;
     }
 
     /**

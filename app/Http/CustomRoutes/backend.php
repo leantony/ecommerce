@@ -69,4 +69,12 @@ Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access',
     // users
     resource('users', 'Backend\UsersController');
 
+    // API data
+    Route::group(['prefix' => 'api'], function () {
+
+        get('/counties/data', ['as' => 'counties.data', 'uses' => 'Backend\CountiesController@getDataTable']);
+        get('/articles/data', ['as' => 'articles.data', 'uses' => 'Backend\ArticlesController@getDataTable']);
+        get('/users/data', ['as' => 'users.data', 'uses' => 'Backend\UsersController@getDataTable']);
+        get('/products/data', ['as' => 'products.data', 'uses' => 'Backend\ProductsController@getDataTable']);
+    });
 });

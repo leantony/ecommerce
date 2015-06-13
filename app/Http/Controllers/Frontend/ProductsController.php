@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Frontend;
 
-use app\Antony\DomainLogic\Modules\Product\Base\ProductEntity;
+use app\Antony\DomainLogic\Modules\Product\ProductRepository;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Response;
@@ -8,14 +8,14 @@ use Illuminate\Http\Response;
 class ProductsController extends Controller
 {
 
-    protected $product;
+    protected $products;
 
     /**
-     * @param ProductEntity $productRepository
+     * @param ProductRepository $productRepository
      */
-    public function __construct(ProductEntity $productRepository)
+    public function __construct(ProductRepository $productRepository)
     {
-        $this->product = $productRepository;
+        $this->products = $productRepository;
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = $this->product->get();
+        $products = $this->products->displayAllProducts();
 
         return view('frontend.products.index', compact('products'));
     }

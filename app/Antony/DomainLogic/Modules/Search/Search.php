@@ -1,11 +1,21 @@
 <?php namespace app\Antony\DomainLogic\Modules\Search;
 
+use app\Antony\DomainLogic\Contracts\Database\RepositoryInterface;
 use app\Antony\DomainLogic\Contracts\Search\SearchRepositoryInterface;
-use app\Antony\DomainLogic\Modules\DAL\Base\DataAccessLayer;
+use app\Antony\DomainLogic\Modules\DAL\ExtendableTrait;
 use Illuminate\Http\Request;
 
-abstract class SearchRepository extends DataAccessLayer implements SearchRepositoryInterface
+abstract class Search implements SearchRepositoryInterface
 {
+
+    use ExtendableTrait;
+
+    /**
+     * The underlying repository
+     *
+     * @var RepositoryInterface
+     */
+    protected $repository;
 
     /**
      * Search keywords
@@ -90,11 +100,6 @@ abstract class SearchRepository extends DataAccessLayer implements SearchReposit
     public function getResult()
     {
         return $this->results;
-    }
-
-    public function get()
-    {
-        return;
     }
 
     /**

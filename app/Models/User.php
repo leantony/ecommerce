@@ -1,19 +1,22 @@
 <?php namespace App\Models;
 
 use App\Antony\DomainLogic\Modules\User\UserTrait;
-use Carbon\Carbon;
+use app\Antony\DomainLogic\Presenters\UserPresenter;
 use Eloquent;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laracasts\Presenter\PresentableTrait;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Eloquent implements AuthenticatableContract, CanResetPasswordContract
 {
 
-    use Authenticatable, CanResetPassword, EntrustUserTrait, UserTrait, SoftDeletes;
+    use PresentableTrait, Authenticatable, CanResetPassword, EntrustUserTrait, UserTrait, SoftDeletes;
+
+    protected $presenter = UserPresenter::class;
 
     /**
      * The database table used by the model.
@@ -85,36 +88,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
     public function orders()
     {
         return $this->belongsToMany('App\Models\Order')->withTimestamps();
-    }
-
-    /**
-     * @param $value
-     *
-     * @return string
-     */
-    public function getUpdatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
-    }
-
-    /**
-     * @param $value
-     *
-     * @return string
-     */
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
-    }
-
-    /**
-     * @param $value
-     *
-     * @return string
-     */
-    public function getDeletedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('d/m/Y H:i:s');
     }
 
 }

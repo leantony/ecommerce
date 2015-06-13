@@ -1,6 +1,5 @@
 <?php namespace App\Http\Middleware;
 
-use app\Antony\DomainLogic\Contracts\Contact\ContactMessageContract as MsgResult;
 use Closure;
 
 class AnonymousContactMessages
