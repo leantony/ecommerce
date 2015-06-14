@@ -4,6 +4,7 @@ use app\Antony\DomainLogic\Modules\User\UserRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserAccountRequest;
 use App\Http\Requests\User\DeleteUsrRequest;
+use App\Models\User;
 use yajra\Datatables\Datatables;
 
 class UsersController extends Controller
@@ -42,6 +43,10 @@ class UsersController extends Controller
 
         $data = Datatables::of($usrs)->addColumn('edit', function ($user) {
             return link_to(route('backend.users.edit', ['id' => $user->id]), 'Edit', ['data-target-model' => $user->id, 'class' => 'btn btn-xs btn-primary']);
+        })->editColumn('updated_at', function ($user) {
+            return $user->updated_at->diffForHumans();
+        })->editColumn('created_at', function ($user) {
+            return $user->created_at->diffForHumans();
         });
 
         return $data->make(true);
@@ -67,53 +72,48 @@ class UsersController extends Controller
     }
 
     /**
-     * @param $id
      *
+     * @param User $user
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = $this->users->get($id);
-
         return view('backend.users.edit', compact('user'));
     }
 
-
     /**
-     * @param $id
      *
+     * @param User $user
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = $this->users->get($id);
-
         return view('backend.users.edit', compact('user'));
     }
 
     /**
      * @param CreateUserAccountRequest $request
-     * @param $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function update(CreateUserAccountRequest $request, $id)
+    public function update(CreateUserAccountRequest $request, User $user)
     {
-        $this->data = $this->users->edit($id, $request->all());
+        $this->data = $user->update($request->all());
 
-        return $this->handleRedirect($request, route('backend.users.index'));
+        return $this->handleRedirect($request);
 
     }
 
     /**
      * @param DeleteUsrRequest $request
-     * @param $id
      *
+     * @param User $user
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
-    public function destroy(DeleteUsrRequest $request, $id)
+    public function destroy(DeleteUsrRequest $request, User $user)
     {
-        $this->data = $this->users->delete($id);
+        $this->data = $user->delete();
 
         return $this->handleRedirect($request, route('backend.users.index'));
     }

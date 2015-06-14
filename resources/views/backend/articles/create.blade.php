@@ -7,11 +7,14 @@
 
 @section('content')
     <div class="row admin-form">
-        <h2>Add a new article</h2>
+        <div class="col-md-12">
+            <h2>Add a new article</h2>
 
-        <p>For now, you can only create help articles</p>
-        <hr/>
-        <div class="msgDisplay m-t-10"></div>
+            <p>For now, you can only create help articles</p>
+            <hr/>
+            <div class="msgDisplay m-t-10"></div>
+        </div>
+
         {!! Form::open(['url' => action('Backend\ArticlesController@store')]) !!}
         <div class="col-md-6">
 

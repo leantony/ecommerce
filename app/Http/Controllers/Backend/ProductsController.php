@@ -4,6 +4,7 @@ use app\Antony\DomainLogic\Modules\Product\ProductRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
 use App\Http\Requests\Inventory\Products\ProductRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use yajra\Datatables\Datatables;
@@ -49,7 +50,9 @@ class ProductsController extends Controller
 
         return Datatables::of($products)->addColumn('edit', function ($article) {
             return link_to(route('backend.products.edit', ['id' => $article->id]), 'Edit', ['data-target-model' => $article->id, 'class' => 'btn btn-xs btn-primary']);
-        })->editColumn('price', '{{format_money($price)}}')->make(true);
+        })->editColumn('price', function ($product) {
+            return format_money($product->price);
+        })->make(true);
     }
 
     /**
@@ -79,28 +82,22 @@ class ProductsController extends Controller
     /**
      * Display the specified product.
      *
-     * @param  int $id
-     *
+     * @param Product $product
      * @return Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = $this->products->get($id);
-
         return view('backend.products.show', compact('product'));
     }
 
     /**
      * Show the form for editing the specified product.
      *
-     * @param  int $id
-     *
+     * @param Product $product
      * @return Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = $this->products->get($id);
-
         return view('backend.products.edit', compact('product'));
     }
 
@@ -108,13 +105,13 @@ class ProductsController extends Controller
      * Update the specified product in storage.
      *
      * @param ProductRequest $request
-     * @param  int $id
-     *
+     * @param Product $product
      * @return Response
+     *
      */
-    public function update(ProductRequest $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        $this->data = $this->products->edit($id, $request->all());
+        $this->data = $product->update($request->all());
 
         return $this->handleRedirect($request);
     }
@@ -123,13 +120,14 @@ class ProductsController extends Controller
      * Remove the specified product from storage.
      *
      * @param DeleteInventoryRequest|Request $request
-     * @param  int $id
      *
+     * @param Product $product
      * @return Response
+     * @throws \Exception
      */
-    public function destroy(DeleteInventoryRequest $request, $id)
+    public function destroy(DeleteInventoryRequest $request, Product $product)
     {
-        $this->data = $this->products->delete($id);
+        $this->data = $product->delete();
 
         return $this->handleRedirect($request, route('backend.products.index'));
     }

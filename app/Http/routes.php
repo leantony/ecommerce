@@ -120,7 +120,7 @@ Route::group(['prefix' => 'categories', 'middleware' => ['http']], function () {
     get('/', ['as' => 'allCategories', 'uses' => 'Frontend\CategoriesController@index']);
 
     // display all products in the category, regardless of sub-category
-    get('/{category}', ['as' => 'categories.shop', 'uses' => 'Frontend\CategoriesController@show']);
+    get('/{categories}', ['as' => 'categories.shop', 'uses' => 'Frontend\CategoriesController@show']);
 });
 
 // subcategories
@@ -128,7 +128,7 @@ Route::group(['prefix' => 'sub-categories', 'middleware' => ['http']], function 
 
     get('/', ['as' => 'allSubCategories', 'uses' => 'Frontend\SubcategoriesController@index']);
 
-    get('/{subcategory}', ['as' => 'subcategories.shop', 'uses' => 'Frontend\SubCategoriesController@show']);
+    get('/{subcategories}', ['as' => 'subcategories.shop', 'uses' => 'Frontend\SubCategoriesController@show']);
 });
 
 // products
@@ -136,7 +136,7 @@ Route::group(['prefix' => 'products', 'middleware' => ['http']], function () {
 
     get('/', ['as' => 'allProducts', 'uses' => 'Frontend\ProductsController@index']);
 
-    get('/{product}', ['as' => 'product.view', 'uses' => 'Frontend\ProductsController@show']);
+    get('/{products}', ['as' => 'product.view', 'uses' => 'Frontend\ProductsController@show']);
 
 });
 
@@ -145,7 +145,7 @@ Route::group(['prefix' => 'brands', 'middleware' => ['http']], function () {
 
     get('/', ['as' => 'allBrands', 'uses' => 'Frontend\BrandsController@index']);
 
-    get('/{brand}', ['as' => 'brands.shop', 'uses' => 'Frontend\BrandsController@show']);
+    get('/{brands}', ['as' => 'brands.shop', 'uses' => 'Frontend\BrandsController@show']);
 });
 
 // search
@@ -162,13 +162,13 @@ Route::group(['prefix' => 'search'], function () {
 Route::group(['prefix' => 'cart'], function () {
     get('/', ['as' => 'cart.index', 'uses' => 'Frontend\CartController@index']);
     // adding a product to the cart
-    post('add/product/{product}', ['as' => 'cart.add', 'uses' => 'Frontend\CartController@store']);
+    post('add/product/{products}', ['as' => 'cart.add', 'uses' => 'Frontend\CartController@store']);
     // listing all products in the cart
     get('/', ['as' => 'cart.view', 'uses' => 'Frontend\CartController@view']);
     // add a product to an existing cart
-    patch('/update/product/{product}', ['as' => 'cart.update', 'uses' => 'Frontend\CartController@update']);
+    patch('/update/product/{products}', ['as' => 'cart.update', 'uses' => 'Frontend\CartController@update']);
 
-    delete('/update/product/{product}/remove', ['as' => 'cart.update.remove', 'uses' => 'Frontend\CartController@removeProduct']);
+    delete('/update/product/{products}/remove', ['as' => 'cart.update.remove', 'uses' => 'Frontend\CartController@removeProduct']);
 
     delete('/update/product/removeAll', ['as' => 'cart.removeAllProducts', 'uses' => 'Frontend\CartController@removeAllProducts']);
 
@@ -256,6 +256,6 @@ Route::group(['prefix' => 'myorders', 'middleware' => ['https', 'auth', 'orders.
 
     get('/', ['as' => 'myorders', 'uses' => 'Frontend\OrdersController@index']);
 
-    get('/{order}', ['as' => 'viewOrder', 'uses' => 'Frontend\OrdersController@show']);
+    get('/{orders}', ['as' => 'viewOrder', 'uses' => 'Frontend\OrdersController@show']);
 
 });

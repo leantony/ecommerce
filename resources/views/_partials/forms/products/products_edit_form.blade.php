@@ -57,25 +57,27 @@
         @endif
     </div>
     <div class="row">
-        <h2>Current product Image</h2>
-        @if(file_exists_on_server($product->image))
-            <div class="current-image">
-                <img src="{{ display_img($product) }}" class="img-responsive img-thumbnail">
-            </div>
-        @else
-            <div>
-                <p class="text text-center">
-                    NONE
-                </p>
-            </div>
-        @endif
-        <p class="m-t-10">You can upload a new image here</p>
-        @if($errors->has('image'))
-            <p class="error_msg">{{ $errors->first('image') }}</p>
-        @endif
-        <div class="input-group image-preview m-t-10">
-            <input type="text" class="form-control image-preview-filename" name="image" id="image" disabled="disabled">
-            <!-- don't give a name === doesn't send on POST/GET -->
+        <div class="col-md-6">
+            <h2>Current product Image</h2>
+            @if(file_exists_on_server($product->image))
+                <div class="current-image">
+                    <img src="{{ display_img($product) }}" class="img-responsive img-thumbnail">
+                </div>
+            @else
+                <div>
+                    <p class="text text-center">
+                        NONE
+                    </p>
+                </div>
+            @endif
+            <p class="m-t-10">You can upload a new image here</p>
+            @if($errors->has('image'))
+                <p class="error_msg">{{ $errors->first('image') }}</p>
+            @endif
+            <div class="input-group image-preview m-t-10">
+                <input type="text" class="form-control image-preview-filename" name="image" id="image"
+                       disabled="disabled">
+                <!-- don't give a name === doesn't send on POST/GET -->
                 <span class="input-group-btn">
                     <!-- image-preview-clear button -->
                     <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
@@ -89,13 +91,16 @@
                     </div>
                     <br/>
                 </span>
+            </div>
         </div>
+
     </div>
 </div>
 <div class="clearfix"></div>
-<h2>Product Descriptions</h2>
-<div class="row m-t-10 m-b-20">
+<div class="row m-t-20 m-b-20">
     <div class="col-md-5">
+        <h2>Product Descriptions</h2>
+
         <div class="form-group">
             <label for="editor_small">Short product description</label>
         <textarea name="description_short" id="editor_small" class="custom-editor" cols="15"
@@ -115,12 +120,16 @@
             @endif
         </div>
     </div>
-    <div class="form-group">
-        <label for="editor_stuff">What to be included with the product</label>
+    <hr/>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="editor_stuff">What to be included with the product</label>
         <textarea name="stuff_included" id="editor_stuff" class="custom-editor" cols="30"
                   rows="10">{{ $product->stuff_included }}</textarea>
-        @if($errors->has('stuff_included'))
-            <span class="wow flash error-msg">{{ $errors->first('stuff_included') }}</span>
-        @endif
+            @if($errors->has('stuff_included'))
+                <span class="wow flash error-msg">{{ $errors->first('stuff_included') }}</span>
+            @endif
+        </div>
     </div>
+
 </div>

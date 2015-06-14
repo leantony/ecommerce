@@ -4,6 +4,7 @@ use app\Antony\DomainLogic\Modules\Brands\BrandsRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\Brands\BrandFormRequest;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
+use App\Models\Brand;
 use Response;
 use yajra\Datatables\Datatables;
 
@@ -44,9 +45,9 @@ class BrandsController extends Controller
 
         $data = Datatables::of($brands)->addColumn('edit', function ($brand) {
             return link_to(route('backend.brands.edit', ['id' => $brand->id]), 'Edit', ['data-target-model' => $brand->id, 'class' => 'btn btn-xs btn-primary']);
-        })->addColumn('count', function($brand){
+        })->addColumn('count', function ($brand) {
 
-            return $brand->products()->count();
+            return $brand->products->count();
         });
 
         return $data->make(true);
@@ -79,29 +80,22 @@ class BrandsController extends Controller
     /**
      * Display the specified product brand.
      *
-     * @param  int $id
-     *
+     * @param Brand $brand
      * @return Response
-     *
      */
-    public function show($id)
+    public function show(Brand $brand)
     {
-        $brand = $this->brand->find($id);
-
         return view('backend.brands.edit', compact('brand'));
     }
 
     /**
      * Show the form for editing the specified product brand.
      *
-     * @param  int $id
-     *
+     * @param Brand $brand
      * @return Response
      */
-    public function edit($id)
+    public function edit(Brand $brand)
     {
-        $brand = $this->brand->find($id);
-
         return view('backend.brands.edit', compact('brand'));
     }
 
@@ -109,13 +103,12 @@ class BrandsController extends Controller
      * Update the specified product brand in storage.
      *
      * @param BrandFormRequest $request
-     * @param  int $id
-     *
+     * @param Brand $brand
      * @return Response
      */
-    public function update(BrandFormRequest $request, $id)
+    public function update(BrandFormRequest $request, Brand $brand)
     {
-        $this->data = $this->brand->edit($id, $request->except('_token'));
+        $this->data = $brand->update($request->all());
 
         return $this->handleRedirect($request);
     }
@@ -124,13 +117,13 @@ class BrandsController extends Controller
      * Remove the specified product brand from storage.
      *
      * @param DeleteInventoryRequest $request
-     * @param  int $id
      *
+     * @param Brand $brand
      * @return Response
      */
-    public function destroy(DeleteInventoryRequest $request, $id)
+    public function destroy(DeleteInventoryRequest $request, Brand $brand)
     {
-        $this->data = $this->brand->delete($id);
+        $this->data = $brand->delete();
 
         return $this->handleRedirect($request, route('backend.brands.index'));
     }

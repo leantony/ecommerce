@@ -44,7 +44,7 @@ class ArticlesController extends Controller
         $articles = $this->articlesEntity->select(['id', 'topic', 'created_at', 'updated_at']);
 
         return Datatables::of($articles)->addColumn('edit', function ($article) {
-            return link_to(route('backend.articles.edit', ['article' => $article->id]), 'Edit', ['data-target-model' => $article->id, 'class' => 'btn btn-xs btn-primary']);
+            return link_to(route('backend.articles.edit', ['articles' => $article->id]), 'Edit', ['data-target-model' => $article->id, 'class' => 'btn btn-xs btn-primary']);
         })->make(true);
     }
 
@@ -85,12 +85,11 @@ class ArticlesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param Article $article
      * @return Response
      */
     public function edit(Article $article)
     {
-        dd($article);
         return view('backend.articles.edit', compact('article'));
     }
 
@@ -98,14 +97,12 @@ class ArticlesController extends Controller
      * Update the specified resource in storage.
      *
      * @param ArticleRequest $request
-     * @param  int $id
+     * @param Article $article
      * @return Response
      */
-    public function update(ArticleRequest $request, $id)
+    public function update(ArticleRequest $request, Article $article)
     {
-        $this->data = $this->articlesEntity->edit($id, $request->all());
-
-        $this->redirectToUrlInSession = true;
+        $this->data = $article->update($request->all());
 
         return $this->handleRedirect($request);
     }
@@ -114,12 +111,13 @@ class ArticlesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Request $request
-     * @param  int $id
+     * @param Article $article
      * @return Response
+     * @throws \Exception
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Article $article)
     {
-        $this->data = $this->articlesEntity->delete($id);
+        $this->data = $article->delete();
 
         return $this->handleRedirect($request, route('backend.articles.index'));
     }

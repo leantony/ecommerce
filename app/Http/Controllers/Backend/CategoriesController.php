@@ -4,6 +4,7 @@ use app\Antony\DomainLogic\Modules\Categories\CategoriesRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\Categories\CategoryRequest;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
+use App\Models\Category;
 use Response;
 use yajra\Datatables\Datatables;
 
@@ -43,7 +44,7 @@ class CategoriesController extends Controller
         $categories = $this->category->select(['id', 'name', 'created_at', 'updated_at']);
 
         return Datatables::of($categories)->addColumn('edit', function ($category) {
-            return link_to(route('backend.categories.edit', ['article' => $category->id]), 'Edit', ['data-target-model' => $category->id, 'class' => 'btn btn-xs btn-primary']);
+            return link_to(route('backend.categories.edit', ['category' => $category->id]), 'Edit', ['data-target-model' => $category->id, 'class' => 'btn btn-xs btn-primary']);
         })->make(true);
     }
 
@@ -75,28 +76,22 @@ class CategoriesController extends Controller
     /**
      * Display the specified Category.
      *
-     * @param  int $id
-     *
+     * @param Category $category
      * @return Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        $category = $this->category->get($id);
-
         return view('backend.categories.edit', compact('category'));
     }
 
     /**
      * Show the form for editing the specified Category.
      *
-     * @param  int $id
-     *
+     * @param Category $category
      * @return Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = $this->category->get($id);
-
         return view('backend.categories.edit', compact('category'));
     }
 
@@ -104,13 +99,13 @@ class CategoriesController extends Controller
      * Update the specified Category in storage.
      *
      * @param CategoryRequest $request
-     * @param  int $id
      *
+     * @param Category $category
      * @return Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $this->data = $this->category->edit($id, $request->all());
+        $this->data = $category->update($request->all());
 
         return $this->handleRedirect($request);
     }
@@ -119,13 +114,14 @@ class CategoriesController extends Controller
      * Remove the specified Category from storage.
      *
      * @param DeleteInventoryRequest $request
-     * @param  int $id
      *
+     * @param Category $category
      * @return Response
+     * @throws \Exception
      */
-    public function destroy(DeleteInventoryRequest $request, $id)
+    public function destroy(DeleteInventoryRequest $request, Category $category)
     {
-        $this->data = $this->category->delete($id);
+        $this->data = $category->delete();
 
         return $this->handleRedirect($request, route('backend.categories.index'));
     }

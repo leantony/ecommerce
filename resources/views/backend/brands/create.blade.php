@@ -7,9 +7,12 @@
 
 @section('content')
     <div class="row admin-form">
-        <h2>Add a new product brand</h2>
-        <hr/>
-        <div class="msgDisplay m-t-10"></div>
+        <div class="col-md-12">
+            <h2>Add a new product brand</h2>
+            <hr/>
+            <div class="msgDisplay m-t-10"></div>
+        </div>
+
         {!! Form::open(['url' => action('Backend\BrandsController@store'), 'files' => true]) !!}
         <div class="col-md-6 category">
 

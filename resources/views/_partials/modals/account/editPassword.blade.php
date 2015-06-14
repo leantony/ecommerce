@@ -2,7 +2,7 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form role="form" method="POST" action="{{ route($route) }}" id="simplePasswordResetForm"
+            <form role="form" method="POST" action="{{ $route }}" id="simplePasswordResetForm"
                   data-remote>
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span

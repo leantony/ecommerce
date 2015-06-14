@@ -4,6 +4,7 @@ use app\Antony\DomainLogic\Modules\SubCategories\SubcategoriesRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
 use App\Http\Requests\Inventory\SubCategories\SubCategoryRequest;
+use App\Models\SubCategory;
 use Response;
 use yajra\Datatables\Datatables;
 
@@ -43,7 +44,7 @@ class SubCategoriesController extends Controller
         $categories = $this->subcategory->with(['category'])->select('*');
 
         $data = Datatables::of($categories)->addColumn('edit', function ($subcat) {
-            return link_to(route('backend.subcategories.edit', ['id' => $subcat->id]), 'Edit', ['data-target-model' => $subcat->id, 'class' => 'btn btn-xs btn-primary']);
+            return link_to(route('backend.subcategories.edit', ['subcategory' => $subcat->id]), 'Edit', ['data-target-model' => $subcat->id, 'class' => 'btn btn-xs btn-primary']);
         });
 
         return $data->make(true);
@@ -76,28 +77,22 @@ class SubCategoriesController extends Controller
     /**
      * Display the specified SubCategory.
      *
-     * @param  int $id
-     *
+     * @param SubCategory $subcategory
      * @return Response
      */
-    public function show($id)
+    public function show(SubCategory $subcategory)
     {
-        $subcategory = $this->subcategory->get($id);
-
         return view('backend.subCategories.edit', compact('subcategory'));
     }
 
     /**
      * Show the form for editing the specified SubCategory.
      *
-     * @param  int $id
-     *
+     * @param SubCategory $subcategory
      * @return Response
      */
-    public function edit($id)
+    public function edit(SubCategory $subcategory)
     {
-        $subcategory = $this->subcategory->get($id);
-
         return view('backend.subCategories.edit', compact('subcategory'));
     }
 
@@ -105,13 +100,12 @@ class SubCategoriesController extends Controller
      * Update the specified subCategory in storage.
      *
      * @param SubCategoryRequest $request
-     * @param  int $id
      *
      * @return Response
      */
-    public function update(SubCategoryRequest $request, $id)
+    public function update(SubCategoryRequest $request, SubCategory $subCategory)
     {
-        $this->data = $this->subcategory->edit($id, $request->all());
+        $this->data = $subCategory->update($request->all());
 
         return $this->handleRedirect($request);
     }
@@ -120,13 +114,14 @@ class SubCategoriesController extends Controller
      * Remove the specified subCategory from storage.
      *
      * @param DeleteInventoryRequest $request
-     * @param  int $id
      *
+     * @param SubCategory $subCategory
      * @return Response
+     * @throws \Exception
      */
-    public function destroy(DeleteInventoryRequest $request, $id)
+    public function destroy(DeleteInventoryRequest $request, SubCategory $subCategory)
     {
-        $this->data = $this->subcategory->delete($id);
+        $this->data = $subCategory->delete();
 
         return $this->handleRedirect($request, route('backend.subcategories.index'));
     }

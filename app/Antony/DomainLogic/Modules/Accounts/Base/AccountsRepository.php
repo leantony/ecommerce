@@ -53,6 +53,13 @@ class AccountsRepository implements AccountsContract
     protected $user;
 
     /**
+     * The data results
+     *
+     * @var mixed
+     */
+    protected $dataResult;
+
+    /**
      * @param Guard $guard
      * @param UserRepository $userRepository
      * @param Hasher $hasher
@@ -151,6 +158,36 @@ class AccountsRepository implements AccountsContract
 
         return $this->dataResult;
 
+    }
+
+    /**
+     * Allows an admin user to update another user's password
+     *
+     * @param $user_id
+     * @param $new_password
+     * @param bool $logoutTheUser
+     * @return bool
+     */
+    public function updateAnotherUsersPassword($user_id, $new_password, $logoutTheUser = false)
+    {
+
+        if ($user_id === $this->user->id) {
+
+            return $this->updatePassword($new_password, $logoutTheUser);
+        }
+        $user = $this->userRepository->find($user_id, [], true);
+
+        $user->password = $this->hasher->make($new_password);
+
+        $this->dataResult = $user->save();
+
+        if ($logoutTheUser) {
+
+            // not implemented yet
+
+        }
+
+        return $this->dataResult;
     }
 
     /**

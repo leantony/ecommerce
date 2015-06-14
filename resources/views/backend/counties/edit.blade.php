@@ -7,26 +7,22 @@
 
 @section('content')
     <div class="row admin-form">
-        <h2>You are editing county [ <b>{{ $county->name }}</b> ]</h2>
-
         <div class="col-md-12">
-            <a href="{{ url(URL::previous()) }}">
-                <button class="btn btn-primary"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
-            </a>
+            <h2>You are editing county [ <b>{{ $county->name }}</b> ]</h2>
+            <hr/>
+            <div class="msgDisplay m-t-10"></div>
         </div>
-        <br/>
-        <hr/>
-        <div class="msgDisplay m-t-10"></div>
-        {!! Form::model($county, ['url' => action('Backend\CountiesController@update', ['id' => $county->id]), 'method' => 'PATCH', 'data-remote']) !!}
+
+        {!! Form::model($county, ['url' => action('Backend\CountiesController@update', ['county' => $county->id]), 'method' => 'PATCH', 'data-remote']) !!}
         <div class="col-md-6 category">
             @include('_partials.forms.counties.counties_form')
             <hr/>
-            <div class="pull-left">
+            <div class="pull-right">
                 <button type="submit" class="btn btn-success">
                     <span class="glyphicon glyphicon-ok-sign"></span> Finish Edit
                 </button>
             </div>
-            <div class="pull-right">
+            <div class="pull-left">
                 <a href="#" data-toggle="modal" data-target="#deleteCounty">
                     <button class="btn btn-danger" data-title="Delete">
                         <span class="glyphicon glyphicon-trash"></span> Delete
@@ -36,5 +32,5 @@
         </div>
         {!! Form::close() !!}
     </div>
-    @include('_partials.modals.actionModals.delete', ['elementID' => 'deleteCounty', 'route' => route('backend.counties.destroy', ['id' => $county->id])])
+    @include('_partials.modals.actionModals.delete', ['elementID' => 'deleteCounty', 'route' => route('backend.counties.destroy', ['county' => $county->id])])
 @stop

@@ -4,6 +4,7 @@ use app\Antony\DomainLogic\Modules\Counties\CountiesRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Counties\CountyRequest;
 use App\Http\Requests\Counties\DeleteCountyRequest;
+use App\Models\County;
 use Response;
 use yajra\Datatables\Datatables;
 
@@ -43,7 +44,7 @@ class CountiesController extends Controller
         $counties = $this->county->select(['id', 'name', 'alias', 'created_at', 'updated_at']);
 
         $data = Datatables::of($counties)->addColumn('edit', function ($county) {
-            return link_to(route('backend.counties.edit', ['id' => $county->id]), 'Edit', ['data-target-model' => $county->id, 'class' => 'btn btn-xs btn-primary']);
+            return link_to(route('backend.counties.edit', ['county' => $county->id]), 'Edit', ['data-target-model' => $county->id, 'class' => 'btn btn-xs btn-primary']);
         });
 
         return $data->make(true);
@@ -76,28 +77,23 @@ class CountiesController extends Controller
     /**
      * Display the specified county.
      *
-     * @param  int $id
-     *
+     * @param County $county
      * @return Response
      */
-    public function show($id)
+    public function show(County $county)
     {
-        $county = $this->county->get($id);
-
         return view('backend.counties.edit', compact('county'));
     }
 
     /**
      * Show the form for editing the specified county.
      *
-     * @param  int $id
-     *
+     * @param County $county
      * @return Response
+     *
      */
-    public function edit($id)
+    public function edit(County $county)
     {
-        $county = $this->county->get($id);
-
         return view('backend.counties.edit', compact('county'));
     }
 
@@ -105,13 +101,13 @@ class CountiesController extends Controller
      * Update the specified county in storage.
      *
      * @param CountyRequest $request
-     * @param  int $id
      *
+     * @param County $county
      * @return Response
      */
-    public function update(CountyRequest $request, $id)
+    public function update(CountyRequest $request, County $county)
     {
-        $this->data = $this->county->edit($id, $request->all());
+        $this->data = $county->update($request->all());
 
         return $this->handleRedirect($request);
     }
@@ -120,14 +116,14 @@ class CountiesController extends Controller
      * Remove the specified county from storage.
      *
      * @param DeleteCountyRequest $request
-     * @param  int $id
      *
+     * @param County $county
      * @return Response
-     * @internal param $DeleteCountyRequest
+     * @throws \Exception
      */
-    public function destroy(DeleteCountyRequest $request, $id)
+    public function destroy(DeleteCountyRequest $request, County $county)
     {
-        $this->data = $this->county->delete($id);
+        $this->data = $county->delete();
 
         return $this->handleRedirect($request, route('backend.counties.index'));
     }

@@ -7,11 +7,14 @@
 
 @section('content')
     <div class="row admin-form">
-        <h2>Create a product sub-category</h2>
-        <h6>Only the name field is required</h6>
-        <hr/>
-        <div class="msgDisplay m-t-10"></div>
-        {!! Form::open(['url' => action('Backend\SubCategoriesController@store'), 'files'=> true, 'data-remote']) !!}
+        <div class="col-md-12">
+            <h2>Create a product sub-category</h2>
+            <h6>Only the name field is required</h6>
+            <hr/>
+            <div class="msgDisplay m-t-10"></div>
+        </div>
+
+        {!! Form::open(['url' => action('Backend\SubCategoriesController@store'), 'data-remote']) !!}
         <div class="col-md-6 category">
 
             @include('_partials.forms.categories.categories_form', ['name' => 'Subcategory'])

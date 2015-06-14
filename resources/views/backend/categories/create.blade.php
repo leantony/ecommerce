@@ -8,10 +8,13 @@
 @section('content')
 
     <div class="row admin-form">
-        <h2>Create a product Category</h2>
-        <h6>You are free to fill in all fields, but only the name field is required</h6>
-        <hr/>
-        <div class="msgDisplay m-t-10"></div>
+        <div class="col-md-12">
+            <h2>Create a product Category</h2>
+            <h6>You are free to fill in all fields, but only the name field is required</h6>
+            <hr/>
+            <div class="msgDisplay m-t-10"></div>
+        </div>
+
         {!! Form::open(['url' => action('Backend\CategoriesController@store'), 'files' => true, 'data-remote']) !!}
         <div class="col-md-6 category">
 

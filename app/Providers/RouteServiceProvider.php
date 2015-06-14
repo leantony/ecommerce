@@ -26,14 +26,14 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot($router);
 
-        $router->model('brand', 'App\Models\Brand');
-        $router->model('product', 'App\Models\Product');
-        $router->model('category', 'App\Models\Category');
-        $router->model('subcategory', 'App\Models\SubCategory');
-        $router->model('article', 'App\Models\Article');
-        $router->model('county', 'App\Models\Article');
-        $router->model('order', 'App\Models\Order');
-        $router->model('user', 'App\Models\User');
+        $router->model('brands', 'App\Models\Brand');
+        $router->model('products', 'App\Models\Product');
+        $router->model('categories', 'App\Models\Category');
+        $router->model('subcategories', 'App\Models\SubCategory');
+        $router->model('articles', 'App\Models\Article');
+        $router->model('counties', 'App\Models\County');
+        $router->model('orders', 'App\Models\Order');
+        $router->model('users', 'App\Models\User');
     }
 
     /**

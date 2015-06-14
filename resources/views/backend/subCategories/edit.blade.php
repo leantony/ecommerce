@@ -7,20 +7,13 @@
 
 @section('content')
     <div class="row admin-form">
-        <h2>Modify a product sub-category</h2>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="pull-left">
-                    <a href="{{ url(URL::previous()) }}">
-                        <button class="btn btn-primary"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
-                    </a>
-                </div>
-            </div>
+        <div class="col-md-12">
+            <h2>Modify a product sub-category</h2>
+            <hr/>
+            <div class="msgDisplay m-t-10"></div>
         </div>
-        <hr/>
-        <div class="msgDisplay m-t-10"></div>
-        {!! Form::model($subcategory,['url' => action('Backend\SubCategoriesController@update', ['id' => $subcategory->id]), 'method' => 'PATCH', 'files' => true, 'data-remote']) !!}
+
+        {!! Form::model($subcategory,['url' => action('Backend\SubCategoriesController@update', ['subcategory' => $subcategory->id]), 'method' => 'PATCH', 'files' => true]) !!}
         <div class="col-md-6">
 
             @include('_partials.forms.categories.categories_form', ['name' => 'Subcategory'])
@@ -32,12 +25,12 @@
                 @endif
             </div>
             <hr/>
-            <div class="pull-left">
+            <div class="pull-right">
                 <button type="submit" class="btn btn-success">
                     <span class="glyphicon glyphicon-ok-sign"></span> Finish edit
                 </button>
             </div>
-            <div class="pull-right">
+            <div class="pull-left">
                 <a href="#" data-toggle="modal" data-target="#deleteSubCategory">
                     <button class="btn btn-danger" data-title="Delete">
                         <span class="glyphicon glyphicon-trash"></span> Delete
@@ -47,5 +40,5 @@
         </div>
         {!! Form::close() !!}
     </div>
-    @include('_partials.modals.actionModals.delete', ['elementID' => 'deleteSubCategory', 'route' => route('backend.subcategories.destroy', ['id' => $subcategory->id])])
+    @include('_partials.modals.actionModals.delete', ['elementID' => 'deleteSubCategory', 'route' => route('backend.subcategories.destroy', ['subcategory' => $subcategory->id])])
 @stop

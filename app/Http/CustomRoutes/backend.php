@@ -48,6 +48,12 @@ Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access',
 
     });
 
+    // other user's accounts
+    Route::group(['prefix' => 'accounts'], function () {
+
+        patch('/resetPassword/{user_id}', ['as' => 'useraccount.password.edit', 'uses' => 'Shared\AccountController@patchAnotherUsersPassword']);
+    });
+
     // counties
     resource('counties', 'Backend\CountiesController');
 

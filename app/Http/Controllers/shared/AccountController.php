@@ -77,6 +77,21 @@ class AccountController extends Controller
     }
 
     /**
+     * Updates another user's password
+     *
+     * @param updatePasswordRequest $request
+     *
+     * @param $user_id
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function patchAnotherUsersPassword(updatePasswordRequest $request, $user_id)
+    {
+        $this->data = $this->accounts->updateAnotherUsersPassword($user_id, $request->get('password'), false);
+
+        return $this->handleRedirect($request);
+    }
+
+    /**
      * Updates a user's shipping details
      *
      * @param updateShippingInfo $request
