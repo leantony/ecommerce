@@ -2,13 +2,13 @@
 
 use app\Antony\DomainLogic\Contracts\Database\RepositoryInterface;
 use app\Antony\DomainLogic\Contracts\Search\SearchRepositoryInterface;
-use app\Antony\DomainLogic\Modules\DAL\ExtendableTrait;
+use app\Antony\DomainLogic\Modules\DAL\EloquentExtensions;
 use Illuminate\Http\Request;
 
 abstract class Search implements SearchRepositoryInterface
 {
 
-    use ExtendableTrait;
+    use EloquentExtensions;
 
     /**
      * The underlying repository

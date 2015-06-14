@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\Categories\CategoryRequest;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
 use Response;
+use yajra\Datatables\Datatables;
 
 class CategoriesController extends Controller
 {
@@ -30,9 +31,20 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = $this->category->paginate();
+        return view('backend.categories.index');
+    }
 
-        return view('backend.categories.index', compact('categories'));
+    /**
+     * @return mixed
+     */
+    public function getDataTable()
+    {
+
+        $categories = $this->category->select(['id', 'name', 'created_at', 'updated_at']);
+
+        return Datatables::of($categories)->addColumn('edit', function ($category) {
+            return link_to(route('backend.categories.edit', ['article' => $category->id]), 'Edit', ['data-target-model' => $category->id, 'class' => 'btn btn-xs btn-primary']);
+        })->make(true);
     }
 
     /**

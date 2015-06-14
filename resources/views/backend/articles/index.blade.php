@@ -17,11 +17,10 @@
                             <i class="fa fa-plus"></i>&nbsp;Create article
                         </button>
                     </a>
-                    <hr/>
                 </div>
             </div>
             <hr/>
-            <div class="col-md-12">
+            <div class="col-md-12 m-t-20">
                 <!-- /input-group -->
                 <table id="articles-table" class="table table-bordered">
                     <thead>

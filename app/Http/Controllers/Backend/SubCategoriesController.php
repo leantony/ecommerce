@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
 use App\Http\Requests\Inventory\SubCategories\SubCategoryRequest;
 use Response;
+use yajra\Datatables\Datatables;
 
 class SubCategoriesController extends Controller
 {
@@ -30,9 +31,22 @@ class SubCategoriesController extends Controller
      */
     public function index()
     {
-        $subcategories = $this->subcategory->displayAllSubCategories();
+        return view('backend.subCategories.index');
+    }
 
-        return view('backend.subCategories.index', compact('subcategories'));
+    /**
+     * @return mixed
+     */
+    public function getDataTable()
+    {
+
+        $categories = $this->subcategory->with(['category'])->select('*');
+
+        $data = Datatables::of($categories)->addColumn('edit', function ($subcat) {
+            return link_to(route('backend.subcategories.edit', ['id' => $subcat->id]), 'Edit', ['data-target-model' => $subcat->id, 'class' => 'btn btn-xs btn-primary']);
+        });
+
+        return $data->make(true);
     }
 
     /**

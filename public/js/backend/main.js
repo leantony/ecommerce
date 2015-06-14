@@ -145,6 +145,47 @@
         ]
     });
 
+    $('#categories-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/backend/api/categories/data',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'updated_at', name: 'updated_at'},
+            {data: 'edit', name: 'edit', orderable: false, searchable: false}
+        ]
+    });
+
+    $('#brands-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/backend/api/brands/data',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'count', name: 'count', orderable: false, searchable: false},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'updated_at', name: 'updated_at'},
+            {data: 'edit', name: 'edit', orderable: false, searchable: false}
+        ]
+    });
+
+    $('#subcategories-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/backend/api/subcategories/data',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'category.name', name: 'name', orderable: false, searchable: false},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'updated_at', name: 'updated_at'},
+            {data: 'edit', name: 'edit', orderable: false, searchable: false}
+        ]
+    });
+
     $('#users-table').DataTable({
         processing: true,
         serverSide: true,

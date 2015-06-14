@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-4">
             <div class="pull-right">
-                <a href="#" data-toggle="modal" data-target="#addUser">
+                <a href="{{ route('backend.users.create') }}">
                     <button class="btn btn-success">
                         <i class="fa fa-user-plus"></i>&nbsp;Add User
                     </button>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <hr/>
-        <div class="col-md-12">
+        <div class="col-md-12 m-t-20">
             <!-- /input-group -->
             <table id="users-table" class="table table-bordered">
                 <thead>
@@ -39,5 +39,4 @@
         </div>
 
     </div>
-    @include('_partials.modals.users.addUser', ['elementID' => 'addUser', 'passwords' => true])
 @stop

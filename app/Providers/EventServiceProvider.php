@@ -37,10 +37,6 @@ class EventServiceProvider extends ServiceProvider
         PasswordResetWasRequested::class => [
             SendPasswordResetEmail::class
         ],
-        // orders
-//        OrderWasSubmitted::class => [
-//            SendOrderReceiptEmail::class
-//        ]
 
     ];
 

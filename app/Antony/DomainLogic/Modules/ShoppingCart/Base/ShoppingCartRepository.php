@@ -5,18 +5,6 @@ use App\Models\Cart;
 
 class ShoppingCartRepository extends EloquentRepository
 {
-
-    /**
-     * @param $data
-     * @param $id
-     *
-     * @return EloquentRepository|\Illuminate\Database\Eloquent\Model
-     */
-    public function addIfNotExist($data, $id)
-    {
-        return parent::addIfNotExist($id, $data);
-    }
-
     /**
      * Adds a shopping cart to the database
      *

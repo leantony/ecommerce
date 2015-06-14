@@ -43,8 +43,6 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
      */
     protected $orderCookieData;
 
-    protected $orderID;
-
     /**
      * @var OrderCookie
      */
@@ -161,8 +159,6 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
         $this->performSync($data);
 
         $order = parent::add([]);
-
-        $this->orderID = $order->id;
 
         return $order;
     }

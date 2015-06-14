@@ -76,5 +76,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access',
         get('/articles/data', ['as' => 'articles.data', 'uses' => 'Backend\ArticlesController@getDataTable']);
         get('/users/data', ['as' => 'users.data', 'uses' => 'Backend\UsersController@getDataTable']);
         get('/products/data', ['as' => 'products.data', 'uses' => 'Backend\ProductsController@getDataTable']);
+        get('/brands/data', ['as' => 'brands.data', 'uses' => 'Backend\BrandsController@getDataTable']);
+        get('/subcategories/data', ['as' => 'subcategories.data', 'uses' => 'Backend\SubCategoriesController@getDataTable']);
+        get('/categories/data', ['as' => 'categories.data', 'uses' => 'Backend\CategoriesController@getDataTable']);
     });
 });

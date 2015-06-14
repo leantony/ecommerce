@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\Brands\BrandFormRequest;
 use App\Http\Requests\Inventory\DeleteInventoryRequest;
 use Response;
+use yajra\Datatables\Datatables;
 
 class BrandsController extends Controller
 {
@@ -30,9 +31,25 @@ class BrandsController extends Controller
      */
     public function index()
     {
-        $brands = $this->brand->displayAllBrands();
+        return view('backend.brands.index');
+    }
 
-        return view('backend.brands.index', compact('brands'));
+    /**
+     * @return mixed
+     */
+    public function getDataTable()
+    {
+
+        $brands = $this->brand->with(['products'])->select('*');
+
+        $data = Datatables::of($brands)->addColumn('edit', function ($brand) {
+            return link_to(route('backend.brands.edit', ['id' => $brand->id]), 'Edit', ['data-target-model' => $brand->id, 'class' => 'btn btn-xs btn-primary']);
+        })->addColumn('count', function($brand){
+
+            return $brand->products()->count();
+        });
+
+        return $data->make(true);
     }
 
     /**

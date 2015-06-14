@@ -9,7 +9,7 @@ use InvalidArgumentException;
 
 abstract class EloquentRepository implements RepositoryInterface
 {
-    use ExtendableTrait;
+    use EloquentExtensions;
 
     /**
      * @var App
