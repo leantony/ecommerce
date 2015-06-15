@@ -28,7 +28,7 @@ class ProductSearch extends Search
      *
      * @var int
      */
-    public $ajaxResultsLimit = 5;
+    public $ajaxResultsLimit = 8;
 
     /**
      * Search keywords

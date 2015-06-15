@@ -15,14 +15,14 @@
             {!! Form::open(['url' => action('Backend\UserRolesController@store')]) !!}
             <div class="form-group">
                 {!! Form::label('user_id', "Select a user. For multiple users, you'll need to repeat this procedure:", []) !!}
-                {!! Form::select('user_id', str_replace('_', ' ', App\Models\User::lists('email', 'id')), null, [ "class" => "form-control users-roles"]) !!}
+                {!! Form::select('user_id', str_replace('_', ' ', App\Models\User::lists('email', 'id')->all()), null, [ "class" => "form-control users-roles"]) !!}
                 @if($errors->has('user_id'))
                     <span class="wow flash error-msg">{{ $errors->first('user_id') }}</span>
                 @endif
             </div>
             <div class="form-group">
                 {!! Form::label('role_id', "You can select more than 1 role:", []) !!}
-                {!! Form::select('role_id[]', App\Models\Role::lists('name', 'id'), null, [ "class" => "form-control roles-assignment" , "multiple" => "multiple" ]) !!}
+                {!! Form::select('role_id[]', App\Models\Role::lists('name', 'id')->all(), null, [ "class" => "form-control roles-assignment" , "multiple" => "multiple" ]) !!}
                 @if($errors->has('role_id'))
                     <span class="wow flash error-msg">{{ $errors->first('role_id') }}</span>
                 @endif

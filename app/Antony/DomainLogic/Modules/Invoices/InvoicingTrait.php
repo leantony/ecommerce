@@ -59,7 +59,7 @@ trait InvoicingTrait
      */
     public function sendInvoice()
     {
-        event(new OrderWasSubmitted($this->invoice_data));
+        return;
     }
 
     /**

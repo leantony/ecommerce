@@ -13,9 +13,9 @@
         </td>
     </tr>
     <tr>
-        <th class="bold">Last account update date:</th>
+        <th class="bold">Last account login:</th>
         <td>
-            {{ $user->present()->lastUpdateDate }} ({{ $user->updated_at }})
+            {{ $user->present()->lastLogin }} ({{ $user->last_login }})
         </td>
     </tr>
     <tr>

@@ -1,4 +1,4 @@
-<?php namespace App\Handlers\Events;
+<?php namespace App\Listeners\Events;
 
 use App\Events\PasswordResetWasRequested;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
@@ -42,7 +42,7 @@ class SendPasswordResetEmail
 
         $recipient = $event->user->email;
 
-        $data = ['username' => $event->user->getUserName(), 'token' => $token];
+        $data = ['username' => $event->user->present()->fullName, 'token' => $token];
 
         $this->mailer->queue('emails.password', compact('data'), function ($m) use ($recipient, $subject) {
             $m->to($recipient);

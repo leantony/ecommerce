@@ -2,9 +2,9 @@
 
 return [
 
-	'search' => [
-		'case_insensitive' => true,
-		'use_wildcards' => false,
+    'search' => [
+        'case_insensitive' => true,
+        'use_wildcards' => false,
     ]
 
 ];

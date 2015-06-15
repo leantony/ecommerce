@@ -1,11 +1,11 @@
-<?php namespace App\Handlers\Events;
+<?php namespace App\Listeners\Events;
 
 use App\Events\UserWasRegistered;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailer;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendRegistrationEmail implements ShouldBeQueued
+class SendRegistrationEmail implements ShouldQueue
 {
     use InteractsWithQueue;
 
@@ -14,7 +14,7 @@ class SendRegistrationEmail implements ShouldBeQueued
     /**
      * Create the event handler.
      *
-     * @return void
+     * @param Mailer $mailer
      */
     public function __construct(Mailer $mailer)
     {
@@ -37,7 +37,7 @@ class SendRegistrationEmail implements ShouldBeQueued
 
         $data =
             [
-                'user' => $user->first_name,
+                'user' => $user->present()->firstName,
                 'code' => $user->confirmation_code,
                 'link_' => secure_url(route('account.activate', ['code' => $user->confirmation_code]))
             ];

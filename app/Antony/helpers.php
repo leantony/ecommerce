@@ -87,15 +87,12 @@ function max_star_rating()
 
 /**
  * Helper to generate hidden html input field with embedded csrf token
- * Actually i wasn't aware of the Form::token() function in the form builder
  *
  * @return string
  */
 function csrf_html()
 {
-    $csrf = csrf_token();
-
-    return "<input type=\"hidden\" name=\"_token\" value=$csrf >";
+    return Form::token();
 }
 
 if (!function_exists('eq')) {
@@ -366,10 +363,11 @@ if (!function_exists('format_money')) {
  * @param string $name
  * @param null $returnUrl
  * @param string $title
+ * @param bool $displayReturn
  * @param array $options
  * @return string
  */
-function link_to_auth_route($name, $returnUrl = null, $title = 'Login', array $options = [])
+function link_to_auth_route($name, $returnUrl = null, $title = 'Login', $displayReturn = false, array $options = [])
 {
     // no need to encode this url, as laravel already does it for us
     $target = $returnUrl;
@@ -380,7 +378,7 @@ function link_to_auth_route($name, $returnUrl = null, $title = 'Login', array $o
 
         app('session')->put('url.intended', $target);
     }
-    return link_to_route($name, $title, ['returnTo' => is_null($target) ? session('url.intended', '/') : $target], $options);
+    return link_to_route($name, $title, $displayReturn ? ['returnTo' => is_null($target) ? session('url.intended', '/') : $target] : [], $options);
 }
 
 /**

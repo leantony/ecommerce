@@ -65,7 +65,7 @@
 
                             <p class="text text-help">currently, we only ship products to the counties listed
                                 below</p>
-                            {!! Form::select('county_id', str_replace('_', ' ', App\Models\County::lists('name', 'id')), isset($guest) ? $guest->county->id : old('county_id'),  [ 'class'=>'form-control']) !!}
+                            {!! Form::select('county_id', str_replace('_', ' ', App\Models\County::lists('name', 'id')->all()), isset($guest) ? $guest->county->id : old('county_id'),  [ 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
                             <label for="town">Your Hometown: </label>

@@ -14,20 +14,20 @@ return [
     |
     */
 
-    'mailgun'  => [
+    'mailgun' => [
         'domain' => '',
         'secret' => '',
     ],
     'mandrill' => [
         'secret' => '',
     ],
-    'ses'      => [
-        'key'    => '',
+    'ses' => [
+        'key' => '',
         'secret' => '',
         'region' => 'us-east-1',
     ],
-    'stripe'   => [
-        'model'  => 'User',
+    'stripe' => [
+        'model' => 'User',
         'secret' => '',
     ],
 

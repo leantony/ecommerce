@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-4">
             <div class="pull-right">
-                <a href="#" data-toggle="modal" data-target="#addSubCategory">
+                <a href="{{ route('backend.subcategories.create') }}">
                     <button class="btn btn-success">
                         <i class="fa fa-plus"></i>&nbsp;Create new Subcategory
                     </button>

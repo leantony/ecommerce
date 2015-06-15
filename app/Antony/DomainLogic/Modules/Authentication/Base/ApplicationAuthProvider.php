@@ -3,6 +3,7 @@
 use app\Antony\DomainLogic\Contracts\Security\AuthContract;
 use app\Antony\DomainLogic\Modules\Authentication\Traits\oauth2\oauth2Authenticator;
 use app\Antony\DomainLogic\Modules\User\UserRepository;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Session\Store;
@@ -85,38 +86,89 @@ abstract class ApplicationAuthProvider implements AuthContract
     {
         if ($this->auth->attempt($credentials, array_has($credentials, 'remember'))) {
 
-            // check if users are allowed to login without activating their accounts
-            if (!config('site.account.activation.allow_login')) {
+            $user = $this->auth->user();
+            // check a user's account status
+            switch ($user) {
 
-                $result = $this->checkIfAccountIsConfirmed();
+                // check if their account is disabled
+                case ($user->disabled): {
 
-                if (!$result) {
-
-                    // log out the user
                     $this->auth->logout();
 
-                    return null;
+                    return static::ACCOUNT_DISABLED;
                 }
-                return true;
+                // check for account confirmation
+                case (!$user->confirmed): {
+
+                    // check if the configuration allows users to login without activating their accounts
+                    if (!config('site.account.activation.allow_login')) {
+
+                        $this->auth->logout();
+
+                        return static::ACCOUNT_NOT_ACTIVATED;
+                    }
+                }
             }
-
-            return true;
-
-        } else {
-
-            return false;
+            // update the last login field
+            return $this->updateLastLogin();
         }
+        return false;
     }
 
     /**
-     * Checks if a user's account is activated. Requires that the user is logged in
+     * Update the last logged in time for a user
+     */
+    protected function updateLastLogin()
+    {
+
+        $user = $this->auth->user();
+
+        $user->last_login = Carbon::now();
+
+        return $user->save();
+    }
+
+    /**
+     * Disables a user's account
+     *
+     * @param $user_id
+     * @return bool
+     */
+    public function disableAccount($user_id)
+    {
+
+        $user = $this->userRepository->find($user_id);
+
+        $user->disabled = true;
+
+        return $user->save();
+    }
+
+    /**
+     * Enables a users account
+     *
+     * @param $user_id
+     * @return bool
+     */
+    public function enableAccount($user_id)
+    {
+
+        $user = $this->userRepository->find($user_id);
+
+        $user->disabled = false;
+
+        return $user->save();
+    }
+
+    /**
+     * Checks if the current user's account is activated. Requires that the user is logged in
      *
      * @return boolean
      */
     public function checkIfAccountIsConfirmed()
     {
         // retrieve the authenticated user and check if their account is activated/confirmed
-        $result = $this->auth->user()->confirmed;
+        $result = $this->auth->user()->confirmed && $this->auth->user()->confirmation_code === null;
 
         return $result;
     }

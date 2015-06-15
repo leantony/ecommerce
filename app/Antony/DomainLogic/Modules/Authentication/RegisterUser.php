@@ -5,6 +5,7 @@ use app\Antony\DomainLogic\Modules\Authentication\Base\ApplicationAuthProvider;
 use app\Antony\DomainLogic\Modules\Authentication\Traits\AccountActivationTrait;
 use App\Events\UserWasRegistered;
 use App\Models\User;
+use Carbon\Carbon;
 use InvalidArgumentException;
 
 class RegisterUser extends ApplicationAuthProvider implements UserRegistrationContract
@@ -61,6 +62,8 @@ class RegisterUser extends ApplicationAuthProvider implements UserRegistrationCo
             if (!$enforceActivation) {
 
                 $this->auth->login($this->user, true);
+
+                $this->user->last_login = Carbon::now();
 
                 return ["user" => $this->user];
 

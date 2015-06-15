@@ -8,21 +8,21 @@
     </div>
     <div class="form-group">
         {!! Form::label('category_id', "Category:", []) !!}
-        {!! Form::select('category_id', str_replace('_', ' ', App\Models\Category::lists('name', 'id')), null, [ "class" => "form-control product-categories" ]) !!}
+        {!! Form::select('category_id', str_replace('_', ' ', App\Models\Category::lists('name', 'id')->all()), null, [ "class" => "form-control product-categories" ]) !!}
         @if($errors->has('category_id'))
             <span class="wow flash error-msg">{{ $errors->first('category_id') }}</span>
         @endif
     </div>
     <div class="form-group">
         {!! Form::label('subcategory_id', "Sub category:", []) !!}
-        {!! Form::select('subcategory_id', str_replace('_', ' ', App\Models\SubCategory::lists('name', 'id')), null, [ "class" => "form-control product-subcategories" ]) !!}
+        {!! Form::select('subcategory_id', str_replace('_', ' ', App\Models\SubCategory::lists('name', 'id')->all()), null, [ "class" => "form-control product-subcategories" ]) !!}
         @if($errors->has('subcategory_id'))
             <span class="wow flash error-msg">{{ $errors->first('subcategory_id') }}</span>
         @endif
     </div>
     <div class="form-group">
         {!! Form::label('brand_id', "Product manufacturer:", []) !!}
-        {!! Form::select('brand_id', App\Models\Brand::lists('name', 'id'), null, [ "class" => "form-control product-brands" ]) !!}
+        {!! Form::select('brand_id', App\Models\Brand::lists('name', 'id')->all(), null, [ "class" => "form-control product-brands" ]) !!}
         @if($errors->has('brand_id'))
             <span class="wow flash error-msg">{{ $errors->first('brand_id') }}</span>
         @endif

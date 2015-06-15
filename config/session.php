@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver'          => env( 'SESSION_DRIVER', 'file' ),
+    'driver' => env('SESSION_DRIVER', 'file'),
     /*
     |--------------------------------------------------------------------------
     | Session Lifetime
@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'lifetime'        => 180,
+    'lifetime' => 180,
     'expire_on_close' => false,
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'encrypt'         => true,
+    'encrypt' => true,
     /*
     |--------------------------------------------------------------------------
     | Session File Location
@@ -53,7 +53,7 @@ return [
     |
     */
 
-    'files'           => storage_path() . '/framework/sessions',
+    'files' => storage_path() . '/framework/sessions',
     /*
     |--------------------------------------------------------------------------
     | Session Database Connection
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'connection'      => null,
+    'connection' => null,
     /*
     |--------------------------------------------------------------------------
     | Session Database Table
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'table'           => 'sessions',
+    'table' => 'sessions',
     /*
     |--------------------------------------------------------------------------
     | Session Sweeping Lottery
@@ -89,7 +89,7 @@ return [
     |
     */
 
-    'lottery'         => [ 2, 100 ],
+    'lottery' => [2, 100],
     /*
     |--------------------------------------------------------------------------
     | Session Cookie Name
@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'cookie'          => 'user_session',
+    'cookie' => 'user_session',
     /*
     |--------------------------------------------------------------------------
     | Session Cookie Path
@@ -113,7 +113,7 @@ return [
     |
     */
 
-    'path'            => '/',
+    'path' => '/',
     /*
     |--------------------------------------------------------------------------
     | Session Cookie Domain
@@ -125,7 +125,7 @@ return [
     |
     */
 
-    'domain'          => null,
+    'domain' => null,
     /*
     |--------------------------------------------------------------------------
     | HTTPS Only Cookies
@@ -137,6 +137,6 @@ return [
     |
     */
 
-    'secure'          => false,
+    'secure' => false,
 
 ];

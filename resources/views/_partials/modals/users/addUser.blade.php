@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <h6>Pick a county</h6>
                     {!! Form::label('county_id', "County:", []) !!}
-                    {!! Form::select('county_id', App\Models\County::lists('name', 'id'), null, ['class' => 'form-control']) !!}
+                    {!! Form::select('county_id', App\Models\County::lists('name', 'id')->all(), null, ['class' => 'form-control']) !!}
                     @if($errors->has('county_id'))
                         <span class="wow flash error-msg">{{ $errors->first('county_id') }}</span>
                     @endif

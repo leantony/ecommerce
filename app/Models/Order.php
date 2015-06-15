@@ -1,6 +1,5 @@
 <?php namespace app\Models;
 
-use Carbon\Carbon;
 use Eloquent;
 
 class Order extends Eloquent
@@ -10,8 +9,7 @@ class Order extends Eloquent
     public $incrementing = false;
 
     protected $casts = [
-        'status',
-        'done'
+        'delivered' => 'boolean',
     ];
 
     /**
@@ -66,23 +64,4 @@ class Order extends Eloquent
         return $this->hasOne('App\Models\Invoice');
     }
 
-    /**
-     * @param $value
-     *
-     * @return string
-     */
-    public function getUpdatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('l jS F Y h:i:s A');
-    }
-
-    /**
-     * @param $value
-     *
-     * @return string
-     */
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('l jS F Y h:i:s A');
-    }
 }

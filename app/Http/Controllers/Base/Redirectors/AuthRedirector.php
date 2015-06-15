@@ -1,5 +1,6 @@
 <?php namespace app\Http\Controllers\Base\Redirectors;
 
+use app\Antony\DomainLogic\Contracts\Security\AuthContract;
 use Illuminate\Http\Request;
 
 trait AuthRedirector
@@ -46,6 +47,13 @@ trait AuthRedirector
      * @var string
      */
     protected $accountNotActivatedMessage = "Your account has not been activated. You need to activate your account before using it";
+
+    /**
+     * A message for a disabled account
+     *
+     * @var string
+     */
+    protected $accountDisabledMessage = "Your account has been disabled. Please contact system support";
 
     /**
      * The url the user should be redirected to, once they login successfully
@@ -147,12 +155,16 @@ trait AuthRedirector
      */
     protected function getLoginResponse(Request $request)
     {
-        if (is_null($this->data)) {
+        if ($this->data === AuthContract::ACCOUNT_NOT_ACTIVATED) {
 
             // user's account isn't activated
             return $this->getAccountActivationResponse($request);
         }
+        if ($this->data === AuthContract::ACCOUNT_DISABLED) {
 
+            // user's account is disabled
+            return $this->getAccountDisabledResponse($request);
+        }
         if ($request->ajax()) {
 
             if (!$this->data) {
@@ -187,6 +199,25 @@ trait AuthRedirector
         } else {
 
             flash()->error($this->accountNotActivatedMessage);
+            return redirect($this->loginPath())->withInput(
+                $request->only('email', 'remember')
+            );
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    protected function getAccountDisabledResponse(Request $request)
+    {
+        if ($request->ajax()) {
+
+            return response()->json(["message" => $this->accountDisabledMessage], 403);
+
+        } else {
+
+            flash()->error($this->accountDisabledMessage);
             return redirect($this->loginPath())->withInput(
                 $request->only('email', 'remember')
             );

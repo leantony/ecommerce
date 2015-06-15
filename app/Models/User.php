@@ -48,7 +48,16 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
     protected $casts = [
         'confirmed' => 'boolean',
+        'disabled' => 'boolean',
     ];
+
+    /**
+     * @return array
+     */
+    public function getDates()
+    {
+        return ['created_at', 'updated_at', 'confirmed_at', 'deleted_at', 'last_login'];
+    }
 
     /**
      * The attributes excluded from the model's JSON form.

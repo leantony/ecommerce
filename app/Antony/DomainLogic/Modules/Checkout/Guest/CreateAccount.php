@@ -4,6 +4,7 @@ use app\Antony\DomainLogic\Contracts\Redirects\AppRedirector;
 use app\Antony\DomainLogic\Modules\Checkout\Base\AbstractCheckoutProcessor;
 use app\Antony\DomainLogic\Modules\User\UserRepository;
 use App\Models\Guest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
@@ -75,6 +76,8 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
 
             // login user & remember them
             auth()->login($user, true);
+
+            $user->last_login = Carbon::now();
 
             $request->getSession()->set('account_created_after_checkout', true);
 

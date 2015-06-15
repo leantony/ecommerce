@@ -3,8 +3,8 @@
 use App\Antony\DomainLogic\Modules\Images\ImageProcessor;
 use App\Events\PasswordResetWasRequested;
 use App\Events\UserWasRegistered;
-use App\Handlers\Events\SendPasswordResetEmail;
-use App\Handlers\Events\SendRegistrationEmail;
+use App\Listeners\Events\SendPasswordResetEmail;
+use App\Listeners\Events\SendRegistrationEmail;
 use App\ModelObservers\ProductBrandObserver;
 use App\ModelObservers\ProductObserver;
 use App\ModelObservers\UserObserver;

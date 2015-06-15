@@ -52,4 +52,12 @@ class UserPresenter extends Presenter
     {
         return $this->updated_at->diffForHumans();
     }
+
+    /**
+     * @return mixed
+     */
+    public function lastLogin()
+    {
+        return is_null($this->last_login) ? "unknown" : $this->last_login->diffForHumans();
+    }
 }

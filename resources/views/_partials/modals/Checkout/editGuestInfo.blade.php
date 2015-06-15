@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label for="county_id">Select a county:</label>
-                    {!! Form::select('county_id', str_replace('_', ' ', App\Models\County::lists('name', 'id')), null,  [ 'class'=>'form-control', 'id' => 'county-input']) !!}
+                    {!! Form::select('county_id', str_replace('_', ' ', App\Models\County::lists('name', 'id')->all()), null,  [ 'class'=>'form-control', 'id' => 'county-input']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('town', "Home town:", []) !!}

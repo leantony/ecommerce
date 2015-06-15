@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('category_id', "Pick a category:", []) !!}
-                    {!! Form::select('category_id', App\Models\Category::lists('name', 'id'), null, [ 'class'=>'form-control']) !!}
+                    {!! Form::select('category_id', App\Models\Category::lists('name', 'id')->all(), null, [ 'class'=>'form-control']) !!}
                     @if($errors->has('category_id'))
                         {{ $errors->first('category_id') }}
                     @endif

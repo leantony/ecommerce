@@ -97,8 +97,9 @@ trait oauth2Authenticator
         } else {
 
             // login the user
-
             $this->auth->login($user, true);
+            // update the last logged in field
+            $this->updateLastLogin();
 
             return redirect()->intended(session('url.intended', '/'));
         }
@@ -115,6 +116,9 @@ trait oauth2Authenticator
         $user = $this->userRepository->createUserUsingDataFromAPI($request->getSession()->get('api_user_data'), $request->all());
 
         $this->auth->login($user, true);
+
+        // update the last logged in field
+        $this->updateLastLogin();
 
         $this->session->pull('api_user_data');
 

@@ -1,6 +1,7 @@
 <?php namespace app\Antony\DomainLogic\Modules\Authentication\Traits;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 trait AccountActivationTrait
@@ -23,6 +24,9 @@ trait AccountActivationTrait
         if ($autoLogin) {
 
             $this->auth->login($user);
+
+            // update the last logged in field
+            $this->updateLastLogin();
 
             flash()->success("Your account was successfully activated. You are now a member at PC-World!.");
 
@@ -58,6 +62,8 @@ trait AccountActivationTrait
         $user->confirmation_code = null;
 
         $user->confirmed = true;
+
+        $user->confirmed_at = Carbon::now();
 
         $user->save();
 

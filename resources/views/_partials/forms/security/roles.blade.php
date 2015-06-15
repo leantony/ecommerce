@@ -21,7 +21,7 @@
 </div>
 <div class="form-group">
     {!! Form::label('permissions', "Permissions:", []) !!}
-    {!! Form::select('permissions[]', App\Models\Permission::lists('name', 'id'), null, [ "class" => "form-control permissions-assignment" , "multiple" => "multiple" ]) !!}
+    {!! Form::select('permissions[]', App\Models\Permission::lists('name', 'id')->all(), null, [ "class" => "form-control permissions-assignment" , "multiple" => "multiple" ]) !!}
     @if($errors->has('permissions'))
         <span class="wow flash error-msg">{{ $errors->first('permissions') }}</span>
     @endif
