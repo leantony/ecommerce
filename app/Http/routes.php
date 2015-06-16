@@ -126,7 +126,7 @@ Route::group(['prefix' => 'categories', 'middleware' => ['http']], function () {
 // subcategories
 Route::group(['prefix' => 'sub-categories', 'middleware' => ['http']], function () {
 
-    get('/', ['as' => 'allSubCategories', 'uses' => 'Frontend\SubcategoriesController@index']);
+    get('/', ['as' => 'allSubCategories', 'uses' => 'Frontend\SubCategoriesController@index']);
 
     get('/{subcategories}', ['as' => 'subcategories.shop', 'uses' => 'Frontend\SubCategoriesController@show']);
 });

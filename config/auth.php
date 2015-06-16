@@ -16,6 +16,7 @@ return [
     */
 
     'driver' => 'eloquent',
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Model
@@ -27,7 +28,8 @@ return [
     |
     */
 
-    'model' => 'App\Models\User',
+    'model' => App\Models\User::class,
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Table
@@ -40,6 +42,7 @@ return [
     */
 
     'table' => 'users',
+    
     /*
     |--------------------------------------------------------------------------
     | Password Reset Settings

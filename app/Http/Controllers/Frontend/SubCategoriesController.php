@@ -9,7 +9,7 @@ use Response;
 class SubCategoriesController extends Controller
 {
     /**
-     * The subcategories entity
+     * The subcategories repository
      *
      * @var SubCategoriesRepository
      */
@@ -40,6 +40,7 @@ class SubCategoriesController extends Controller
      *
      * @param Request $request
      *
+     * @param SubCategory $subCategory
      * @return Response
      */
     public function show(Request $request, SubCategory $subCategory)

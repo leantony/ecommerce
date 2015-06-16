@@ -19,7 +19,9 @@ return [
     | the role if it is in a different namespace.
     |
     */
-    'role' => 'App\Models\Role',
+   
+    'role' => App\Models\Role::class,
+
     /*
     |--------------------------------------------------------------------------
     | Entrust Roles Table
@@ -29,6 +31,7 @@ return [
     |
     */
     'roles_table' => 'roles',
+    
     /*
     |--------------------------------------------------------------------------
     | Entrust Permission Model
@@ -38,7 +41,8 @@ return [
     | Update the permission if it is in a different namespace.
     |
     */
-    'permission' => 'App\Models\Permission',
+    'permission' => App\Models\Permission::class,
+
     /*
     |--------------------------------------------------------------------------
     | Entrust Permissions Table
@@ -48,7 +52,9 @@ return [
     | database.
     |
     */
+   
     'permissions_table' => 'permissions',
+
     /*
     |--------------------------------------------------------------------------
     | Entrust permission_role Table
@@ -59,6 +65,7 @@ return [
     |
     */
     'permission_role_table' => 'permission_role',
+
     /*
     |--------------------------------------------------------------------------
     | Entrust role_user Table
@@ -68,6 +75,7 @@ return [
     | database.
     |
     */
+   
     'role_user_table' => 'role_user',
 
 ];

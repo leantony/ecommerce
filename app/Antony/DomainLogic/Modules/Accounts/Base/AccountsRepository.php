@@ -85,7 +85,9 @@ class AccountsRepository implements AccountsContract
 
         // This will be so rare, but anyway..
         if (is_null($this->user)) {
-
+            if(app()->runningInConsole()){
+                return null;
+            }
             throw new HttpResponseException(new Response('Access denied', 401));
         }
         return $this->user;

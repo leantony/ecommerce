@@ -22,6 +22,7 @@ return [
         realpath(__DIR__ . '/../app/Providers/RouteServiceProvider.php'),
 
     ],
+
     /*
     |--------------------------------------------------------------------------
     | Compiled File Providers

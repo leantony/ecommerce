@@ -12,6 +12,7 @@ return [
      */
 
     'enabled' => config('app.debug'),
+
     /*
      |--------------------------------------------------------------------------
      | Storage settings
@@ -24,12 +25,14 @@ return [
      | can also be used. For PDO, run the package migrations first.
      |
      */
+    
     'storage' => [
         'enabled' => true,
         'driver' => 'file', // redis, file, pdo
         'path' => storage_path() . '/debugbar', // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
     ],
+
     /*
      |--------------------------------------------------------------------------
      | Vendors
@@ -45,6 +48,7 @@ return [
      */
 
     'include_vendors' => true,
+
     /*
      |--------------------------------------------------------------------------
      | Capture Ajax Requests
@@ -56,6 +60,7 @@ return [
      */
 
     'capture_ajax' => true,
+
     /*
      |--------------------------------------------------------------------------
      | DataCollectors
@@ -86,6 +91,7 @@ return [
         'auth' => false, // Display Laravel authentication status
         'session' => false, // Display session data in a separate tab
     ],
+
     /*
      |--------------------------------------------------------------------------
      | Extra options
@@ -123,6 +129,7 @@ return [
             'file' => null
         ],
     ],
+    
     /*
      |--------------------------------------------------------------------------
      | Inject Debugbar in Response

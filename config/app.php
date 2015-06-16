@@ -14,6 +14,7 @@ return [
     */
 
     'debug' => env('APP_DEBUG'),
+
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -26,6 +27,7 @@ return [
     */
 
     'url' => env('SITE_DOMAIN', 'localhost'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -38,6 +40,7 @@ return [
     */
 
     'timezone' => env('TZ', 'UTC'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -50,6 +53,7 @@ return [
     */
 
     'locale' => env('LOCALE', 'en'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -62,6 +66,7 @@ return [
     */
 
     'fallback_locale' => 'en',
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -73,8 +78,9 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', '231c56b2636b5129b9b8bde503643146099c540549bf5a8e8d7e5361655a27d0'),
+    'key' => env('APP_KEY', '231c56b2636b'),
     'cipher' => 'AES-256-CBC',
+
     /*
     |--------------------------------------------------------------------------
     | Logging Configuration
@@ -89,6 +95,7 @@ return [
     */
 
     'log' => 'daily',
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -153,6 +160,7 @@ return [
         yajra\Datatables\DatatablesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
     ],
+    
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
