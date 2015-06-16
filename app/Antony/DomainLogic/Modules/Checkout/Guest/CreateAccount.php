@@ -77,7 +77,7 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
             // login user & remember them
             auth()->login($user, true);
 
-            $user->last_login = Carbon::now();
+            $user->updateLoginTime();
 
             $request->getSession()->set('account_created_after_checkout', true);
 

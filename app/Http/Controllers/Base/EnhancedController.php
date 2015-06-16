@@ -2,14 +2,14 @@
 
 use app\Http\Controllers\Base\Redirectors\ErrorAction;
 use app\Http\Controllers\Base\Redirectors\SuccessAction;
-use Illuminate\Foundation\Bus\DispatchesCommands;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 abstract class EnhancedController extends BaseController
 {
 
-    use DispatchesCommands, ValidatesRequests, SuccessAction, ErrorAction;
+    use DispatchesJobs, ValidatesRequests, SuccessAction, ErrorAction;
 
     /**
      * The data returned by an action

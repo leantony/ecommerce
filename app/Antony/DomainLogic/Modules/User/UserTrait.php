@@ -2,6 +2,7 @@
 
 use App\Models\Cart;
 use App\Models\Review;
+use Carbon\Carbon;
 use DateTime;
 
 trait UserTrait
@@ -157,4 +158,13 @@ trait UserTrait
 
     }
 
+    /**
+     * @return mixed
+     */
+    public function updateLoginTime(){
+
+        $this->last_login = Carbon::now();
+
+        return $this->save();
+    }
 }

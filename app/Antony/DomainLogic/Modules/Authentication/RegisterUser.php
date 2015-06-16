@@ -63,7 +63,7 @@ class RegisterUser extends ApplicationAuthProvider implements UserRegistrationCo
 
                 $this->auth->login($this->user, true);
 
-                $this->user->last_login = Carbon::now();
+                $this->user->updateLoginTime();
 
                 return ["user" => $this->user];
 

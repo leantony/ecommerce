@@ -47,6 +47,10 @@ class UsersController extends Controller
             return $user->updated_at->diffForHumans();
         })->editColumn('created_at', function ($user) {
             return $user->created_at->diffForHumans();
+        })->editColumn('first_name', function ($user) {
+            return beautify($user->first_name);
+        })->editColumn('last_name', function ($user) {
+            return beautify($user->last_name);
         });
 
         return $data->make(true);
