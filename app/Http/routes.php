@@ -9,7 +9,7 @@ Route::group(['prefix' => 'help'], function () {
 
     get('/', ['as' => 'help', 'uses' => 'Shared\HelpController@index']);
 
-    get('/article/{article}', ['as' => 'help.article.view', 'uses' => 'Shared\HelpController@show']);
+    get('/article/{articles}', ['as' => 'help.article.view', 'uses' => 'Shared\HelpController@show']);
 });
 
 // info pages
