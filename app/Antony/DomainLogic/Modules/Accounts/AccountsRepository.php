@@ -1,4 +1,4 @@
-<?php namespace app\Antony\DomainLogic\Modules\Accounts\Base;
+<?php namespace app\Antony\DomainLogic\Modules\Accounts;
 
 use app\Antony\DomainLogic\Contracts\Account\AccountsContract;
 use app\Antony\DomainLogic\Modules\User\UserRepository;

@@ -1,4 +1,4 @@
-<?php namespace App\Listeners\Events;
+<?php namespace App\Handlers\Events;
 
 use App\Events\UserWasRegistered;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,7 +26,7 @@ class SendRegistrationEmail implements ShouldQueue
      *
      * @param  UserWasRegistered $event
      *
-     * @return void
+     * @return mixed
      */
     public function handle(UserWasRegistered $event)
     {
@@ -42,7 +42,7 @@ class SendRegistrationEmail implements ShouldQueue
                 'link_' => secure_url(route('account.activate', ['code' => $user->confirmation_code]))
             ];
 
-        $this->mailer->queue('emails.activation', compact('data'), function ($m) use ($receiver, $subject) {
+        return $this->mailer->queue('emails.activation', compact('data'), function ($m) use ($receiver, $subject) {
             $m->to($receiver);
             $m->subject($subject);
         });

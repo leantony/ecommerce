@@ -1,7 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Checkout\Base;
+<?php namespace app\Antony\DomainLogic\Modules\Checkout;
 
 use app\Antony\DomainLogic\Contracts\Checkout\CheckoutContract;
-use app\Antony\DomainLogic\Modules\Checkout\CheckoutRedirector;
 use app\Antony\DomainLogic\Modules\Cookies\CheckOutCookie;
 use app\Antony\DomainLogic\Modules\Guests\GuestRepository;
 use app\Antony\DomainLogic\Modules\User\UserRepository;

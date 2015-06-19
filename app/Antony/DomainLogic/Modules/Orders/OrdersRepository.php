@@ -73,7 +73,7 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
      */
     public function model()
     {
-        return 'App\Models\Order';
+        return Order::class;
     }
 
     /**
@@ -303,5 +303,4 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
 
         return $this->orderCookieData;
     }
-
 }

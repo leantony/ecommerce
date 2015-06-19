@@ -1,6 +1,7 @@
 <?php namespace app\Antony\DomainLogic\Modules\Articles;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
+use App\Models\Article;
 
 class ArticlesRepository extends EloquentRepository
 {
@@ -12,6 +13,6 @@ class ArticlesRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Article';
+        return Article::class;
     }
 }

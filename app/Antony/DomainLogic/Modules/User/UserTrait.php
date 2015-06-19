@@ -157,14 +157,4 @@ trait UserTrait
         return $returnAge ? $years : $passed;
 
     }
-
-    /**
-     * @return mixed
-     */
-    public function updateLoginTime(){
-
-        $this->last_login = Carbon::now();
-
-        return $this->save();
-    }
 }

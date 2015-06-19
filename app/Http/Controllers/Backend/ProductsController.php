@@ -48,8 +48,8 @@ class ProductsController extends Controller
 
         $products = $this->products->with(['category', 'subcategory', 'brand', 'reviews'])->select('*');
 
-        return Datatables::of($products)->addColumn('edit', function ($article) {
-            return link_to(route('backend.products.edit', ['id' => $article->id]), 'Edit', ['data-target-model' => $article->id, 'class' => 'btn btn-xs btn-primary']);
+        return Datatables::of($products)->addColumn('edit', function ($product) {
+            return link_to(route('backend.products.edit', ['id' => $product->id]), 'Edit', ['data-target-model' => $product->id, 'class' => 'btn btn-xs btn-primary']);
         })->editColumn('price', function ($product) {
             return format_money($product->price);
         })->make(true);

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Shared;
 
 use app\Antony\DomainLogic\Modules\Authentication\ResetPasswords;
+use app\Http\Controllers\Base\Redirectors\ResetPasswordsRedirector;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Authentication\ResetPassword;
 use Illuminate\Http\Request;
@@ -8,6 +9,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PasswordController extends Controller
 {
+    use ResetPasswordsRedirector;
+
     /**
      * The password reset module
      *
@@ -46,7 +49,9 @@ class PasswordController extends Controller
      */
     public function postEmail(ResetPassword $request)
     {
-        return $this->passwords->getUser($request->get('email'))->sendResetEmail()->handleRedirect($request);
+        $this->data = $this->passwords->getUserAndSendEmail($request->only('email'));
+
+        return $this->getEmailResponse($request);
     }
 
     /**
@@ -70,6 +75,9 @@ class PasswordController extends Controller
      */
     public function postReset(Request $request)
     {
-        return $this->passwords->resetPassword($request)->handleRedirect($request);
+        $this->data = $this->passwords->resetPassword($request->all());
+
+        return $this->getPasswordResetResponse($request);
+
     }
 }

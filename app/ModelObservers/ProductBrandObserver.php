@@ -12,7 +12,9 @@ class ProductBrandObserver
      */
     protected $image;
 
-
+    /**
+     * @param ImagingInterface $imageProcessor
+     */
     public function __construct(ImagingInterface $imageProcessor)
     {
         $this->image = $imageProcessor;

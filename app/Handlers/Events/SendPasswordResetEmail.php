@@ -1,4 +1,4 @@
-<?php namespace App\Listeners\Events;
+<?php namespace App\Handlers\Events;
 
 use App\Events\PasswordResetWasRequested;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
@@ -32,7 +32,7 @@ class SendPasswordResetEmail
      *
      * @param  PasswordResetWasRequested $event
      *
-     * @return void
+     * @return mixed
      */
     public function handle(PasswordResetWasRequested $event)
     {
@@ -44,7 +44,7 @@ class SendPasswordResetEmail
 
         $data = ['username' => $event->user->present()->fullName, 'token' => $token];
 
-        $this->mailer->queue('emails.password', compact('data'), function ($m) use ($recipient, $subject) {
+        return $this->mailer->queue('emails.password', compact('data'), function ($m) use ($recipient, $subject) {
             $m->to($recipient);
 
             $m->subject($subject);

@@ -1,6 +1,6 @@
 <?php namespace app\Antony\DomainLogic\Modules\Checkout\AuthUser;
 
-use app\Antony\DomainLogic\Modules\Checkout\Base\AbstractCheckoutProcessor;
+use app\Antony\DomainLogic\Modules\Checkout\AbstractCheckoutProcessor;
 
 class ShippingStep extends AbstractCheckoutProcessor
 {

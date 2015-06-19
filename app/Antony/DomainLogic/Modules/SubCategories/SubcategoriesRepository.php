@@ -15,7 +15,7 @@ class SubcategoriesRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\SubCategory';
+        return SubCategory::class;
     }
 
     /**

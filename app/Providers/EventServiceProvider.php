@@ -3,8 +3,9 @@
 use App\Antony\DomainLogic\Modules\Images\ImageProcessor;
 use App\Events\PasswordResetWasRequested;
 use App\Events\UserWasRegistered;
-use App\Listeners\Events\SendPasswordResetEmail;
-use App\Listeners\Events\SendRegistrationEmail;
+use App\Handlers\Events\LogUserEvent;
+use App\Handlers\Events\SendPasswordResetEmail;
+use App\Handlers\Events\SendRegistrationEmail;
 use App\ModelObservers\ProductBrandObserver;
 use App\ModelObservers\ProductObserver;
 use App\ModelObservers\UserObserver;
@@ -36,6 +37,10 @@ class EventServiceProvider extends ServiceProvider
         // password reset event
         PasswordResetWasRequested::class => [
             SendPasswordResetEmail::class
+        ],
+        // user login
+        'auth.login' => [
+            LogUserEvent::class
         ],
 
     ];

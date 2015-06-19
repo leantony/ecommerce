@@ -98,8 +98,6 @@ trait oauth2Authenticator
 
             // login the user
             $this->auth->login($user, true);
-            // update the last logged in field
-            $this->updateLastLogin();
 
             return redirect()->intended(session('url.intended', '/'));
         }

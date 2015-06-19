@@ -24,6 +24,6 @@ class GuestRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Guest';
+        return Guest::class;
     }
 }

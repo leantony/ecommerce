@@ -11,12 +11,12 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
-        'Illuminate\Cookie\Middleware\EncryptCookies',
-        'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-        'Illuminate\Session\Middleware\StartSession',
-        'Illuminate\View\Middleware\ShareErrorsFromSession',
-        'App\Http\Middleware\VerifyCsrfToken',
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \App\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -27,41 +27,41 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
 
         // site (frontend) user authentication
-        'auth' => 'App\Http\Middleware\Authenticate',
-        'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
 
         // api
-        'user.found' => 'App\Http\Middleware\CreateAccountUsingAPIdata',
-        'api.authenticate' => 'App\Http\Middleware\AuthenticateWithAPI',
+        'user.found' => \App\Http\Middleware\CreateAccountUsingAPIdata::class,
+        'api.authenticate' => \App\Http\Middleware\AuthenticateWithAPI::class,
 
         // for all requests to the backend (Administrative pages)
-        'backend-access' => 'App\Http\Middleware\BackendAccess',
-        'backend-authorization' => 'App\Http\Middleware\BackendAuthorization',
-        'auth.backend' => 'App\Http\Middleware\BackendAuthentication',
+        'backend-access' => \App\Http\Middleware\BackendAccess::class,
+        'backend-authorization' => \App\Http\Middleware\BackendAuthorization::class,
+        'auth.backend' => \App\Http\Middleware\BackendAuthentication::class,
 
         // plain http transmission, or https
-        'http' => 'App\Http\Middleware\RemoveSSL',
-        'https' => 'App\Http\Middleware\RequireSSL',
+        'http' => \App\Http\Middleware\RemoveSSL::class,
+        'https' => \App\Http\Middleware\RequireSSL::class,
 
         // shopping cart
-        'cart.check' => 'App\Http\Middleware\VerifyShoppingCart',
+        'cart.check' => \App\Http\Middleware\VerifyShoppingCart::class,
 
         // checkout
-        'checkout.guest' => 'App\Http\Middleware\CheckOutAsGuest',
-        'checkout.user' => 'App\Http\Middleware\CheckOutAsAuthUser',
+        'checkout.guest' => \App\Http\Middleware\CheckOutAsGuest::class,
+        'checkout.user' => \App\Http\Middleware\CheckOutAsAuthUser::class,
 
         // prevent the user from reviewing a product twice
-        'reviews.check' => 'App\Http\Middleware\preventDoubleReviews',
+        'reviews.check' => \App\Http\Middleware\preventDoubleReviews::class,
 
         // checks if an anonymous user has already sent a contact message
-        'msg.check' => 'App\Http\Middleware\AnonymousContactMessages',
+        'msg.check' => \App\Http\Middleware\AnonymousContactMessages::class,
 
         // orders
-        'orders.verify' => 'App\Http\Middleware\VerifyOrders',
+        'orders.verify' => \App\Http\Middleware\VerifyOrders::class,
 
         // age filter
-        'age.filter' => 'App\Http\Middleware\AgeFilter',
+        'age.filter' => \App\Http\Middleware\AgeFilter::class,
     ];
 
 }

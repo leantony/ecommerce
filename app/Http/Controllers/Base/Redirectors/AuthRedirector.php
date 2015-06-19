@@ -83,8 +83,7 @@ trait AuthRedirector
     {
         $mail_sent = array_get($this->data, 'mailResponse');
 
-        // this is shit. Null gets constantly returned, and I don't know why
-        $appends = !is_null($mail_sent) ? "Check your email address for an activation email" : "";
+        $appends = !empty($mail_sent) ? "Check your email address for an activation email" : "";
 
         if ($request->ajax()) {
 

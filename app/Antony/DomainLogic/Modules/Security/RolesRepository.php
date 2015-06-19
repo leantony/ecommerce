@@ -2,6 +2,7 @@
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use app\Antony\DomainLogic\Modules\User\UserRepository;
+use App\Models\Role;
 use Illuminate\Container\Container;
 
 class RolesRepository extends EloquentRepository
@@ -89,6 +90,6 @@ class RolesRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Role';
+        return Role::class;
     }
 }

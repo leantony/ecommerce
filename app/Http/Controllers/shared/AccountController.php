@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Shared;
 
-use app\Antony\DomainLogic\Modules\Accounts\Base\AccountsRepository;
+use app\Antony\DomainLogic\Modules\Accounts\AccountsRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Request\Accounts\updateShippingInfo;
 use App\Http\Requests\Accounts\addMoreAccountInfo;

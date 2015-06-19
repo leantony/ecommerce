@@ -36,6 +36,6 @@ class ReviewsRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Review';
+        return Review::class;
     }
 }

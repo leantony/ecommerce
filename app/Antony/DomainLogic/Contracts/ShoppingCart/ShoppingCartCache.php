@@ -1,5 +1,8 @@
 <?php namespace app\Antony\DomainLogic\Contracts\ShoppingCart;
 
+use Illuminate\Support\Collection;
+use App\Models\Cart;
+
 /**
  * Implementing a caching mechanism will improve cart performance, by mitigating
  * the process of querying and requerying a basket, even when it has not been updated
@@ -56,7 +59,7 @@ interface ShoppingCartCache
     public function basketIsCached();
 
     /**
-     * Removes all cached products products
+     * Removes all cached products
      *
      * @return void
      */

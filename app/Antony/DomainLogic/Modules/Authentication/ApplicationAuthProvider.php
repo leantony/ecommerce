@@ -1,11 +1,9 @@
-<?php namespace app\Antony\DomainLogic\Modules\Authentication\Base;
+<?php namespace app\Antony\DomainLogic\Modules\Authentication;
 
 use app\Antony\DomainLogic\Contracts\Security\AuthContract;
 use app\Antony\DomainLogic\Modules\Authentication\Traits\oauth2\oauth2Authenticator;
 use app\Antony\DomainLogic\Modules\User\UserRepository;
-use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Session\Store;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
@@ -49,13 +47,6 @@ abstract class ApplicationAuthProvider implements AuthContract
     protected $userRepository;
 
     /**
-     * The password broker implementation
-     *
-     * @var PasswordBroker
-     */
-    protected $passwords;
-
-    /**
      * @var Store
      */
     private $session;
@@ -64,15 +55,13 @@ abstract class ApplicationAuthProvider implements AuthContract
      * @param Socialite $socialite
      * @param Guard $guard
      * @param UserRepository $userRepository
-     * @param PasswordBroker $passwords
+     * @param Store $session
      */
-    public function __construct(Socialite $socialite, Guard $guard, UserRepository $userRepository, PasswordBroker $passwords, Store $session)
+    public function __construct(Socialite $socialite, Guard $guard, UserRepository $userRepository, Store $session)
     {
-
         $this->socialite = $socialite;
         $this->auth = $guard;
         $this->userRepository = $userRepository;
-        $this->passwords = $passwords;
         $this->session = $session;
     }
 
@@ -109,23 +98,9 @@ abstract class ApplicationAuthProvider implements AuthContract
                     }
                 }
             }
-            // update the last login field
-            return $this->updateLastLogin();
+            return true;
         }
         return false;
-    }
-
-    /**
-     * Update the last logged in time for a user
-     */
-    protected function updateLastLogin()
-    {
-
-        $user = $this->auth->user();
-
-        $user->last_login = Carbon::now();
-
-        return $user->save();
     }
 
     /**

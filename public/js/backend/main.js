@@ -219,4 +219,37 @@
             {data: 'edit', name: 'edit', orderable: false, searchable: false}
         ]
     });
+
+    $('#order-users-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/backend/api/orders/data/users',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'user', name: 'user', orderable: false, searchable: false},
+            {data: 'email', name: 'email', orderable: false, searchable: false},
+            {data: 'quantity', name: 'quantity'},
+            {data: 'price', name: 'price'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'delivered', name: 'delivered'},
+            {data: 'details', name: 'details', orderable: false, searchable: false}
+        ]
+    });
+
+    $('#order-guests-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/backend/api/orders/data/guests',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'user', name: 'user', orderable: false, searchable: false},
+            {data: 'email', name: 'email', orderable: false, searchable: false},
+            {data: 'quantity', name: 'quantity'},
+            {data: 'price', name: 'price'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'delivered', name: 'delivered'},
+            {data: 'details', name: 'details', orderable: false, searchable: false}
+        ]
+    });
+
 })(jQuery);

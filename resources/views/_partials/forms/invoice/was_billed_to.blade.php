@@ -3,7 +3,7 @@
     <table class="table table-bordered">
         <tr>
             <th class="bold">UserName:</th>
-            <td>{{ $user->present()->fullName }}</td>
+            <td>{{ $is_logged_in ? $user->present()->fullName : beautify($user->first_name . " " . $user->last_name) }}</td>
         </tr>
         <tr>
             <th class="bold">Email Address</th>

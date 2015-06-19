@@ -83,6 +83,6 @@ class ShoppingCartRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Cart';
+        return Cart::class;
     }
 }

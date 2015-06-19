@@ -15,7 +15,7 @@ class CategoriesRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Category';
+        return Category::class;
     }
 
 

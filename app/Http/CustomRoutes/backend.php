@@ -69,6 +69,9 @@ Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access',
     // categories
     resource('categories', 'Backend\CategoriesController');
 
+    // categories
+    resource('orders', 'Backend\OrdersController');
+
     // subcategories
     resource('subcategories', 'Backend\SubCategoriesController');
 
@@ -85,5 +88,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access',
         get('/brands/data', ['as' => 'brands.data', 'uses' => 'Backend\BrandsController@getDataTable']);
         get('/subcategories/data', ['as' => 'subcategories.data', 'uses' => 'Backend\SubCategoriesController@getDataTable']);
         get('/categories/data', ['as' => 'categories.data', 'uses' => 'Backend\CategoriesController@getDataTable']);
+        get('/orders/data/users', ['as' => 'orders.data.users', 'uses' => 'Backend\OrdersController@getUserOrdersTable']);
+        get('/orders/data/guests', ['as' => 'orders.data.guests', 'uses' => 'Backend\OrdersController@getGuestsOrdersTable']);
     });
 });

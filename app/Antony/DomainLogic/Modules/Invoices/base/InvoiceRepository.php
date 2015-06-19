@@ -39,6 +39,6 @@ class InvoiceRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Order';
+        return Invoice::class;
     }
 }

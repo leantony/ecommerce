@@ -56,6 +56,6 @@ class PermissionsRepo extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Permission';
+        return Permission::class;
     }
 }

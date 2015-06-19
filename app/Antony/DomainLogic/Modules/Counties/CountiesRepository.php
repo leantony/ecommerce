@@ -14,6 +14,6 @@ class CountiesRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\County';
+        return County::class;
     }
 }

@@ -1,14 +1,12 @@
 <?php namespace app\Antony\DomainLogic\Modules\Authentication;
 
 use app\Antony\DomainLogic\Contracts\Security\UserRegistrationContract;
-use app\Antony\DomainLogic\Modules\Authentication\Base\ApplicationAuthProvider;
 use app\Antony\DomainLogic\Modules\Authentication\Traits\AccountActivationTrait;
 use App\Events\UserWasRegistered;
 use App\Models\User;
-use Carbon\Carbon;
 use InvalidArgumentException;
 
-class RegisterUser extends ApplicationAuthProvider implements UserRegistrationContract
+class RegisterUser extends AuthenticateUser implements UserRegistrationContract
 {
     /**
      * Allows users to activate their accounts
@@ -62,8 +60,6 @@ class RegisterUser extends ApplicationAuthProvider implements UserRegistrationCo
             if (!$enforceActivation) {
 
                 $this->auth->login($this->user, true);
-
-                $this->user->updateLoginTime();
 
                 return ["user" => $this->user];
 

@@ -14,7 +14,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 class User extends Eloquent implements AuthenticatableContract, CanResetPasswordContract
 {
 
-    use PresentableTrait, Authenticatable, CanResetPassword, EntrustUserTrait, UserTrait, SoftDeletes;
+    use PresentableTrait, Authenticatable, CanResetPassword, EntrustUserTrait, UserTrait;
 
     protected $presenter = UserPresenter::class;
 

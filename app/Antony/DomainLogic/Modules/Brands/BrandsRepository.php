@@ -15,7 +15,7 @@ class BrandsRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Brand';
+        return Brand::class;
     }
 
     /**

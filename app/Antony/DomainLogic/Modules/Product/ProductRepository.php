@@ -1,6 +1,7 @@
 <?php namespace app\Antony\DomainLogic\Modules\Product;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
+use App\Models\Product;
 use Carbon\Carbon;
 
 class ProductRepository extends EloquentRepository
@@ -62,7 +63,7 @@ class ProductRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\Product';
+        return Product::class;
     }
 
     /**

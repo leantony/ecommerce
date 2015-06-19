@@ -14,7 +14,7 @@ class ContactMessageRepository extends EloquentRepository implements ContactMess
      */
     public function model()
     {
-        return 'App\Models\AnonymousMessages';
+        return AnonymousMessages::class;
     }
 
     /**

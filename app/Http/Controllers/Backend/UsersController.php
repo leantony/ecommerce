@@ -42,7 +42,7 @@ class UsersController extends Controller
         $usrs = $this->users->with(['county'])->select('*');
 
         $data = Datatables::of($usrs)->addColumn('edit', function ($user) {
-            return link_to(route('backend.users.edit', ['id' => $user->id]), 'Edit', ['data-target-model' => $user->id, 'class' => 'btn btn-xs btn-primary']);
+            return link_to(route('backend.users.edit', ['user' => $user->id]), 'Edit', ['data-target-model' => $user->id, 'class' => 'btn btn-xs btn-primary']);
         })->editColumn('updated_at', function ($user) {
             return $user->updated_at->diffForHumans();
         })->editColumn('created_at', function ($user) {

@@ -61,6 +61,19 @@
                             reports</a></li>
                 </ul>
             </li>
+            <li class="dropdown {{ eq(Request::segment(2), 'orders') ? 'active' : '' }}">
+                <a href="#" class="dropdown-toggle" data-hover="dropdown"><i class="fa fa-sellsy"></i>&nbsp;Product Orders<span
+                            class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ route('backend.orders.index') }}"><i class="fa fa-user"></i>&nbsp;View user orders</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="{{ route('backend.orders.index', ['guest' => 1]) }}"><i class="fa fa-user"></i>&nbsp;View guest orders</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="#"><i class="fa fa-bar-chart"></i>&nbsp;Order reports</a></li>
+                </ul>
+            </li>
             <li class="dropdown {{ eq(Request::segment(2), 'products') ? 'active' : '' }}">
                 <a href="#" class="dropdown-toggle" data-hover="dropdown"><i
                             class="fa fa-desktop"></i>&nbsp;Inventory<span class="caret"></span></a>

@@ -25,9 +25,6 @@ trait AccountActivationTrait
 
             $this->auth->login($user);
 
-            // update the last logged in field
-            $this->updateLastLogin();
-
             flash()->success("Your account was successfully activated. You are now a member at PC-World!.");
 
             return redirect()->intended($this->redirectPath());

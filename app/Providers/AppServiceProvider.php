@@ -1,5 +1,7 @@
 <?php namespace App\Providers;
 
+use app\Antony\DomainLogic\Contracts\Caching\CacheInterface;
+use app\Antony\DomainLogic\Contracts\Imaging\ImagingInterface;
 use app\Antony\DomainLogic\Modules\Cache\LaravelCache;
 use App\Antony\DomainLogic\Modules\Images\ImageProcessor;
 use App\Models\Product;
@@ -24,30 +26,19 @@ class AppServiceProvider extends ServiceProvider
      * Register any application services.
      *
      * This service provider is a great spot to register your various container
-     * bindings with the application. As you can see, we are registering our
-     * "Registrar" implementation here. You can add your own bindings too!
+     * bindings with the application. You can add your own bindings too!
      *
      * @return void
      */
     public function register()
     {
-        // laravel's user registrar
-        $this->app->bind(
-            'Illuminate\Contracts\Auth\Registrar',
-            'App\Services\Registrar'
-        );
-
         // binding the cache interface to our laravelCache class
-        $this->app->bind('app\Antony\DomainLogic\Contracts\Caching\CacheInterface', function ($app) {
+        $this->app->bind(CacheInterface::class, function ($app) {
             return new LaravelCache($app['cache']);
         });
 
-//        $this->app->when('App\Http\Controllers\Shared\PasswordController')
-//            ->needs('Illuminate\Contracts\Auth\UserProvider')
-//            ->give('Illuminate\Auth\EloquentUserProvider');
-
         // binding our imagingInterface to its counterpart
-        $this->app->bind('app\Antony\DomainLogic\Contracts\Imaging\ImagingInterface', function ($app) {
+        $this->app->bind(ImagingInterface::class, function ($app) {
             return new ImageProcessor();
         });
 

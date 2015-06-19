@@ -165,17 +165,17 @@ abstract class EloquentRepository implements RepositoryInterface
      * Retrieve a model, and relationships if they are present
      *
      * @param $relations
+     * @param bool $get
      * @param bool $paginate
      * @param int $pages
-     *
-     * @return mixed
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Collection|static|static[]
      */
-    public function has($relations, $paginate = false, $pages = 10)
+    public function has($relations, $get = true, $paginate = false, $pages = 10)
     {
         if ($paginate) {
             return $this->model->has($relations)->paginate($pages);
         }
-        return $this->model->has($relations)->get();
+        return $get ? $this->model->has($relations)->get() : $this->model->has($relations);
     }
 
     /**
@@ -186,7 +186,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * @param callable $func
      *
      * @param array $columns
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function whereHas($relations, Closure $func, $columns = ['*'])
     {
@@ -202,7 +202,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * @param array $relationships
      *
      * @param array $columns
-     * @return mixed|null
+     * @return mixed
      */
     public function getFirstBy($key, $operator = null, $value, array $relationships = [], $columns = array('*'))
     {
@@ -287,7 +287,6 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function select(array $cols)
     {
-
         return $this->model->select($cols);
     }
 
@@ -298,7 +297,6 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function edit($id, $data)
     {
-
         return $this->update($data, $id);
     }
 
@@ -308,7 +306,14 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function get($id)
     {
-
         return $this->find($id);
+    }
+
+    /**
+     * @return Eloquent
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 }

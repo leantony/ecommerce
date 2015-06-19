@@ -1,6 +1,5 @@
 <?php namespace app\Antony\DomainLogic\Modules\Checkout;
 
-use app\Antony\DomainLogic\Modules\Checkout\Base\AbstractCheckoutProcessor;
 use Illuminate\Http\Request;
 
 trait CheckoutRedirector
@@ -8,7 +7,6 @@ trait CheckoutRedirector
 
     /**
      * @param Request $request
-     * @param $success
      *
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */

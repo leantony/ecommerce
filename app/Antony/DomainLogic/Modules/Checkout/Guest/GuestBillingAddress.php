@@ -1,6 +1,6 @@
 <?php namespace app\Antony\DomainLogic\Modules\Checkout\Guest;
 
-use app\Antony\DomainLogic\Modules\Checkout\Base\AbstractCheckoutProcessor;
+use app\Antony\DomainLogic\Modules\Checkout\AbstractCheckoutProcessor;
 use app\Antony\DomainLogic\Modules\Checkout\CheckoutRedirector;
 use App\Models\Guest;
 

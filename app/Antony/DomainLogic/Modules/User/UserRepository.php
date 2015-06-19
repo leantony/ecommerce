@@ -107,6 +107,6 @@ class UserRepository extends EloquentRepository
      */
     public function model()
     {
-        return 'App\Models\User';
+        return User::class;
     }
 }
