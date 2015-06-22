@@ -2,7 +2,6 @@
 <html lang="{{ App::getLocale() }}">
 
 <meta charset="UTF-8">
-<meta name="csrf-token" content="{{ csrf_token() }}"/>
 {!! HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css') !!}
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

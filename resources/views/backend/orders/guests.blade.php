@@ -20,30 +20,9 @@
                 </a>
             </div>
         </div>
-
         <div class="col-md-12 m-t-20">
-            <h4>Totals</h4>
-            <table class="table table-bordered">
-                <tr>
-                    <td>
-                        Orders made today
-                    </td>
-                    <td>
-                        Orders by guests  ({{ $count }})
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {{ $salesToday }}
-                    </td>
-                    <td>
-                        {{ $guestSales }}
-                    </td>
-                </tr>
-            </table>
-            <h3>Grand Total (All orders): {{ $totalSales }}</h3>
-            <hr/>
             <h5>Displaying All Orders made by Guests</h5>
+            <hr/>
             <!-- /input-group -->
             <table id="order-guests-table" class="table table-bordered">
                 <thead>

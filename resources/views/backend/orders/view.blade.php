@@ -7,7 +7,11 @@
 
 @section('content')
 
-    <h3>Product Order made by {{ $order->users->implode('first_name') .' '. $order->users->implode('last_name') }}</h3>
+    @if(Request::get('guest') == 1)
+        <h3>Product Order made by {{ $order->guests->implode('first_name') .' '. $order->guests->implode('last_name') }}</h3>
+    @else
+        <h3>Product Order made by {{ $order->users->implode('first_name') .' '. $order->users->implode('last_name') }}</h3>
+    @endif
     <p>This section displays details about an order made</p>
     <hr/>
     <div class="row">

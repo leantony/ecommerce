@@ -22,28 +22,8 @@
         </div>
 
         <div class="col-md-12 m-t-20">
-            <h4>Totals</h4>
-            <table class="table table-bordered">
-                <tr>
-                    <td>
-                        Orders made today alone
-                    </td>
-                    <td>
-                        Orders by users ({{ $count }})
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {{ $salesToday }}
-                    </td>
-                    <td>
-                        {{ $userSales }}
-                    </td>
-                </tr>
-            </table>
-            <h3>Grand Total (All orders): {{ $totalSales }}</h3>
-            <hr/>
             <h5>Displaying All Orders made by Users</h5>
+            <hr/>
             <!-- /input-group -->
             <table id="order-users-table" class="table table-bordered">
                 <thead>

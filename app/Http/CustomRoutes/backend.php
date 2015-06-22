@@ -78,6 +78,13 @@ Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access',
     // users
     resource('users', 'Backend\UsersController');
 
+    // reports
+    Route::group(['prefix' => 'reports'], function(){
+
+        get('/sales', ['as' => 'reports.sales', 'uses' => 'Backend\OrdersController@getReport']);
+
+    });
+
     // API data
     Route::group(['prefix' => 'api'], function () {
 

@@ -35,7 +35,7 @@
                     @if(isset($logoutOption))
                         <div class="field-row form-group">
                             <input type="checkbox" name="logMeOut">
-                            <span>Log me out, when am done (optional)</span>
+                            <span>Log me out, after I change my password (optional)</span>
                             <br/>
                         </div>
                     @endif

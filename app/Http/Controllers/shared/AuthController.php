@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers\Shared;
 
-use app\Antony\DomainLogic\Modules\Authentication\AuthenticateUser;
-use app\Antony\DomainLogic\Modules\Authentication\RegisterUser;
+use app\Antony\DomainLogic\Modules\Authentication\RegisterUser as AuthenticateUser;
 use app\Antony\DomainLogic\Modules\Authentication\Traits\oauth2\oauth2ActionsHandler;
 use app\Http\Controllers\Base\Redirectors\AuthRedirector;
 use App\Http\Controllers\Controller;
@@ -23,28 +22,21 @@ class AuthController extends Controller
     protected $auth;
 
     /**
-     * @var RegisterUser
-     */
-    protected $registrar;
-
-    /**
      * @var Request
      */
     protected $request;
 
     /**
      * @param AuthenticateUser $authenticateUser
-     * @param RegisterUser $registerUser
      * @param Request $request
      */
-    public function __construct(AuthenticateUser $authenticateUser, RegisterUser $registerUser, Request $request)
+    public function __construct(AuthenticateUser $authenticateUser, Request $request)
     {
         $this->middleware('guest', ['except' => 'getLogout', 'getActivate']);
 
         $this->auth = $authenticateUser;
         $this->request = $request;
         $this->backend = eq($request->segment(1), 'backend') ? true : false;
-        $this->registrar = $registerUser;
 
     }
 
@@ -99,7 +91,7 @@ class AuthController extends Controller
     public function postRegister(CreateUserAccountRequest $request)
     {
         // check if we need to enforce user account activation
-        $this->data = $this->registrar->register($request->all(), config('site.account.activation.enabled'));
+        $this->data = $this->auth->register($request->all(), config('site.account.activation.enabled'));
 
         return $this->getRegistrationResponse($request);
     }
@@ -117,6 +109,6 @@ class AuthController extends Controller
 
             throw new NotFoundHttpException('An activation code is required, but was not found');
         }
-        return $this->registrar->activate($code);
+        return $this->auth->activate($code);
     }
 }

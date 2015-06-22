@@ -71,7 +71,7 @@
                     <li><a href="{{ route('backend.orders.index', ['guest' => 1]) }}"><i class="fa fa-user"></i>&nbsp;View guest orders</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-bar-chart"></i>&nbsp;Order reports</a></li>
+                    <li><a href="{{ route('reports.sales') }}"><i class="fa fa-bar-chart"></i>&nbsp;Order reports</a></li>
                 </ul>
             </li>
             <li class="dropdown {{ eq(Request::segment(2), 'products') ? 'active' : '' }}">

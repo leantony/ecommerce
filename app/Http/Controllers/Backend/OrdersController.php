@@ -32,26 +32,11 @@ class OrdersController extends Controller
      */
     public function index(Request $request)
     {
-        //dd($orders = $this->ordersRepository->with(['users'])->has('users')->get());
-        $totalSales = format_money($this->ordersRepository->viewTotalSales());
-
         if ($request->get('guest') == 1) {
-            $salesToday = format_money($this->ordersRepository->viewTotalSalesByDate(Carbon::today(), false));
 
-            $count = $this->ordersRepository->has('guests')->count();
-
-            $guestSales = format_money($this->ordersRepository->viewTotalPurchasesForGuests());
-
-            return view('backend.orders.guests', compact('totalSales', 'salesToday', 'guestSales', 'count'));
+            return view('backend.orders.guests');
         }
-
-        $salesToday = format_money($this->ordersRepository->viewTotalSalesByDate(Carbon::today()));
-
-        $count = $this->ordersRepository->has('users')->count();
-
-        $userSales = format_money($this->ordersRepository->viewTotalPurchasesForUsers());
-
-        return view('backend.orders.users', compact('totalSales', 'salesToday', 'userSales', 'count'));
+        return view('backend.orders.users');
     }
 
     /**
@@ -89,7 +74,7 @@ class OrdersController extends Controller
         $orders = $this->ordersRepository->has('guests', false)->select('*');
 
         $data = Datatables::of($orders)->addColumn('details', function ($order) {
-            return link_to(route('backend.orders.show', ['order' => $order->id]), 'details', ['data-target-model' => $order->id, 'class' => 'btn btn-xs btn-primary']);
+            return link_to(route('backend.orders.show', ['order' => $order->id, 'guest' => 1]), 'details', ['data-target-model' => $order->id, 'class' => 'btn btn-xs btn-primary']);
         })->addColumn('quantity', function ($order) {
             return array_get($order->data['cart'], 'total_products');
         })->addColumn('price', function ($order) {
@@ -116,14 +101,23 @@ class OrdersController extends Controller
      */
     public function show(Order $order, Request $request)
     {
-        $data = $order->with([$request->get('guest') === 1 ? 'guests' : 'users'])->get();
-
-        $order = null;
-        foreach ($data as $order_) {
-
-            $order = $order_;
-        }
-
         return view('backend.orders.view', compact('order'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function getReport(Request $request){
+
+        $totalSales = format_money($this->ordersRepository->viewTotalSales());
+
+        $salesToday = format_money($this->ordersRepository->viewTotalSalesByDate(Carbon::today(), null));
+
+        $countToday = $this->ordersRepository->where('created_at', '>', Carbon::today())->count();
+
+        $countOverall = $this->ordersRepository->all()->count();
+
+        return view('backend.orders.reports', compact('totalSales', 'salesToday', 'countToday', 'countOverall'));
     }
 }
