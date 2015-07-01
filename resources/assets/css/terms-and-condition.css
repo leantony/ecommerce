@@ -1,0 +1,52 @@
+.body-content .terms-conditions-page .terms-conditions h2,
+.body-content .faq-page h2,
+.body-content .track-order-page h2 {
+  font-size: 30px;
+  text-transform: uppercase;
+  color: #555;
+  text-align: center;
+}
+.body-content .terms-conditions-page .terms-conditions h3 {
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 30px;
+}
+.body-content .terms-conditions-page .terms-conditions ol {
+  padding-left: 22px;
+}
+.body-content .terms-conditions-page .terms-conditions ol li {
+  font-weight: 300;
+  font-style: normal;
+  font-size: 15px;
+  color: #666;
+  padding-bottom: 20px;
+}
+.body-content .terms-conditions-page .terms-conditions p {
+  font-size: 15px;
+}
+.body-content .terms-conditions-page .terms-conditions h2,
+.body-content .terms-conditions-page .terms-conditions span,
+.body-content .track-order-page span {
+  text-align: center;
+}
+.body-content .terms-conditions-page .terms-conditions span,
+.body-content .faq-page .title-tag,
+.body-content .track-order-page span {
+  display: block;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 15px;
+  color: #666;
+}
+.body-content .faq-page .title-tag {
+  text-align: center;
+  padding-bottom: 80px;
+}
+.body-content .track-order-page .register-form label {
+  font-weight: 400;
+  font-size: 14px;
+}
+.body-content .track-order-page .register-form .form-group {
+  margin-bottom: 25px;
+}

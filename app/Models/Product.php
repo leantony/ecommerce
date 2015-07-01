@@ -143,7 +143,7 @@ class Product extends \Eloquent
      */
     public function category()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo(\App\Models\Category::class);
     }
 
     /**
@@ -151,7 +151,7 @@ class Product extends \Eloquent
      */
     public function brand()
     {
-        return $this->belongsTo('App\Models\Brand');
+        return $this->belongsTo(\App\Models\Brand::class);
     }
 
     /**
@@ -159,7 +159,7 @@ class Product extends \Eloquent
      */
     public function subcategory()
     {
-        return $this->belongsTo('App\Models\SubCategory', 'subcategory_id');
+        return $this->belongsTo(\App\Models\SubCategory::class, 'subcategory_id');
     }
 
     /**
@@ -167,7 +167,7 @@ class Product extends \Eloquent
      */
     public function reviews()
     {
-        return $this->hasMany('App\Models\Review');
+        return $this->hasMany(\App\Models\Review::class);
     }
 
     /**
@@ -175,7 +175,7 @@ class Product extends \Eloquent
      */
     public function carts()
     {
-        return $this->belongsToMany('App\Models\Cart')->withPivot('quantity')->withTimestamps();
+        return $this->belongsToMany(\App\Models\Cart::class)->withPivot('quantity')->withTimestamps();
     }
 
     /**
@@ -183,7 +183,7 @@ class Product extends \Eloquent
      */
     public function orders()
     {
-        return $this->belongsToMany('App\Models\Order')->withPivot('quantity')->withTimestamps();
+        return $this->belongsToMany(\App\Models\Order::class)->withPivot('quantity')->withTimestamps();
     }
 
 }

@@ -36,14 +36,14 @@ Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access',
     Route::group(['prefix' => 'security'], function () {
 
         // roles
-        resource('roles', 'Backend\RolesController');
+        resource('roles', 'Backend\Security\RolesController');
 
         // permissions
-        resource('permissions', 'Backend\PermissionsController');
+        resource('permissions', 'Backend\Security\PermissionsController');
 
         // access control. defining permissions used by roles, and users assigned this roles
         Route::group(['prefix' => 'access-control'], function () {
-            resource('roles', 'Backend\UserRolesController');
+            resource('roles', 'Backend\Security\UserRolesController');
         });
 
     });
@@ -55,47 +55,47 @@ Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access',
     });
 
     // counties
-    resource('counties', 'Backend\CountiesController');
+    resource('counties', 'Backend\Shipping\CountiesController');
 
     // products
-    resource('products', 'Backend\ProductsController');
+    resource('products', 'Backend\Inventory\ProductsController');
 
     // help articles
-    resource('articles', 'Backend\ArticlesController');
+    resource('articles', 'Backend\Articles\ArticlesController');
 
     // brands
-    resource('brands', 'Backend\BrandsController');
+    resource('brands', 'Backend\Inventory\BrandsController');
 
     // categories
-    resource('categories', 'Backend\CategoriesController');
+    resource('categories', 'Backend\Inventory\CategoriesController');
 
     // categories
-    resource('orders', 'Backend\OrdersController');
+    resource('orders', 'Backend\Orders\OrdersController');
 
     // subcategories
-    resource('subcategories', 'Backend\SubCategoriesController');
+    resource('subcategories', 'Backend\Inventory\SubCategoriesController');
 
     // users
-    resource('users', 'Backend\UsersController');
+    resource('users', 'Backend\Users\UsersController');
 
     // reports
     Route::group(['prefix' => 'reports'], function(){
 
-        get('/sales', ['as' => 'reports.sales', 'uses' => 'Backend\OrdersController@getReport']);
+        get('/sales', ['as' => 'reports.sales', 'uses' => 'Backend\Orders\OrdersController@getReport']);
 
     });
 
     // API data
     Route::group(['prefix' => 'api'], function () {
 
-        get('/counties/data', ['as' => 'counties.data', 'uses' => 'Backend\CountiesController@getDataTable']);
-        get('/articles/data', ['as' => 'articles.data', 'uses' => 'Backend\ArticlesController@getDataTable']);
-        get('/users/data', ['as' => 'users.data', 'uses' => 'Backend\UsersController@getDataTable']);
-        get('/products/data', ['as' => 'products.data', 'uses' => 'Backend\ProductsController@getDataTable']);
-        get('/brands/data', ['as' => 'brands.data', 'uses' => 'Backend\BrandsController@getDataTable']);
-        get('/subcategories/data', ['as' => 'subcategories.data', 'uses' => 'Backend\SubCategoriesController@getDataTable']);
-        get('/categories/data', ['as' => 'categories.data', 'uses' => 'Backend\CategoriesController@getDataTable']);
-        get('/orders/data/users', ['as' => 'orders.data.users', 'uses' => 'Backend\OrdersController@getUserOrdersTable']);
-        get('/orders/data/guests', ['as' => 'orders.data.guests', 'uses' => 'Backend\OrdersController@getGuestsOrdersTable']);
+        get('/counties/data', ['as' => 'counties.data', 'uses' => 'Backend\Shipping\CountiesController@getDataTable']);
+        get('/articles/data', ['as' => 'articles.data', 'uses' => 'Backend\Articles\ArticlesController@getDataTable']);
+        get('/users/data', ['as' => 'users.data', 'uses' => 'Backend\Users\UsersController@getDataTable']);
+        get('/products/data', ['as' => 'products.data', 'uses' => 'Backend\Inventory\ProductsController@getDataTable']);
+        get('/brands/data', ['as' => 'brands.data', 'uses' => 'Backend\Inventory\BrandsController@getDataTable']);
+        get('/subcategories/data', ['as' => 'subcategories.data', 'uses' => 'Backend\Inventory\SubCategoriesController@getDataTable']);
+        get('/categories/data', ['as' => 'categories.data', 'uses' => 'Backend\Inventory\CategoriesController@getDataTable']);
+        get('/orders/data/users', ['as' => 'orders.data.users', 'uses' => 'Backend\Orders\OrdersController@getUserOrdersTable']);
+        get('/orders/data/guests', ['as' => 'orders.data.guests', 'uses' => 'Backend\Orders\OrdersController@getGuestsOrdersTable']);
     });
 });

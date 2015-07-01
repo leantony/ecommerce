@@ -203,6 +203,10 @@
     });
 
     $('#products-table').DataTable({
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "/swf/copy_csv_xls_pdf.swf"
+        },
         processing: true,
         serverSide: true,
         ajax: '/backend/api/products/data',
@@ -251,5 +255,12 @@
             {data: 'details', name: 'details', orderable: false, searchable: false}
         ]
     });
+
+    // $("[data-table-enable-utilities='1']").dataTable( {
+    //     "dom": 'T<"clear">lfrtip',
+    //     "tableTools": {
+    //         "sSwfPath": "/swf/copy_csv_xls_pdf.swf"
+    //     }
+    // });
 
 })(jQuery);

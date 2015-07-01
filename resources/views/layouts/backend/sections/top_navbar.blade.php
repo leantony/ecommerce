@@ -54,7 +54,7 @@
                     <li><a href="{{ route('backend.users.create') }}"><i class="fa fa-user-plus"></i>&nbsp;Add user</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="{{ action('Backend\UserRolesController@index') }}"><i class="fa fa-user-secret"></i>&nbsp;Users
+                    <li><a href="{{ route('backend.security.access-control.roles.index') }}"><i class="fa fa-user-secret"></i>&nbsp;Users
                             & roles</a></li>
                     <li class="divider"></li>
                     <li><a href="#"><i class="fa fa-bar-chart"></i>&nbsp;User
@@ -122,24 +122,24 @@
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="{{ action('Backend\RolesController@index') }}">
+                        <a href="{{ route('backend.security.roles.index') }}">
                             <i class="fa fa-eye"></i>&nbsp;View System Roles
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="{{ action('Backend\PermissionsController@index') }}">
+                        <a href="{{ route('backend.security.permissions.index') }}">
                             <i class="glyphicon glyphicon-lock"></i> Role permissions
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="{{ action('Backend\UserRolesController@create') }}"><i class="fa fa-users"></i>&nbsp;Assign
+                        <a href="{{ route('backend.security.access-control.roles.create') }}"><i class="fa fa-users"></i>&nbsp;Assign
                             Roles</a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="{{ action('Backend\UserRolesController@index') }}">
+                        <a href="{{ route('backend.security.access-control.roles.index') }}">
                             <i class="fa fa-user-secret"></i>&nbsp;Users and Roles
                         </a>
                     </li>

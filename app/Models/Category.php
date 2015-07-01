@@ -23,7 +23,7 @@ class Category extends Eloquent
      */
     public function products()
     {
-        return $this->hasMany('App\Models\Product');
+        return $this->hasMany(\App\Models\Product::class);
     }
 
     /**
@@ -31,15 +31,7 @@ class Category extends Eloquent
      */
     public function subcategories()
     {
-        return $this->hasMany('App\Models\SubCategory');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function adverts()
-    {
-        return $this->hasMany('App\Models\Ad');
+        return $this->hasMany(\App\Models\SubCategory::class);
     }
 
     /**

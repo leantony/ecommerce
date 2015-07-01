@@ -33,6 +33,6 @@ class Invoice extends Eloquent
     public function order()
     {
 
-        return $this->belongsTo('App\Models\Order');
+        return $this->belongsTo(\App\Models\Order::class);
     }
 }

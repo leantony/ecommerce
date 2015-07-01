@@ -22,7 +22,7 @@ class SubCategory extends Eloquent
      */
     public function products()
     {
-        return $this->hasMany('App\Models\Product', 'subcategory_id');
+        return $this->hasMany(\App\Models\Product::class, 'subcategory_id');
     }
 
     /**
@@ -30,7 +30,7 @@ class SubCategory extends Eloquent
      */
     public function category()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo(\App\Models\Category::class);
     }
 
     /**

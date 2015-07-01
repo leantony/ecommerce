@@ -12,7 +12,7 @@ abstract class EnhancedController extends BaseController
     use DispatchesJobs, ValidatesRequests, SuccessAction, ErrorAction;
 
     /**
-     * The data returned by an action
+     * The results returned from a model action, e.g updates, inserts, or any other custom action
      *
      * @var mixed
      */
@@ -58,8 +58,6 @@ abstract class EnhancedController extends BaseController
      */
     public function getData($json = true)
     {
-        // since some methods return a boolean, or int, then we json_encode them, since
-        // calling toJson() directly would cause a crash
         try {
             return $json ? $this->data->toJson() : $this->data;
         } catch (\Exception $e) {

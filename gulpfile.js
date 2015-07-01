@@ -44,6 +44,9 @@ elixir(function (mix) {
         // lightbox
         "lightbox2/css/lightbox-custom.css",
 
+        // pace theme
+        "pace/themes/white/pace-theme-flash.css",
+
         // select2
         "select2/select2.css"
 
@@ -130,7 +133,10 @@ elixir(function (mix) {
         "bootstrap-rating/bootstrap-rating.js",
 
         // scroll up
-        "scrollup/dist/jquery.scrollUp.min.js"
+        "scrollup/dist/jquery.scrollUp.min.js",
+
+        // pace
+        "pace/pace.js"
 
     ], "public/js/frontend/libs.js", bowerAssetsDir);
 

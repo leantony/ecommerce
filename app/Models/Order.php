@@ -37,7 +37,7 @@ class Order extends Eloquent
      */
     public function products()
     {
-        return $this->belongsToMany('App\Models\product')->withTimestamps()->withPivot('quantity');
+        return $this->belongsToMany(\App\Models\product::class)->withTimestamps()->withPivot('quantity');
     }
 
     /**
@@ -45,7 +45,7 @@ class Order extends Eloquent
      */
     public function users()
     {
-        return $this->belongsToMany('App\Models\User')->withTimestamps();
+        return $this->belongsToMany(\App\Models\User::class)->withTimestamps();
     }
 
     /**
@@ -53,7 +53,7 @@ class Order extends Eloquent
      */
     public function guests()
     {
-        return $this->belongsToMany('App\Models\Guest')->withTimestamps();
+        return $this->belongsToMany(\App\Models\Guest::class)->withTimestamps();
     }
 
     /**
@@ -61,7 +61,7 @@ class Order extends Eloquent
      */
     public function invoice()
     {
-        return $this->hasOne('App\Models\Invoice');
+        return $this->hasOne(\App\Models\Invoice::class);
     }
 
 }

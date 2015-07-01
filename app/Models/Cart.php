@@ -16,7 +16,7 @@ class Cart extends \Eloquent
      */
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product')->withPivot('quantity')->withTimestamps();
+        return $this->belongsToMany(\App\Models\Product::class)->withPivot('quantity')->withTimestamps();
     }
 
     /**
@@ -24,6 +24,6 @@ class Cart extends \Eloquent
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 }

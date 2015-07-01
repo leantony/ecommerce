@@ -1,0 +1,16 @@
+#user-invoice {
+  padding: 10px;
+}
+#user-invoice .invoice-title h2,
+#user-invoice .invoice-title h3 {
+  display: inline-block;
+}
+#user-invoice .table > tbody > tr > .no-line {
+  border-top: none;
+}
+#user-invoice .table > thead > tr > .no-line {
+  border-bottom: none;
+}
+#user-invoice .table > tbody > tr > .thick-line {
+  border-top: 2px solid;
+}

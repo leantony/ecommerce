@@ -20,7 +20,7 @@ class Brand extends Eloquent
      */
     public function products()
     {
-        return $this->hasMany('App\Models\Product');
+        return $this->hasMany(\App\Models\Product::class);
     }
 
     /**

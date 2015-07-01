@@ -28,7 +28,7 @@
 
         <div class="col-md-12 m-t-20">
             <!-- /input-group -->
-            <table id="products-table" class="table table-bordered">
+            <table id="products-table" class="table table-bordered" data-table-enable-utilities='1'>
                 <thead>
                 <tr>
                     <th>Id</th>

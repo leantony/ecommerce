@@ -19,7 +19,7 @@ class County extends Eloquent
      */
     public function users()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany(\App\Models\User::class);
     }
 
     /**

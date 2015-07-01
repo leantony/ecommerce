@@ -71,7 +71,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
      */
     public function reviews()
     {
-        return $this->hasMany('App\Models\Review');
+        return $this->hasMany(\App\Models\Review::class);
     }
 
     /**
@@ -79,7 +79,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
      */
     public function county()
     {
-        return $this->belongsTo('App\Models\County');
+        return $this->belongsTo(\App\Models\County::class);
     }
 
 
@@ -88,7 +88,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
      */
     public function shopping_cart()
     {
-        return $this->hasOne('App\Models\Cart');
+        return $this->hasOne(\App\Models\Cart::class);
     }
 
     /**
@@ -96,7 +96,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
      */
     public function orders()
     {
-        return $this->belongsToMany('App\Models\Order')->withTimestamps();
+        return $this->belongsToMany(\App\Models\Order::class)->withTimestamps();
     }
 
 }

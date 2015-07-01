@@ -1,6 +1,5 @@
 <?php namespace App\Models;
 
-use App\Antony\DomainLogic\Traits\CheckoutTrait;
 use Eloquent;
 
 class Guest extends Eloquent
@@ -28,7 +27,7 @@ class Guest extends Eloquent
      */
     public function county()
     {
-        return $this->belongsTo('App\Models\County');
+        return $this->belongsTo(\App\Models\County::class);
     }
 
     /**
@@ -36,6 +35,6 @@ class Guest extends Eloquent
      */
     public function orders()
     {
-        return $this->belongsToMany('App\Models\Order');
+        return $this->belongsToMany(\App\Models\Order::class);
     }
 }
