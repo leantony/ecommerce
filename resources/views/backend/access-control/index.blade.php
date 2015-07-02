@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="alert alert-danger">
                     <p class="text-center">No roles have been assigned to any user. To get
-                        started, {!! link_to_action('Backend\UserRolesController@create', 'assign roles to users') !!} </p>
+                        started, {!! link_to_route('backend.security.access-control.roles.create', 'assign roles to users') !!} </p>
                 </div>
             </div>
             <br/>

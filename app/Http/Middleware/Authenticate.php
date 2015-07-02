@@ -27,7 +27,7 @@ class Authenticate
 
     /**
      * This middleware acts as a sort of 'gate' preventing non-authenticated users from going
-     * to their destination unless logged in
+     * to their destination unless they are logged in
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next

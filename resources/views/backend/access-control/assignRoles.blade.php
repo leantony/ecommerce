@@ -12,7 +12,7 @@
             <h2>Roles Assignment</h2>
             <h6>Select a user, and the roles you wish to assign to them</h6>
             <hr/>
-            {!! Form::open(['url' => action('Backend\UserRolesController@store')]) !!}
+            {!! Form::open(['url' => route('backend.security.access-control.roles.store')]) !!}
             <div class="form-group">
                 {!! Form::label('user_id', "Select a user. For multiple users, you'll need to repeat this procedure:", []) !!}
                 {!! Form::select('user_id', str_replace('_', ' ', App\Models\User::lists('email', 'id')->all()), null, [ "class" => "form-control users-roles"]) !!}

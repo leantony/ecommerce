@@ -10,7 +10,7 @@
         <h2>Revoke roles</h2>
         <h6>select a user from the dropdown, and uncheck any of the roles you want to revoke</h6>
         <hr/>
-        {!! Form::open(['url' => action('Backend\UserRolesController@store')]) !!}
+        {!! Form::open(['url' => route('backend.security.access-control.roles.store')]) !!}
         <div class="col-md-6 category">
 
             <p>{{ $user->present()->fullName }}</p>

@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
     }
 
     /**
-     * Redirects a user if they are logged in, and attempt to access pages that arent for authenticated users
+     * Redirects a user if they are logged in, and attempt to access pages that aren't for authenticated users
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
@@ -40,8 +40,8 @@ class RedirectIfAuthenticated
         }
 
         // handle backend authentication redirects
-        if ($this->auth->check() & $request->is('/backend/*')) {
-            return new RedirectResponse(url('/backend/'));
+        if ($this->auth->check() & $request->segment(2) === 'backend') {
+            return redirect()->route('backend');
         }
         return $next($request);
     }

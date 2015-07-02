@@ -39,7 +39,7 @@ class CheckOutAsAuthUser
         // then, it will redirect the new user to the new url
         if ($request->getSession()->has('account_created_after_checkout') & $request->getSession()->has('after_account_create')) {
 
-            return redirect()->to($request->getSession()->get('after_account_create'));
+            return redirect()->to($request->session()->get('after_account_create'));
         }
         return redirect()->guest(route('checkout.auth'), 302, [], true);
     }
