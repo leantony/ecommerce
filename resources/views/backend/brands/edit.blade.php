@@ -13,7 +13,7 @@
             <div class="msgDisplay m-t-10"></div>
         </div>
 
-        {!! Form::model($brand, ['url' => action('Backend\BrandsController@update', ['brand' => $brand->id]), 'method' => 'PATCH', 'files' => true ]) !!}
+        {!! Form::model($brand, ['url' => route('backend.brands.update', ['brand' => $brand->id]), 'method' => 'PATCH', 'files' => true ]) !!}
         <div class="col-md-6">
 
             @include('_partials.forms.brands.brands_form')

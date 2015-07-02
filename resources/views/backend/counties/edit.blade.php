@@ -13,7 +13,7 @@
             <div class="msgDisplay m-t-10"></div>
         </div>
 
-        {!! Form::model($county, ['url' => action('Backend\CountiesController@update', ['county' => $county->id]), 'method' => 'PATCH', 'data-remote']) !!}
+        {!! Form::model($county, ['url' => route('backend.counties.update', ['county' => $county->id]), 'method' => 'PATCH', 'data-remote']) !!}
         <div class="col-md-6 category">
             @include('_partials.forms.counties.counties_form')
             <hr/>

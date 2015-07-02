@@ -14,7 +14,7 @@
             <div class="msgDisplay m-t-10"></div>
         </div>
 
-        {!! Form::open(['url' => action('Backend\SubCategoriesController@store'), 'data-remote']) !!}
+        {!! Form::open(['url' => route('backend.subcategories.store'), 'data-remote']) !!}
         <div class="col-md-6 category">
 
             @include('_partials.forms.categories.categories_form', ['name' => 'Subcategory'])

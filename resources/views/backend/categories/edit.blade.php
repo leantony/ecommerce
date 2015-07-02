@@ -14,7 +14,7 @@
             <div class="msgDisplay m-t-10"></div>
         </div>
 
-        {!! Form::model($category, ['url' => action('Backend\CategoriesController@update', ['category' => $category->id]) , 'method' => 'PATCH']) !!}
+        {!! Form::model($category, ['url' => route('backend.categories.update', ['category' => $category->id]) , 'method' => 'PATCH']) !!}
         <div class="col-md-6 category">
 
             @include('_partials.forms.categories.categories_form', ['name' => 'Category'])

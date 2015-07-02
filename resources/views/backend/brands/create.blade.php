@@ -13,7 +13,7 @@
             <div class="msgDisplay m-t-10"></div>
         </div>
 
-        {!! Form::open(['url' => action('Backend\BrandsController@store'), 'files' => true]) !!}
+        {!! Form::open(['url' => route('backend.brands.store'), 'files' => true]) !!}
         <div class="col-md-6 category">
 
             @include('_partials.forms.brands.brands_form')

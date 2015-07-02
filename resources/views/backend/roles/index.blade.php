@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="alert alert-danger">
                     <p class="text-center">You currently have not configured any roles. Please <a
-                                href="{{ action('Backend\RolesController@create') }}"> create some</a></p>
+                                href="{{ route('backend.security.roles.create') }}"> create some</a></p>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-8">
                 <div class="pull-right">
-                    <a href="{{ action('Backend\RolesController@create') }}">
+                    <a href="{{ route('backend.security.roles.create') }}">
                         <button class="btn btn-success">
                             <i class="fa fa-plus"></i>&nbsp;Add user Role
                         </button>
@@ -64,7 +64,7 @@
                                 <td>{{ $role->updated_at }}</td>
                                 <td>
                                     <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                        <a href="{{ action('Backend\RolesController@edit', ['id' => $role->id]) }}">
+                                        <a href="{{ route('backend.security.roles.update', ['id' => $role->id]) }}">
                                             <button class="btn btn-primary btn-xs">
                                                 <span class="glyphicon glyphicon-edit"></span>&nbsp;Edit
                                             </button>

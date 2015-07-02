@@ -9,7 +9,7 @@
     @if($permissions->isEmpty())
         <div class="alert alert-danger">
             <p class="text-center">You currently have not configured any permissions. Please <a
-                        href="{{ route('backend.permissions.create') }}"> create some</a></p>
+                        href="{{ route('backend.security.permissions.create') }}"> create some</a></p>
         </div>
     @endif
     <h2>Permissions</h2>
@@ -27,7 +27,7 @@
 
         <div class="col-md-8">
             <div class="pull-right">
-                <a href="{{ action('Backend\PermissionsController@create') }}">
+                <a href="{{ route('backend.security.permissions.create') }}">
                     <button class="btn btn-success">
                         <i class="fa fa-plus"></i>&nbsp;Create permission
                     </button>
@@ -67,7 +67,7 @@
                         <td>{{ $permission->updated_at }}</td>
                         <td>
                             <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                <a href="{{ action('Backend\PermissionsController@edit', ['id' => $permission->id]) }}">
+                                <a href="{{ route('backend.security.permissions.edit', ['id' => $permission->id]) }}">
                                     <button class="btn btn-info btn-xs">
                                         <span class="fa fa-edit"></span>&nbsp;Edit
                                     </button>

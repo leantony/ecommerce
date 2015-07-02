@@ -13,7 +13,7 @@
             <div class="msgDisplay m-t-10"></div>
         </div>
 
-        {!! Form::model($subcategory,['url' => action('Backend\SubCategoriesController@update', ['subcategory' => $subcategory->id]), 'method' => 'PATCH', 'files' => true]) !!}
+        {!! Form::model($subcategory,['url' => route('backend.subcategories.update', ['subcategory' => $subcategory->id]), 'method' => 'PATCH', 'files' => true]) !!}
         <div class="col-md-6">
 
             @include('_partials.forms.categories.categories_form', ['name' => 'Subcategory'])

@@ -14,7 +14,7 @@
             <div class="msgDisplay m-t-10"></div>
         </div>
 
-        {!! Form::open(['url' => action('Backend\CountiesController@store'), 'id' => 'countiesAddForm', 'data-remote']) !!}
+        {!! Form::open(['url' => route('backend.counties.store'), 'id' => 'countiesAddForm', 'data-remote']) !!}
         <div class="col-md-6 category">
 
             @include('_partials.forms.counties.counties_form')

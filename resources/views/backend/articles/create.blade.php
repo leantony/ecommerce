@@ -15,7 +15,7 @@
             <div class="msgDisplay m-t-10"></div>
         </div>
 
-        {!! Form::open(['url' => action('Backend\ArticlesController@store')]) !!}
+        {!! Form::open(['url' => route('backend.articles.store')]) !!}
         <div class="col-md-6">
 
             @include('_partials.forms.Articles.help.form')

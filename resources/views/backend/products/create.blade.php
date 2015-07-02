@@ -10,7 +10,7 @@
     <hr/>
     <div class="row">
         <div class="msgDisplay m-t-10"></div>
-        {!! Form::open(['url' => action('Backend\ProductsController@store'), 'files' => true]) !!}
+        {!! Form::open(['url' => route('backend.products.store'), 'files' => true]) !!}
         @include('_partials.forms.products.products_form')
         <br/>
 

@@ -39,5 +39,4 @@
         </div>
 
     </div>
-    @include('_partials.modals.county.addCounty', ['elementID' => 'createCounty'])
 @stop

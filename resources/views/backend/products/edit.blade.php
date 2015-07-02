@@ -14,7 +14,7 @@
             <div class="msgDisplay m-t-10"></div>
         </div>
 
-        {!! Form::model($product, ['url' => action('Backend\ProductsController@update', ['product' => $product->id]), 'method' => 'PATCH', 'files' => true ]) !!}
+        {!! Form::model($product, ['url' => route('backend.products.update'), ['product' => $product->id]), 'method' => 'PATCH', 'files' => true ]) !!}
         @include('_partials.forms.products.products_edit_form')
         <div class="clearfix"></div>
 

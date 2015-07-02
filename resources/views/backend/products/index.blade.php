@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-4">
             <div class="pull-right" style="right: 10px">
-                <a href="{{ action('Backend\ProductsController@create') }}">
+                <a href="{{ route('backend.products.create') }}">
                     <button class="btn btn-success" data-title="Create" data-toggle="modal"
                             data-target="#create">
                         <i class="fa fa-plus"></i>&nbsp;Add product

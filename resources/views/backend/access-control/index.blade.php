@@ -34,7 +34,7 @@
             <!-- /input-group -->
 
             <div class="pull-right">
-                <a href="{{ action('Backend\UserRolesController@create') }}">
+                <a href="{{ route('backend.security.access-control.roles.create') }}">
                     <button class="btn btn-success">
                         <i class="fa fa-plus"></i>&nbsp;Assign role to user
                     </button>
@@ -68,7 +68,7 @@
                                 </td>
                                 <td>
                                     <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                        <a href="{{ action('Backend\UserRolesController@edit', ['id' => $user->id]) }}">
+                                        <a href="{{ route('backend.security.access-control.roles.edit', ['id' => $user->id]) }}">
                                             <button class="btn btn-primary btn-xs"><span
                                                         class="glyphicon glyphicon-edit"></span>&nbsp;Edit
                                             </button>
@@ -80,7 +80,6 @@
                             </tbody>
                         @endforeach
                     </table>
-                    {!! $users->render() !!}
                 </div>
             </div>
 
