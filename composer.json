@@ -23,7 +23,8 @@
     "laracasts/utilities": "^2.0",
     "laracasts/presenter": "0.2.1",
     "yajra/laravel-datatables-oracle": "~5.0",
-    "laravelcollective/html": "^5.0"
+    "laravelcollective/html": "^5.0",
+    "laravel/homestead": "^2.1"
 
   },
   "require-dev": {
