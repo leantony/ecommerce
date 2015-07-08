@@ -70,6 +70,8 @@ interface ShoppingCartContract
      *
      * @param $product
      *
+     * @param $new_quantity
+     * @param bool $increments
      * @return mixed
      */
     public function updateBasket($product, $new_quantity, $increments = false);

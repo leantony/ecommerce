@@ -156,8 +156,8 @@ class Basket implements ShoppingCartContract, ShoppingCartCache
         // clear the products from the session
         $this->removeCachedProducts();
 
-        // check if the product exists in the cart.
-        // This will prevent adding duplicate products in the same basket
+        // If the quantity is 0, then the product does not exist in the basket. So, we insert it
+        // as a new product. This will prevent adding duplicate products in the same basket
         if ($this->existing_quantity === 0) {
 
             $this->getCart()->products()->attach([$product->id], ['quantity' => $qt, 'cart_id' => $this->getCart()->id]);
@@ -169,7 +169,7 @@ class Basket implements ShoppingCartContract, ShoppingCartCache
             return static::PRODUCTS_ADDED;
 
         }
-        // we update the product as a separate one
+        // The product exists, so we increment its quantity
         return $this->updateBasket($product, $qt, true);
     }
 

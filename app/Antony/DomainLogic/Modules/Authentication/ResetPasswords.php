@@ -37,7 +37,7 @@ class ResetPasswords implements ResetPasswordContact
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getSendEmailResult()
     {
@@ -45,6 +45,8 @@ class ResetPasswords implements ResetPasswordContact
     }
 
     /**
+     * Does exactly what it says it does
+     *
      * @param array $credentials
      * @return array|null|string
      */
@@ -53,10 +55,7 @@ class ResetPasswords implements ResetPasswordContact
 
         try {
             $this->user = $this->passwordBroker->getUser($credentials);
-            if (is_null($this->user)) {
 
-                return PasswordBroker::INVALID_USER;
-            }
         } catch (UnexpectedValueException $e) {
 
             return PasswordBroker::INVALID_USER;
