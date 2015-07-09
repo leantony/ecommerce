@@ -123,9 +123,9 @@ class ImageProcessor implements ImagingInterface
         if ($this->resize) {
 
             // get the resize dimensions
-            $height = (int)array_get($this->resizeDimensions, 'height', 320);
+            $height = (int)array_get($this->resizeDimensions, 'new_height', 320);
 
-            $width = (int)array_get($this->resizeDimensions, 'width', 240);
+            $width = (int)array_get($this->resizeDimensions, 'new_width', 240);
 
             if ($this->fit) {
                 return Image::make($this->originalPath)->fit($width, $height)

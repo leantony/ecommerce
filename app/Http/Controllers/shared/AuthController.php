@@ -91,7 +91,7 @@ class AuthController extends Controller
     public function postRegister(CreateUserAccountRequest $request)
     {
         // check if we need to enforce user account activation
-        $this->data = $this->auth->register($request->all(), config('site.account.activation.enabled'));
+        $this->data = $this->auth->register($request->all(), config('site.account.activation.email'));
 
         return $this->getRegistrationResponse($request);
     }

@@ -1,19 +1,24 @@
 <?php
-// site config file
+
 return [
 
-    // backend config
+    /*
+    |--------------------------------------------------------------------------
+    | Application Backend configuration
+    |--------------------------------------------------------------------------
+    |
+    | The backend is the part of the application that is accessible to admin personell.
+    | Use this section to configure essential security options
+    |
+    */
     'backend' => [
-        // ip addresses that can access the backend.
+
+        // Define a list of IP addresses that can access the backend
         'allowedIPS' => [
-            '::1',
-            '127.0.0.1',
-            '192.168.4.118',
-            '192.168.4.1',
-            '192.168.4.9',
-            '192.168.4.48'
+            '::1', '127.0.0.1',
         ],
-        // only users with this roles will access the backend
+
+        // Define roles applicable to users accessing the backend
         'allowedRoles' => [
             'Administrator',
             'Manager'
@@ -21,41 +26,79 @@ return [
 
     ],
 
-    // user account configs
+    /*
+    |--------------------------------------------------------------------------
+    | User Accounts
+    |--------------------------------------------------------------------------
+    |
+    | Use this section to configure options related to user accounts, e.g signIn
+    |
+    */
     'account' => [
+
         'authentication' => [
 
+            /*
+             * OAUTH2 is a widely accepted and secure means of user authentication, that allows users to
+             * sign in using various services.
+             */
             'OAUTH2' => [
-                // allowed OAUTH API's
+
+                // Specify the list of allowed OAUTH2 services
                 'apis' => ['google', 'facebook'],
-                // enable login, from fb, twitter, google, etc
+
+                // Enable user login, using OAUTH2
                 'login' => true,
-                // enable registration from fb, twitter, google, etc
+
+                // Enable user registration using OATH2
                 'registration' => true,
             ],
         ],
 
-        // activation of user accounts, and login options afterwards
+        /*
+         * Configure options related to user account activation
+         */
         'activation' => [
-            // enforce account activation via email
-            'enabled' => false,
-            // allow users to login, without activating their accounts
+
+            // Enable account activation via email
+            'email' => false,
+
+            // Enable users to login, without activating their accounts. Good for a development environment
+
             'allow_login' => false,
-            // auto login the user, once they confirm/activate their account via email
+
+            /*
+             * Automatically login a user once they activate their account via email. Let this be false
+             * for security reasons
+             */
             'autologin' => false,
         ],
 
     ],
 
-    // config for default images
+    /*
+    |--------------------------------------------------------------------------
+    | Location of static resources
+    |--------------------------------------------------------------------------
+    |
+    | In this case, static resources are those that wont change, for both the
+    | backend and frontend. Examples are images
+    |
+    */
     'static' => [
-        // error image location
+
+        // Image displayed when an image isnt found on the filesystem
         'error' => '/assets/images/Error/imageNotFound.jpg',
+
         // default user avatar
         'avatar' => '/assets/images/default-avatar.jpg',
+
         // blank image
         'blank' => '/assets/images/blank.gif',
-        // the ajax loaders
+
+        /*
+         * AJAx loaders
+         */
         'ajax' => '/assets/images/ajax-loader.gif',
 
         'ajax2' => '/assets/images/alt-ajax-loader.gif',
@@ -63,49 +106,90 @@ return [
         'ajax3' => '/assets/images/ajax-loader-large.gif',
     ],
 
-    // view composers
+    /*
+    |--------------------------------------------------------------------------
+    | View composers
+    |--------------------------------------------------------------------------
+    |
+    | View composers are an essential laravel feature, which allow us to reuse
+    | page content. Define/change some options here
+    |
+    */
     'composers' => [
         // how long should we cache? (minutes)
         'cache_duration' => 30
     ],
 
-    /* config for models */
 
-    // ads
-    'ads' => [
+    /*
+    |--------------------------------------------------------------------------
+    | Money $$$$
+    |--------------------------------------------------------------------------
+    |
+    | Configure various options related to money. E.g VAT, default currency, etc
+    |
+    */
+    'money' => [
 
-        'storage' => '/public/assets/images/ads'
+        // Set the default currency
+        'default_currency' => 'KES',
+
+        // Set the VAT rate
+        'VAT_RATE' => 0.16,
+
     ],
 
-    // money
-    'currencies' => [
-
-        'default' => 'KES'
-    ],
-    // products
+    /*
+    |--------------------------------------------------------------------------
+    | Products
+    |--------------------------------------------------------------------------
+    |
+    | Configuration options related to the products model
+    |
+    */
     'products' => [
-        // The age of a new product (days)
+        /*
+         * Duration in days for which  a product is defined as new. This option would influence the no
+         * of products displayed on the homepage, under the section 'new products'
+         */
         'new' => [
             'age' => 14
         ],
-        // VAT % value/100
-        'VAT' => 0.16,
-        // product images
+
+        /*
+         * Configuration related to product images
+         */
         'images' => [
-            // image resize ratio -> big:small. This is evident since a product will have two images,
-            // one small and the other large
+
+            /*
+             * When a product image is uploaded, it is diminished by a factor X, so that the smaller
+             * image can be used during providing the client with zoom capability. Factor X is specified here
+             */
             'reduce_ratio' => 3,
-            // resize dimensions
+
+            /*
+             * If the actual un-diminished image should be resized,
+             * specify the dimensions for doing so here
+             */
             'dimensions' => [
-                'width' => 1920,
-                'height' => 1080
+                'new_width' => 1920,
+                'new_height' => 1080
             ],
-            // image storage area
+
+            /*
+             * Specify the location where the images should be saved
+             */
             'storage' => "/public/assets/images/products",
         ],
-        // product quantity
+
+        /*
+         * Product options related to Quantities
+         */
         'quantity' => [
-            // option to display quantity of a product to end user
+
+            /*
+             * Specifies if the quantity of an existing product should be displayed to the end user
+             */
             'display' => false,
 
             // the max quantity that can be displayed in a quantity dropdown
@@ -116,56 +200,114 @@ return [
             'low_threshold' => 2,
 
         ],
-        // product reviews to be displayed on the product details page
+
+        /*
+         * Product reviews
+         */
         'reviews' => [
+
+            // Specify the number of reviews to display on the product details page
             'display' => 5
         ]
     ],
 
-    // product brands
+    /*
+    |--------------------------------------------------------------------------
+    | Product Brands
+    |--------------------------------------------------------------------------
+    |
+    | Configuration options related to the product brands model
+    |
+    */
     'brands' => [
 
         'images' => [
-            // resize dimensions
+
+            /*
+             * If the image should be resized,
+             * specify the dimensions for doing so here
+             */
             'dimensions' => [
-                'width' => 220,
-                'height' => 110
+                'new_width' => 220,
+                'new_height' => 110
             ],
-            // storage area
+
+            /*
+             * Specify the location where the images should be saved
+             */
             'storage' => "/public/assets/images/brands",
         ],
 
     ],
 
-    // system users
+
+    /*
+    |--------------------------------------------------------------------------
+    | Users
+    |--------------------------------------------------------------------------
+    |
+    | Configuration options related to the users model
+    |
+    */
     'users' => [
 
         'images' => [
-            // storage
+
+            /*
+             * Specify the location where the user avatars should be saved
+             * If a user's avatar is handled by an external service, it wont be saved here
+             */
             'storage' => '/public/assets/images/users/profilePics',
         ],
 
     ],
 
-    // product reviews
+    /*
+    |--------------------------------------------------------------------------
+    | Product reviews
+    |--------------------------------------------------------------------------
+    |
+    | Configuration options related to the reviews model
+    |
+    */
     'reviews' => [
-        // how many stars should we display for a rating?. Applies to both input and output
+
+        /*
+         * Change the number of stars to display. Options are 5, or 10
+         */
         'stars' => 5,
-        // how many stars should a 'hot' product have
+
+        /*
+         * Sometimes products are displayed according to their rating. Products with
+         * an average star rating greater than the one defined below would be displayed
+         */
         'hottest' => 4.0,
-        // the total count of the hot stars. This count represents unique users who reviewed the product
+
+        /*
+         * During displaying top rated products, we not only need to know the average rating
+         * but also how many times it was given a top rating. That top rating has been defined above
+         */
         'count' => 5
     ],
 
-    // checkout
+    /*
+    |--------------------------------------------------------------------------
+    | Checkout
+    |--------------------------------------------------------------------------
+    |
+    | Configure options related to user checkout
+    |
+    */
     'checkout' => [
+
+        // allow users to checkout as guests
         'allow_guest_checkout' => true,
     ],
 
     // client help
     'help' => [
 
-        // enable or disable olark chart
+        // enable or disable olark chart. Olark is a chat plugin
         'olark_chart' => [
             'backend' => false,
             'frontend' => false,

@@ -71,7 +71,7 @@ class Product extends \Eloquent
      */
     public function getPriceAttribute($value)
     {
-        $value = new Money((int)$value, new Currency(config('site.currencies.default', 'KES')));
+        $value = new Money((int)$value, new Currency(config('site.money.default_currency', 'KES')));
 
         return $value;
     }
@@ -93,7 +93,7 @@ class Product extends \Eloquent
      */
     public function getShippingAttribute($value)
     {
-        return new Money((int)$value, new Currency(config('site.currencies.default', 'KES')));
+        return new Money((int)$value, new Currency(config('site.money.default_currency', 'KES')));
     }
 
     /**
