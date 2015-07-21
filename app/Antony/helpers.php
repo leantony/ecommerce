@@ -346,13 +346,7 @@ if (!function_exists('format_money')) {
             $money = new Money(is_int($money) ? $money : (int)$money, new Currency(config('site.currencies.default', 'KES')));
         }
 
-        if ($returnMoneyObject) {
-            return $money;
-        } else {
-            $formatter = new MoneyFormatter();
-
-            return $formatter->format($money);
-        }
+        return $returnMoneyObject ? $money : (new MoneyFormatter())->format($money);
 
     }
 }
@@ -394,23 +388,4 @@ function link_to_secure_route($name, array $params = [])
     $url = route($name, $params);
 
     return secure_url($url);
-}
-
-/**
- * @param $class
- * @param null $title
- * @return string
- */
-function generate_icon($class, $title = null)
-{
-
-    $start = "<i ";
-
-    $classSection = "class='{$class}'";
-
-    $content = ">&nbsp;&nbsp;{$title}";
-
-    $end = " <//i>";
-
-    return $start . $classSection . $content . $end;
 }
