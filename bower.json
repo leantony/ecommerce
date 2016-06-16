@@ -9,7 +9,7 @@
   "homepage": "",
   "dependencies": {
     "jquery": "1.11.3",
-    "bootstrap": "~3.*",
+    "bootswatch-dist": "flatly",
     "bootstrap-rating": "~1.1.*",
     "echojs": "~1.7.*",
     "eonasdan-bootstrap-datetimepicker": "~4.7.14",
@@ -33,8 +33,7 @@
     "pace": "~1.0.2"
   },
   "resolutions": {
-    "jquery": "1.11.3",
-    "animate.css": "~3.4.0"
+    "jquery": "1.11.3"
   },
   "private": true,
   "ignore": [

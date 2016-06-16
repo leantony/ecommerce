@@ -13,7 +13,7 @@ elixir(function (mix) {
     // styles
     mix.styles([
         // bootstrap
-        "bootstrap/dist/css/bootstrap.min.css",
+        "bootswatch-dist/css/bootstrap.min.css",
 
         // animate
         "animate.css/animate.css",
@@ -38,11 +38,10 @@ elixir(function (mix) {
 
         // owl
         "owl-carousel2/dist/assets/owl.carousel.css",
-        "owl-carousel2/dist/assets/owl.theme.css",
-        "owl-carousel2/dist/assets/owl.transitions.css",
+        "owl-carousel2/dist/assets/owl.theme.default.css",
 
         // lightbox
-        "lightbox2/css/lightbox-custom.css",
+        "lightbox2/dist/css/lightbox.css",
 
         // pace theme
         "pace/themes/white/pace-theme-flash.css",
@@ -87,7 +86,7 @@ elixir(function (mix) {
         "sweetalert/lib/sweet-alert.js",
 
         // bootstrap
-        "bootstrap/dist/js/bootstrap.min.js",
+        "bootswatch-dist/js/bootstrap.min.js",
 
         // hover dropdown
         "bootstrap-hover-dropdown/bootstrap-hover-dropdown.js",
@@ -105,7 +104,7 @@ elixir(function (mix) {
         "owl-carousel2/dist/owl.carousel.js",
 
         // lightbox
-        "lightbox2/js/lightbox.js",
+        "lightbox2/dist/js/lightbox.js",
 
         // summernote
         'summernote/dist/summernote.js',
