@@ -44,7 +44,7 @@ class Authenticate
 
                 flash('You need to login/register first');
 
-                return redirect()->guest('account/login');
+                return redirect(route('login'));
             }
         }
 

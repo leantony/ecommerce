@@ -290,7 +290,7 @@ class Basket implements ShoppingCartContract, ShoppingCartCache
         if (!$this->basketIsCached()) {
             return null;
         }
-        $cart_data = [];
+
         $products = [];
 
         // check for products in the cart
@@ -305,40 +305,13 @@ class Basket implements ShoppingCartContract, ShoppingCartCache
                 $product->quantity($qt);
 
                 // build the products array
-                $products[] = [
-                    'name' => $product->name,
-                    'sku' => $product->sku,
-                    'id' => $product->id,
-                    'image' => $product->image,
-                    'price' => $product->price->getAmount(),
-                    'price_after_discount' => $product->getPriceAfterDiscount(false),
-                    'total_price' => $product->total()->getAmount(),
-                    'quantity' => $qt,
-                    'available' => $product->quantity,
-                    'out_of_stock' => $product->quantity === 0,
-                    'VAT' => $product->tax()->getAmount(),
-                    'Shipping' => $product->delivery()->getAmount(),
-                    'order_total' => $product->total()->getAmount()
-
-                ];
+                $products = $this->mergeProductData($product, $qt);
             }
 
             // build the shopping cart array
-            $cart_data['cart'] = [
-                'id' => $this->getCart()->id,
-                // Get the sum of individual product quantities
-                'total_products' => $this->getProducts()->sum(function ($p) {
-                    return $p->pivot->quantity;
-                }),
-                // Get the number of products in the basket, regardless of their quantities.
-                'product_count' => $this->getProducts()->count(),
-                'currency' => config('site.currencies.default', 'KES'),
-                'shipping' => $this->getShippingSubTotal(false),
-                'VAT' => $this->getCartTaxSubTotal(false),
-                'basket_total' => $this->getCartSubTotal(false),
-                'grand_total' => $this->getGrandTotal(false)
-            ];
+            $cart_data = $this->mergeCartData();
 
+            // add products as a key to the cart data array
             $data = array_add($cart_data, 'products', $products);
 
             return $json ? json_encode($data) : $data;
@@ -355,5 +328,57 @@ class Basket implements ShoppingCartContract, ShoppingCartCache
     public function getProducts()
     {
         return $this->productsAreCached() ? $this->getCachedProducts() : null;
+    }
+
+    /**
+     * Add cart info, and return it as an array
+     * @return array
+     */
+    protected function mergeCartData()
+    {
+        $cart_data = [];
+        $cart_data['cart'] = [
+            'id' => $this->getCart()->id,
+            // Get the sum of individual product quantities
+            'total_products' => $this->getProducts()->sum(function ($p) {
+                return $p->pivot->quantity;
+            }),
+            // Get the number of products in the basket, regardless of their quantities.
+            'product_count' => $this->getProducts()->count(),
+            'currency' => config('site.currencies.default', 'KES'),
+            'shipping' => $this->getShippingSubTotal(false),
+            'VAT' => $this->getCartTaxSubTotal(false),
+            'basket_total' => $this->getCartSubTotal(false),
+            'grand_total' => $this->getGrandTotal(false)
+        ];
+        return $cart_data;
+    }
+
+    /**
+     * Add individual product data into an array, then return it
+     * @param $product
+     * @param $qt
+     * @return array
+     */
+    protected function mergeProductData($product, $qt)
+    {
+        $products = [];
+        array_push($products, [
+            'name' => $product->name,
+            'sku' => $product->sku,
+            'id' => $product->id,
+            'image' => $product->image,
+            'price' => $product->price->getAmount(),
+            'price_after_discount' => $product->getPriceAfterDiscount(false),
+            'total_price' => $product->total()->getAmount(),
+            'quantity' => $qt,
+            'available' => $product->quantity,
+            'out_of_stock' => $product->quantity === 0,
+            'VAT' => $product->tax()->getAmount(),
+            'Shipping' => $product->delivery()->getAmount(),
+            'order_total' => $product->total()->getAmount()
+
+        ]);
+        return $products;
     }
 }

@@ -6,5 +6,5 @@ use app\Antony\DomainLogic\Modules\ShoppingCart\Base\ShoppingCartReconciler;
 trait ReconcilerTrait
 {
     // include both the product and shopping cart reconciler classes
-    use productReconciler, ShoppingCartReconciler;
+    use ProductReconciler, ShoppingCartReconciler;
 }
