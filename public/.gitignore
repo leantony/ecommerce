@@ -1,2 +1,4 @@
 js/frontend
 swf
+*.js
+*.js.map
