@@ -50,7 +50,7 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "php -r \"copy('.env.example', '.env');\"",
+      "php -r \"copy('.env.sample', '.env');\"",
       "php artisan clear-compiled",
       "php artisan optimize"
     ],
@@ -59,7 +59,7 @@
       "php artisan optimize"
     ],
     "post-create-project-cmd": [
-      "php -r \"copy('.env.example', '.env');\"",
+      "php -r \"copy('.env.sample', '.env');\"",
       "php artisan key:generate"
     ]
   },
