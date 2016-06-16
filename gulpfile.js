@@ -13,7 +13,7 @@ elixir(function (mix) {
     // styles
     mix.styles([
         // bootstrap
-        "bootswatch-dist/css/bootstrap.min.css",
+        "bootswatch-dist/css/bootstrap.css",
 
         // animate
         "animate.css/animate.css",
@@ -31,14 +31,14 @@ elixir(function (mix) {
         "eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css",
 
         // font awesome
-        "font-awesome/css/font-awesome.min.css",
+        "font-awesome/css/font-awesome.css",
 
         // form validation
         "formvalidation/dist/css/formValidation.css",
 
         // owl
-        "owl-carousel2/dist/assets/owl.carousel.css",
-        "owl-carousel2/dist/assets/owl.theme.default.css",
+        "owl.carousel/dist/assets/owl.carousel.css",
+        "owl.carousel/dist/assets/owl.theme.default.css",
 
         // lightbox
         "lightbox2/dist/css/lightbox.css",
@@ -101,7 +101,7 @@ elixir(function (mix) {
         "WOW/dist/wow.min.js",
 
         // owl
-        "owl-carousel2/dist/owl.carousel.js",
+        "owl.carousel/dist/owl.carousel.js",
 
         // lightbox
         "lightbox2/dist/js/lightbox.js",

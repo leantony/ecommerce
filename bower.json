@@ -13,7 +13,6 @@
     "bootstrap-rating": "~1.1.*",
     "echojs": "~1.7.*",
     "eonasdan-bootstrap-datetimepicker": "~4.7.14",
-    "owl-carousel2": "*",
     "devbridge-autocomplete": "~1.2.18",
     "elevatezoom": "https://github.com/elevateweb/elevatezoom.git#~2.2.3",
     "formvalidation": "https://github.com/formvalidation/formvalidation.git",
@@ -30,7 +29,8 @@
     "scrollup": "~2.4.1",
     "datatables-bootstrap3": "*",
     "datatables": "~1.10.7",
-    "pace": "~1.0.2"
+    "pace": "~1.0.2",
+    "owl.carousel": "^2.1.5"
   },
   "resolutions": {
     "jquery": "1.11.3"
