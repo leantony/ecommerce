@@ -1,10 +1,10 @@
 var elixir = require("laravel-elixir");
 
-//elixir.config.sourcemaps = true;
+elixir.config.sourcemaps = true;
 
 elixir(function (mix) {
 
-    var bowerAssetsDir = "resources/assets/bower_components/";
+    var bowerAssetsDir = "resources/assets/bower/";
 
     // CLIENT SIDE LESS SCRIPTS
     mix.less(['main.less'], 'public/css/frontend');

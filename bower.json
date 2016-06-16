@@ -1,6 +1,12 @@
 {
-  "name": "ecommerce",
-  "version": "1.0.0",
+  "name": "antony",
+  "authors": [
+    "leantony <chachaantony@gmail.com>"
+  ],
+  "description": "Project dependencies",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
   "dependencies": {
     "jquery": "1.11.3",
     "bootstrap": "~3.*",
@@ -26,5 +32,16 @@
     "datatables": "~1.10.7",
     "pace": "~1.0.2"
   },
-  "private": true
+  "resolutions": {
+    "jquery": "1.11.3",
+    "animate.css": "~3.4.0"
+  },
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }

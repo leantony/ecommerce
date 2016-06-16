@@ -4,7 +4,7 @@ use app\Antony\DomainLogic\Modules\Authentication\RegisterUser as AuthenticateUs
 use app\Antony\DomainLogic\Modules\Authentication\Traits\oauth2\oauth2ActionsHandler;
 use app\Http\Controllers\Base\Redirectors\AuthRedirector;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Counties\LoginRequest;
+use App\Http\Requests\Authentication\LoginRequest;
 use App\Http\Requests\User\CreateUserAccountRequest;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

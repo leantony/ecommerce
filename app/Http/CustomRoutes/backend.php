@@ -5,7 +5,7 @@
 */
 
 // authentication
-Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access']], function () {
+Route::group(['prefix' => 'backend', 'middleware' => ['backend-access']], function () {
 
     get('login', ['as' => 'backend.login', 'uses' => 'Shared\AuthController@getLogin']);
     post('login', ['as' => 'backend.login.post', 'uses' => 'Shared\AuthController@postLogin']);
@@ -27,7 +27,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access']
  * authorization: checks the roles of the authenticating user, for a match
  *
  * */
-Route::group(['prefix' => 'backend', 'middleware' => ['https', 'backend-access', 'auth.backend', 'backend-authorization']], function () {
+Route::group(['prefix' => 'backend', 'middleware' => ['backend-access', 'auth.backend', 'backend-authorization']], function () {
 
     // backend home page
     get('/', ['as' => 'backend', 'uses' => 'Backend\HomeController@index']);

@@ -1,4 +1,4 @@
-<?php namespace App\Http\Requests\Counties;
+<?php namespace App\Http\Requests\Authentication;
 
 use App\Http\Requests\Request;
 
