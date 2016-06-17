@@ -15,10 +15,10 @@ class CreateProductsTable extends Migration {
 		Schema::create('products', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('brand_id')->unsigned()->nullable()->default(0)->index('`FK_products_brands`');
-			$table->integer('category_id')->unsigned()->nullable()->default(0)->index('`FK_products_categories`');
-			$table->integer('subcategory_id')->unsigned()->nullable()->default(0)->index('`FK_products_sub_categories`');
-			$table->string('sku', 50)->unique('`sku`');
+			$table->integer('brand_id')->unsigned()->nullable()->default(0)->index('FK_products_brands');
+			$table->integer('category_id')->unsigned()->nullable()->default(0)->index('FK_products_categories');
+			$table->integer('subcategory_id')->unsigned()->nullable()->default(0)->index('FK_products_sub_categories');
+			$table->string('sku', 50)->unique('sku');
 			$table->string('name');
 			$table->integer('price')->unsigned();
 			$table->integer('shipping')->unsigned()->nullable()->default(0);
@@ -36,7 +36,6 @@ class CreateProductsTable extends Migration {
 			$table->integer('taxable')->unsigned()->default(1);
 			$table->timestamps();
 			$table->softDeletes();
-			$table->index(['name','description_long'], '`name`');
 		});
 	}
 

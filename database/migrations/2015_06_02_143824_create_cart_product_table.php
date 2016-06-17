@@ -15,8 +15,8 @@ class CreateCartProductTable extends Migration {
 		Schema::create('cart_product', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('cart_id', 100)->index('`FK_cart_contains_many_products`');
-			$table->integer('product_id')->unsigned()->index('`FK_cart_product_products`');
+			$table->string('cart_id', 100)->index('FK_cart_contains_many_products');
+			$table->integer('product_id')->unsigned()->index('FK_cart_product_products');
 			$table->integer('quantity')->unsigned()->default(1);
 			$table->timestamps();
 		});

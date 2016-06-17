@@ -15,8 +15,8 @@ class CreateGuestOrderTable extends Migration {
 		Schema::create('guest_order', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('order_id', 100)->index('`guest_order_ibfk_1`');
-			$table->integer('guest_id')->unsigned()->index('`guest_order_ibfk_2`');
+			$table->string('order_id', 100)->index('guest_order_ibfk_1');
+			$table->integer('guest_id')->unsigned()->index('guest_order_ibfk_2');
 			$table->timestamps();
 		});
 	}

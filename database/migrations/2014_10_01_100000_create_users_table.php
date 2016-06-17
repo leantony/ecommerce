@@ -18,11 +18,11 @@ class CreateUsersTable extends Migration {
 			$table->string('first_name', 50);
 			$table->string('last_name', 50);
 			$table->bigInteger('phone');
-			$table->integer('county_id')->unsigned()->nullable()->index('`FK_users_counties`');
+			$table->integer('county_id')->unsigned()->nullable()->index('FK_users_counties');
 			$table->string('town', 50);
 			$table->string('home_address', 50);
 			$table->binary('avatar', 16777215)->nullable();
-			$table->string('email', 100)->unique('`email_address`');
+			$table->string('email', 100)->unique('email_address');
 			$table->date('dob')->nullable();
 			$table->enum('gender', array('Female','Male'))->nullable();
 			$table->string('password', 100);

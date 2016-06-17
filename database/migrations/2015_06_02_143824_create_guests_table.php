@@ -17,7 +17,7 @@ class CreateGuestsTable extends Migration {
 			$table->increments('id');
 			$table->string('first_name', 50);
 			$table->string('last_name', 50);
-			$table->integer('county_id')->unsigned()->index('`guest_belongs_to_county`');
+			$table->integer('county_id')->unsigned()->index('guest_belongs_to_county');
 			$table->string('town');
 			$table->string('home_address', 100);
 			$table->bigInteger('phone');

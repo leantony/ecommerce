@@ -15,7 +15,7 @@ class CreateInvoicesTable extends Migration {
 		Schema::create('invoices', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('order_id', 100)->index('`order_id`');
+			$table->string('order_id', 100)->index('order_id');
 			$table->text('data', 65535);
 			$table->timestamps();
 			$table->softDeletes()->default('0000-00-00 00:00:00');

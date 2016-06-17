@@ -14,7 +14,7 @@ class AddForeignKeysToSubcategoriesTable extends Migration {
 	{
 		Schema::table('subcategories', function(Blueprint $table)
 		{
-			$table->foreign('category_id', 'FK_sub-categories_categories')->references('id')->on('categories')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('category_id', 'FK_sub_categories_categories')->references('id')->on('categories')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 
@@ -28,7 +28,7 @@ class AddForeignKeysToSubcategoriesTable extends Migration {
 	{
 		Schema::table('subcategories', function(Blueprint $table)
 		{
-			$table->dropForeign('FK_sub-categories_categories');
+			$table->dropForeign('FK_sub_categories_categories');
 		});
 	}
 

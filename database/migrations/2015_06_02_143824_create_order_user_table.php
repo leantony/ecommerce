@@ -15,8 +15,8 @@ class CreateOrderUserTable extends Migration {
 		Schema::create('order_user', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('order_id', 100)->index('`order_user_ibfk_1`');
-			$table->integer('user_id')->unsigned()->index('`order_user_ibfk_2`');
+			$table->string('order_id', 100)->index('order_user_ibfk_1');
+			$table->integer('user_id')->unsigned()->index('order_user_ibfk_2');
 			$table->timestamps();
 		});
 	}
