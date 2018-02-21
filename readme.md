@@ -1,5 +1,7 @@
-A simple e-commerce project using laravel 5. [live app preview](http://176.58.98.240)
-**UPDATE** I'm updating the project to take advantage of the new features in the laravel framework. Will commit soon...
+A simple e-commerce project using laravel 5
+
+## UPDATE
+I'm updating the project to take advantage of the new features in the laravel framework. Will commit soon...
 
 To get the project up and running on your local machine, do the following. I assume you already know how to go about laravel, bower composer and npm, so i'll be brief
 
