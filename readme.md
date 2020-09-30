@@ -21,6 +21,11 @@ php artisan migrate
 php artisan db:seed
 ```
 
+-Refresh all the migrations
+```bash
+php artisan migrate:refresh
+```
+
 - Run the following command => gulp default
 - Once the assets are published, run the command
 ```bash
